@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+using ITventory.Domain.ValueObjects;
+using ITventory.Shared.Abstractions;
+
+namespace ITventory.Domain
+{
+    public class Office: Entity
+    {
+        public Guid Id { get; init; }
+        public string Street { get; private set; }
+        public string BuildingNumber { get; private set; }
+        public int LocationId {  get; private set; }
+        public Lattitude Lattitude { get; private set; }
+        public Longitude Longitude { get; private set; }
+        public bool IsActive { get; private set; }
+
+        private Office()
+        {
+
+        }
+
+        public Office(string street, string buildingNumber, int locationId, Lattitude lattitude, Longitude longitude)
+        {
+            Id = Guid.NewGuid();
+            Street = street;
+            BuildingNumber = buildingNumber;
+            LocationId = locationId;
+            Lattitude = lattitude;
+            Longitude = longitude;
+
+            IsActive = true;
+        }
+
+        public static Office Create(string street, string buildingNumber, int locationId, Lattitude lattitude, Longitude longitude)
+        {
+            return new Office(street, buildingNumber, locationId, lattitude, longitude);
+        }
+
+        public void Deactivate()
+        {
+            if(this.IsActive == false)
+            {
+                throw new Exception("Office already in inactive state");
+            }
+
+            this.IsActive = false;
+        }
+    }
+}

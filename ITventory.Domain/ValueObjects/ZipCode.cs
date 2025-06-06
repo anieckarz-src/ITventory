@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ITventory.Domain.AbstractClasses;
+
+namespace ITventory.Domain.ValueObjects
+{
+    public record ZipCode: ValueObject
+    {
+        public string Value;
+
+        public ZipCode(string value)
+        {
+            if (!value.Contains('-') || value.Length < 4){
+                throw new ArgumentException("Invalid ZipCode");
+            }
+
+            Value = value;
+        }
+
+        public static implicit operator ZipCode(string value) =>
+            new ZipCode(value);
+
+        public static implicit operator string(ZipCode value) => 
+            value.Value;
+    }
+}
