@@ -15,7 +15,7 @@ namespace ITventory.Domain
         public Guid CountryId { get; init; }
         public string Name { get; private set; }
         public ZipCode ZipCode { get; init; }
-        public required string City { get; init; }
+        public string City { get; init; }
         public Lattitude Latitude { get; init; }
         public Longitude Longitude { get; init; }
         public TypeOfPlant? TypeOfPlant { get;private set; }

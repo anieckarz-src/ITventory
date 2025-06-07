@@ -19,13 +19,44 @@ namespace ITventory.Domain
         public int PersonResponsibleId {  get; private set; }
 
         private List<InventoryProduct> _roomInventory = new List<InventoryProduct>();
-        //Lista osob
+        private List<Guid> _employees = new List<Guid>();
+
+        public ReadOnlyCollection<Guid> Employees => _employees.AsReadOnly();
         public ReadOnlyCollection<InventoryProduct> RoomInventory => _roomInventory.AsReadOnly();
 
 
         private Room()
         {
 
+        }
+
+        public void AssignToRoom(Guid employeeId)
+        {
+            if(employeeId == Guid.Empty)
+            {
+                throw new ArgumentNullException("Invalid employee id");
+            }
+
+            if(_employees.Count >= Capacity)
+            {
+                throw new InvalidOperationException("Room capacity limit has been met");
+            }
+            _employees.Add(employeeId);
+        }
+
+        public void RemoveFromRoom(Guid employeeId)
+        {
+            if (employeeId == Guid.Empty)
+            {
+                throw new ArgumentNullException("Invalid employee id");
+            }
+
+            if(! _employees.Any(e => e == employeeId){
+                throw new InvalidOperationException("User not in the room");
+            }
+
+            _employees.RemoveAll(e => e == employeeId);
+                
         }
 
         public Room(int officeId, int floor, float area, int capacity, int personResponsibleId)

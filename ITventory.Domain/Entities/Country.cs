@@ -38,8 +38,18 @@ namespace ITventory.Domain
             Region = region;
         }
 
+        public static Country Create(string name, string? countryCode, Region region)
+        {
+            return new Country(name, countryCode, region);
+        }
+
         public void SetRegulations(string regulations)
         {
+            if (String.IsNullOrWhiteSpace(regulations))
+            {
+                throw new ArgumentNullException("Regulations cannot be empty");
+            }
+
             this.Regulations = regulations;
         }
     }

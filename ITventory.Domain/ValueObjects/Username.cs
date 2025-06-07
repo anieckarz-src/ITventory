@@ -26,6 +26,8 @@ namespace ITventory.Domain.ValueObjects
                 throw new ArgumentException("Username must contain at least one character");
             }
 
+            Value = value;
+
         }
         public static implicit operator Username(string value) =>
             new Username(value);

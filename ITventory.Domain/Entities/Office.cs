@@ -14,7 +14,7 @@ namespace ITventory.Domain
         public Guid Id { get; init; }
         public string Street { get; private set; }
         public string BuildingNumber { get; private set; }
-        public int LocationId {  get; private set; }
+        public Guid LocationId {  get; private set; }
         public Lattitude Lattitude { get; private set; }
         public Longitude Longitude { get; private set; }
         public bool IsActive { get; private set; }
@@ -24,7 +24,7 @@ namespace ITventory.Domain
 
         }
 
-        public Office(string street, string buildingNumber, int locationId, Lattitude lattitude, Longitude longitude)
+        public Office(string street, string buildingNumber, Guid locationId, Lattitude lattitude, Longitude longitude)
         {
             Id = Guid.NewGuid();
             Street = street;
@@ -36,7 +36,7 @@ namespace ITventory.Domain
             IsActive = true;
         }
 
-        public static Office Create(string street, string buildingNumber, int locationId, Lattitude lattitude, Longitude longitude)
+        public static Office Create(string street, string buildingNumber, Guid locationId, Lattitude lattitude, Longitude longitude)
         {
             return new Office(street, buildingNumber, locationId, lattitude, longitude);
         }

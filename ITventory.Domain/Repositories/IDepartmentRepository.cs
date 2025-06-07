@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 
 namespace ITventory.Domain.Repositories
 {
-    public interface ICountryRepository
+    public interface IDepartmentRepository
     {
-        Task<Country> GetAsync (Guid countryId);
+        Task<Country> GetAsync(Guid departmentId);
         Task<Country> GetByNameAsync(string name);
-        Task AddAsync(Country country);
-        Task UpdateAsync(Country country);
-        Task DeleteAsync(Country country);
+        Task AddAsync(Department department);
+        Task UpdateAsync(Department department);
+        Task DeleteAsync(Department department);
 
         //read service w repozytorium
-        Task<bool> ExistsById(Guid countryId);
+        Task<bool> ExistsById(Guid departmentId);
         Task<bool> ExistsByName(string name);
-
 
     }
 }

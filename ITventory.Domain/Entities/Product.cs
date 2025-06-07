@@ -43,6 +43,11 @@ namespace ITventory.Domain
             NominalWorth = nominalWorth;
         }
 
+        public static Product Create(string description, ProductType productType, double nominalWorth, int maxSku)
+        {
+            return new Product(description, productType, nominalWorth, maxSku);
+        }
+
         private Product()
         {
         }
@@ -57,7 +62,7 @@ namespace ITventory.Domain
             MaxSKU = maxsku;
         }
 
-        public void ChangeNominalWorth(int nominalWorth)
+        public void ChangeNominalWorth(double nominalWorth)
         {
             if(nominalWorth <= 0)
             {

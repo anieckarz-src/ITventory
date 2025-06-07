@@ -13,19 +13,22 @@ namespace ITventory.Domain
     public class Employee: Entity
     {
         public Guid Id { get; init; }
+        public string IdentityId { get; private set; }
         public Username Username { get; init; }
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
+        public string? Name { get; private set; }
+        public string? LastName { get; private set; }
         public bool IsActive { get; private set; }
-        public Area Area { get; private set; }
-        public string PositionName { get; private set; }
-        public Seniority Seniority { get; private set; }
-        public Guid ManagerId { get; private set; }
-        public Guid DepartmentId { get; private set; }
-        public Guid Office { get; private set; }
-        public DateOnly HireDate { get; private set; }
-        public DateOnly BirthDate { get; private set; }
-        public int Experience => DateOnly.FromDateTime(DateTime.UtcNow).Year - HireDate.Year;
+        public Area? Area { get; private set; }
+        public string? PositionName { get; private set; }
+        public Seniority? Seniority { get; private set; }
+        public Guid? ManagerId { get; private set; }
+        public Guid? DepartmentId { get; private set; }
+        public DateOnly? HireDate { get; private set; }
+        public DateOnly? BirthDate { get; private set; }
+        public int Experience => HireDate.HasValue
+        ? DateOnly.FromDateTime(DateTime.UtcNow).Year - HireDate.Value.Year
+        : 0;
+
 
 
         private Employee()
@@ -33,37 +36,26 @@ namespace ITventory.Domain
 
         }
 
-        public Employee(Username username, string name, string lastName, Area area, string positionName, Seniority seniority, Guid managerId, Guid departmentId, Guid ofifceId, DateOnly hireDate, DateOnly birthDate)
+        private Employee(Username username, string identityId)
         {
-
-            if (String.IsNullOrWhiteSpace(name))
+            if (String.IsNullOrWhiteSpace(username))
             {
-                throw new ArgumentNullException("Namee is empty");
+                throw new ArgumentException("Invalid identity id reference");
             }
-
-            if (String.IsNullOrWhiteSpace(lastName))
-            {
-                throw new ArgumentNullException("Name is empty");
-            }
-
-            if (String.IsNullOrWhiteSpace(positionName) || positionName.Length < 3)
-            {
-                throw new ArgumentNullException("Namee is empty or it's to shoort - it must contain at least 3 characters");
-            }
-
-            if(!Enum.IsDefined(typeof(Seniority), seniority))
-            {
-                throw new ArgumentException("Incorrect seniority");
-            }
-
-            if (hireDate > DateOnly.FromDateTime(DateTime.UtcNow))
-            {
-                throw new ArgumentNullException("Future hire date");
-            }
-
-
             Id = Guid.NewGuid();
+            IdentityId = identityId;
             Username = username;
+        }
+
+        public static Employee CreateMinimal(Username username, string identityId)
+        {
+            return new Employee(username, identityId);
+        }
+
+        public void SetDetails(string name, string lastName, Area area, string positionName,
+                                  Seniority seniority, Guid managerId, Guid departmentId, DateOnly hireDate,
+                                  DateOnly birthDate)
+        {
             Name = name;
             LastName = lastName;
             Area = area;
@@ -71,17 +63,9 @@ namespace ITventory.Domain
             Seniority = seniority;
             ManagerId = managerId;
             DepartmentId = departmentId;
-            Office = ofifceId;
             HireDate = hireDate;
             BirthDate = birthDate;
-            IsActive = true;
-        }
-
-        public static Employee Create(Username username, string name, string lastName, Area area, string positionName,
-                                  Seniority seniority, Guid managerId, Guid departmentId, Guid officeId, DateOnly hireDate,
-                                  DateOnly birthDate)
-        {
-            return new Employee(username, name, lastName, area, positionName, seniority, managerId, departmentId, officeId, hireDate, birthDate);
+            
         }
 
         public void SetManager(Guid managerId)

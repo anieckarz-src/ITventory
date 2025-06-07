@@ -29,6 +29,12 @@ namespace ITventory.Domain
             Name = name;
             ManagerId = managerId;
         }
+
+        public static Department Create(string name, Guid managerId)
+        {
+            return new Department(name, managerId);
+        }
+
         public void AssignRecommendedSoftware(Software software)
         {
             if(software == null)

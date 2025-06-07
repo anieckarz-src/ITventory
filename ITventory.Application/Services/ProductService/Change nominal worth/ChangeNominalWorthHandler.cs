@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ITventory.Application.Services.ProductService.Change_nominal_worth
+{
+    internal class ChangeNominalWorthHandler
+    {
+    }
+}
