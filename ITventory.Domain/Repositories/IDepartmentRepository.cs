@@ -8,8 +8,8 @@ namespace ITventory.Domain.Repositories
 {
     public interface IDepartmentRepository
     {
-        Task<Country> GetAsync(Guid departmentId);
-        Task<Country> GetByNameAsync(string name);
+        Task<Department> GetAsync(Guid departmentId);
+        Task<Department> GetByNameAsync(string name);
         Task AddAsync(Department department);
         Task UpdateAsync(Department department);
         Task DeleteAsync(Department department);
