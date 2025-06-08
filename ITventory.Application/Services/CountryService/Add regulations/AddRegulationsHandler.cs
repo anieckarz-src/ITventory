@@ -31,7 +31,7 @@ namespace ITventory.Application.Services.CountryService.Add_regulations
 
             country.SetRegulations(regulations);
 
-            _countryRepository.UpdateAsync(country);
+            await _countryRepository.UpdateAsync(country);
 
 
         }

@@ -13,13 +13,26 @@ namespace ITventory.Application.Services.LicenseService.Add_license
     internal sealed class CreateLicenseHandler : ICommandHandler<CreateLicense>
     {
         private readonly ILicenseRepository _licenseRepository;
+        private readonly ISoftwareRepository _softwareRepository;
+
+        public CreateLicenseHandler(ILicenseRepository licenseRepository, ISoftwareRepository softwareRepository)
+        {
+            _licenseRepository = licenseRepository;
+            _softwareRepository = softwareRepository;
+        }
+
         public async Task HandleAsync(CreateLicense command)
         {
-           var (licenseType, licenseKey, validUntil, maxUse) = command;
+           var (licenseType, licenseKey, validUntil, maxUse, softwareVersionId) = command;
 
-           SoftwareLicense license = SoftwareLicense.Create(licenseType, licenseKey, validUntil, maxUse);
+            if(await _softwareRepository.ExistsBySoftwareVersionId(softwareVersionId) == false)
+            {
+                throw new InvalidOperationException("Software version not found");
+            }
 
-            _licenseRepository.AddAsync(license);
+           SoftwareLicense license = SoftwareLicense.Create(licenseType, licenseKey, validUntil, maxUse, softwareVersionId);
+
+            await _licenseRepository.AddAsync(license);
         }
     }
 }

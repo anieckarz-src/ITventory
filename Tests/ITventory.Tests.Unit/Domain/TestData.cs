@@ -15,29 +15,11 @@ public static class TestData
         TypeOfPlant.Factory
     );
 
-    public static Employee DefaultUser1 = Employee.Create("jonsnow123",
-            "Jon",
-            "Snow",
-            Area.IT,
-            "IT Specialist",
-            Seniority.Manager,
-            Guid.Empty,
-            DefaultCountry.Id,
-            DefaultOffice.Id,
-            new DateOnly(2022, 1, 1),
-            new DateOnly(1989, 5, 10));
+    public static Employee DefaultUser1 = Employee.CreateMinimal("jonsnow123",
+            Guid.NewGuid().ToString());
 
-    public static Employee DefaultUser2 = Employee.Create("tyrion123",
-           "Tyrion",
-           "Lannister",
-           Area.Manufacturing,
-           "Clerk",
-           Seniority.Regular,
-           Guid.Empty,
-           DefaultCountry.Id,
-           DefaultOffice.Id,
-           new DateOnly(2020, 1, 1),
-           new DateOnly(1985, 5, 10));
+    public static Employee DefaultUser2 = Employee.CreateMinimal("tyrion123", Guid.NewGuid().ToString());
+          
 
 
     public static Office DefaultOffice => new Office("Stoczniowa", "3", DefaultLocation.Id, 51.35, 24.50);
@@ -45,19 +27,9 @@ public static class TestData
     public static (Employee leader, Department department) CreateDepartmentWithLeader()
     {
         var department = new Department("Internal Services", Guid.Empty); // tymczasowo pusty guid jako leader id
-        var leader = Employee.Create(
+        var leader = Employee.CreateMinimal(
             "jonsnow123",
-            "Jon",
-            "Snow",
-            Area.IT,
-            "IT Specialist",
-            Seniority.Manager,
-            DefaultCountry.Id,              // countryId
-            department.Id,           // departmentId
-            DefaultOffice.Id,
-            new DateOnly(2022, 1, 1),
-            new DateOnly(1989, 5, 10)
-        );
+            Guid.NewGuid().ToString());
 
         department.SetManager(leader.Id);
 

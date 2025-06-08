@@ -13,7 +13,7 @@ namespace ITventory.Domain
     public class Hardware : Item
     {
         public Guid Id { get; private set; }
-        public Username PrimaryUser { get; private set; }
+        public Guid PrimaryUserId { get; private set; }
         public Guid? TopUser =>
          _historyOfLogons
         .GroupBy(l => l.UserId)
@@ -33,13 +33,18 @@ namespace ITventory.Domain
 
         }
 
-        public Hardware(Username primaryUser, Region defaultDomain, HardwareType hardwareType)
+        public Hardware(Guid primaryUserId, Region defaultDomain, HardwareType hardwareType)
         {
             Id = Guid.NewGuid();
-            PrimaryUser = primaryUser;
+            PrimaryUserId = primaryUserId;
             DefaultDomain = defaultDomain;
             HardwareType = hardwareType;
             IsActive = true;
+        }
+
+        public static Hardware Create(Guid primaryUserId, Region defaultDomain, HardwareType hardwareType)
+        {
+            return new Hardware(primaryUserId, defaultDomain, hardwareType);
         }
 
         public void AddLogon(Logon logon)
@@ -62,7 +67,7 @@ namespace ITventory.Domain
                 throw new ArgumentNullException("User cannot be empty");
             }
 
-            this.PrimaryUser = user.Username;
+            this.PrimaryUserId = user.Id;
 
         }
     }

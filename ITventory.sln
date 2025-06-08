@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITventory.Application", "IT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITventory.Shared", "ITventory.Shared\ITventory.Shared.csproj", "{9D99E75B-DE08-4201-97BD-77DFC36F1E83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITventory.Infrastructure", "ITventory.Infrastructure\ITventory.Infrastructure.csproj", "{63705615-137C-4B06-8D0C-A0FE40C69D75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{9D99E75B-DE08-4201-97BD-77DFC36F1E83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D99E75B-DE08-4201-97BD-77DFC36F1E83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D99E75B-DE08-4201-97BD-77DFC36F1E83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63705615-137C-4B06-8D0C-A0FE40C69D75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63705615-137C-4B06-8D0C-A0FE40C69D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63705615-137C-4B06-8D0C-A0FE40C69D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63705615-137C-4B06-8D0C-A0FE40C69D75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{F0149081-50FA-465F-956B-B6F72CEBB591} = {E60AB95B-47C3-4620-9FA4-3C7FF8B73E26}
 		{1FB0F120-716E-40E4-BE69-D404C4536B53} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{9D99E75B-DE08-4201-97BD-77DFC36F1E83} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{63705615-137C-4B06-8D0C-A0FE40C69D75} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C7C8444-BE63-40F5-8669-7F95DC96B24C}

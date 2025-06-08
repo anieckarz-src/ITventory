@@ -18,6 +18,7 @@ namespace ITventory.Domain
         public DateOnly ValidUntil { get; private set; }
         public bool IsExpired() => ValidUntil < DateOnly.FromDateTime(DateTime.Now);
         public int MaxUse { get; private set; }
+        public Guid SoftwareVersion { get; private set; }
         public int UseCount => LicenseType switch
         {
             LicenseType.PerUser => _assignedUsers.Count,
@@ -38,23 +39,25 @@ namespace ITventory.Domain
 
         }
 
-        public SoftwareLicense(LicenseType licenseType, string licenseKey, DateOnly validUntil, int maxUse)
+        public SoftwareLicense(LicenseType licenseType, string licenseKey, DateOnly validUntil, int maxUse, Guid softwareVersion)
         {
             Id = Guid.NewGuid();
             LicenseType = licenseType;
             LicenseKey = licenseKey;
             ValidUntil = validUntil;
             MaxUse = maxUse;
-            
+            SoftwareVersion = softwareVersion;
         }
 
-        public static SoftwareLicense Create(LicenseType licenseType, string licenseKey, DateOnly validUntil, int maxUse)
+        public static SoftwareLicense Create(LicenseType licenseType, string licenseKey, DateOnly validUntil, int maxUse, Guid softwareVersion)
         {
-            return new SoftwareLicense(licenseType, licenseKey, validUntil, maxUse);
+            return new SoftwareLicense(licenseType, licenseKey, validUntil, maxUse, softwareVersion);
         }
 
         public void AssignToUser(Employee user)
         {
+            if (IsExpired() == true) { throw new InvalidOperationException("License no longer valid"); }
+
             if(LicenseType == LicenseType.PerComputer)
             {
                 throw new ArgumentException("You cannot assign hardware license to user");
@@ -74,7 +77,9 @@ namespace ITventory.Domain
 
         public void ReassignLicenseToUser(Employee newUser, Employee oldUser)
         {
-            if(this.LicenseType != LicenseType.PerUser)
+            if (IsExpired() == true) { throw new InvalidOperationException("License no longer valid"); }
+
+            if (this.LicenseType != LicenseType.PerUser)
             {
                 throw new InvalidOperationException("License type other than per user");
             }
@@ -101,6 +106,8 @@ namespace ITventory.Domain
 
         public void AssignToHardware(Hardware hardware)
         {
+            if (IsExpired() == true) { throw new InvalidOperationException("License no longer valid"); }
+
             if (LicenseType != LicenseType.PerComputer)
             {
                 throw new ArgumentException("You cannot assign hardware license to user");
@@ -121,6 +128,8 @@ namespace ITventory.Domain
 
         public void ReassignLicenseToHardware(Hardware newHardware, Hardware oldHardware)
         {
+            if (IsExpired() == true) { throw new InvalidOperationException("License no longer valid"); }
+
             if (this.LicenseType != LicenseType.PerComputer)
             {
                 throw new InvalidOperationException("License type other than per computer");

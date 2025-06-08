@@ -19,4 +19,4 @@ namespace ITventory.Domain.Repositories
     }
 }
     
-}
+

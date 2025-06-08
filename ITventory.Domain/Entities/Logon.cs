@@ -13,12 +13,12 @@ namespace ITventory.Domain
     {
         public Guid Id { get; init; }
         public Guid HardwareId {  get; init; }
-        public string SerialNumber {  get; init; }
         public Guid UserId { get; init; }
         public Region Domain { get; init; }
+        public DateTime LogonTime { get; private set; }
         public string IpAddress {  get; init; }
 
-        public Logon(Guid hardwareId, string serialNumber, Guid userId, Region domain, string ipAddress)
+        public Logon(Guid hardwareId, Guid userId, Region domain, DateTime logonTime, string ipAddress)
         {
             if(!Enum.IsDefined(typeof(Region), domain))
             {
@@ -33,18 +33,16 @@ namespace ITventory.Domain
 
             Id = Guid.NewGuid();
             HardwareId = hardwareId;
-            SerialNumber = serialNumber;
             UserId = userId;
             Domain = domain;
+            LogonTime = logonTime;
             IpAddress = ipAddress;
         }
 
-        public static Logon Create(Hardware hardware, Guid userId, Region domain, string ipAddress)
+        public static Logon Create(Guid hardwareId, Guid userId, Region domain, DateTime logonTime, string ipAddress)
         {
-            var hardwareId = hardware.Id;
-            var serialNumber = hardware.SerialNumber;
 
-            return new Logon(hardwareId, serialNumber, userId, domain, ipAddress);
+            return new Logon(hardwareId, userId, domain,logonTime, ipAddress);
 
         }
     }

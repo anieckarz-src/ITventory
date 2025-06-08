@@ -8,6 +8,5 @@ using ITventory.Shared.Abstractions.Commands;
 namespace ITventory.Infrastructure.Identity.RegistrationService
 {
     public record RegisterUser(string username, string email, string password): ICommand_;
-    {
-    }
+   
 }

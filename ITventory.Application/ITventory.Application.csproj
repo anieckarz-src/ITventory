@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ITventory.Domain\ITventory.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\EmployeeService\Add employee %28moved to infra%29\" />
+  </ItemGroup>
+
 </Project>

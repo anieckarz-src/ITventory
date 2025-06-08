@@ -12,7 +12,7 @@ namespace ITventory.Domain
     {
         public Guid Id { get; init; }
         public string Name { get; private set; }
-        public Producent Publisher { get; private set; }
+        public Guid PublisherId { get; private set; }
         public SoftwareVersion DefaultVersion => _softwareVersions.FirstOrDefault(v => v.IsDefault);
 
         public ApprovalType ApprovalType { get; private set; }
@@ -25,7 +25,7 @@ namespace ITventory.Domain
 
         }
 
-        public Software(Producent publisher, ApprovalType approvalType, string name)
+        public Software(Guid publisherId, ApprovalType approvalType, string name)
         {
             if(String.IsNullOrWhiteSpace(name) || name.Length < 2)
             {
@@ -33,16 +33,21 @@ namespace ITventory.Domain
             }
 
             Id = Guid.NewGuid();
-            Publisher = publisher;
+            PublisherId = publisherId;
             ApprovalType = approvalType;
             Name = name;
         }
 
-        public void SetDefaultVersion(string versionNumber)
+        public static Software Create (Guid publisherId, ApprovalType approvalType, string name)
+        {
+            return new Software(publisherId, approvalType, name);
+        }
+
+        public void SetDefaultVersion(Guid versionNumberId)
         {
             var contemporaryDefault = SoftwareVersions.FirstOrDefault(d => d.IsDefault == true);
 
-            var version = SoftwareVersions.FirstOrDefault(v => v.VersionNumber == versionNumber);
+            var version = SoftwareVersions.FirstOrDefault(v => v.Id == versionNumberId);
             {
                 if(version is null)
                 {

@@ -36,7 +36,7 @@ namespace ITventory.Application.Services.LicenseService.Assign_user_to_license
             }
 
             license.AssignToUser(user);
-            _employeeRepository.UpdateAsync(user);
+            await _employeeRepository.UpdateAsync(user);
             //Przypisanie po username
         }
     }

@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ITventory.Domain.Entities;
 using ITventory.Domain.Enums;
 
 namespace ITventory.Domain
@@ -20,6 +21,8 @@ namespace ITventory.Domain
         public bool IsActive { get; private set; }
         public LicenseType LicenseType { get; private set; }
 
+        private List<RatingSoftwareVersion> _reviews = new();
+        public IReadOnlyCollection<RatingSoftwareVersion> Reviews => _reviews.AsReadOnly();
 
         private SoftwareVersion()
         {
@@ -48,6 +51,7 @@ namespace ITventory.Domain
             SoftwareId = softwareId;
             Price = price;
             Published = published;
+            LicenseType = licenseType;
             IsDefault = false;
             IsApproved = false;
             IsActive = false;
@@ -89,6 +93,10 @@ namespace ITventory.Domain
             Price = price;
         }
 
+        public void AddRating(RatingSoftwareVersion rating)
+        {
+            _reviews.Add(rating);
+        }
 
     }
 }

@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace ITventory.Domain.Repositories
 {
-    internal interface IRoomRepository
+    public interface IRoomRepository
     {
+        Task<Room> GetAsync(Guid roomId);
+        Task AddAsync(Room room);
+        Task UpdateAsync(Room room);
+        Task DeleteAsync(Room room);
+
+        //read service w repozytorium
+        Task<bool> ExistsById(Guid roomId);
     }
 }

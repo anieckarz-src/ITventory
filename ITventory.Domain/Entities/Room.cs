@@ -51,7 +51,7 @@ namespace ITventory.Domain
                 throw new ArgumentNullException("Invalid employee id");
             }
 
-            if(! _employees.Any(e => e == employeeId){
+            if(! _employees.Any(e => e == employeeId)){
                 throw new InvalidOperationException("User not in the room");
             }
 

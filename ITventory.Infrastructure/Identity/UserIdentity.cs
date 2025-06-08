@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace ITventory.Infrastructure.Identity
 {
-    internal class IdentityUser
+    public class UserIdentity: IdentityUser
     {
     }
 }

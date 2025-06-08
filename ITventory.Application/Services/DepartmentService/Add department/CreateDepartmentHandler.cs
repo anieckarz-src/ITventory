@@ -29,7 +29,7 @@ namespace ITventory.Application.Services.DepartmentService.Add_department
 
             var department = Department.Create(name, managerId);
 
-            _departmentRepository.AddAsync(department);
+            await _departmentRepository.AddAsync(department);
         }
     }
 }

@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.LicenseService.Add_license
 {
-    public record CreateLicense(LicenseType LicenseType, string LicenseKey, DateOnly ValidUntil, int MaxUse) : ICommand_
+    public record CreateLicense(LicenseType LicenseType, string LicenseKey, DateOnly ValidUntil, int MaxUse, Guid softwareVersionId) : ICommand_
     {
     }
     

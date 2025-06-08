@@ -30,7 +30,7 @@ namespace ITventory.Application.Services.CountryService.Add_country
 
             var country = Country.Create(name, countryCode, region);
 
-            _countryRepository.AddAsync(country);
+            await _countryRepository.AddAsync(country);
             
 
             
