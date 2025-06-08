@@ -22,7 +22,8 @@ namespace ITventory.Application.Services.SoftwareService.SoftwareVersionService.
             var (softwareId, versionId) = command;
 
             var software = await _softwareRepository.GetAsync(softwareId) ?? throw new InvalidOperationException("Software not found");
-            var version = await _softwareRepository.GetSoftwareVersionById(softwareId) ?? throw new InvalidOperationException("Software version not found");
+            var version = software.SoftwareVersions.FirstOrDefault(v => v.Id == versionId) ?? throw new InvalidOperationException("Version not found");
+
 
             software.SetDefaultVersion(versionId);
             await _softwareRepository.UpdateAsync(software);

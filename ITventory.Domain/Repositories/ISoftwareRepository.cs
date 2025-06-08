@@ -10,14 +10,12 @@ namespace ITventory.Domain.Repositories
     {
         Task<Software> GetAsync(Guid softwareId);
         Task<Software> GetByNameAsync(string name);
-        Task<SoftwareVersion> GetSoftwareVersionById(Guid softwareVersionId);
         Task AddAsync(Software software);
         Task UpdateAsync(Software software);
         Task DeleteAsync(Software software);
 
         //read service w repozytorium
         Task<bool> ExistsById(Guid softwareId);
-        Task<bool> ExistsBySoftwareVersionId(Guid softwareVersionId);
         Task<bool> ExistsByName(string name);
     }
 }

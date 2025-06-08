@@ -12,19 +12,22 @@ namespace ITventory.Domain.AbstractClasses
     {
         public Guid Id { get; init; }
         public Guid ReviewedProductId { get; private set; }
-        public TypeOfRating TypeOfProduct { get; private set; }
         public int RatingMark { get; private set; }
         public Guid RatedById { get; private set; }
         public DateOnly RateDate { get; private set; }
 
-        public Rating(Guid reviewedProductId, TypeOfRating typeOfRating, int ratingMark, Guid ratedById, DateOnly rateDate)
+        public Rating(Guid reviewedProductId, int ratingMark, Guid ratedById)
         {
+            if(ratingMark < 1 || ratingMark > 5)
+            {
+                throw new ArgumentException("Review mark must be between 1 and 5");
+            }
+
             Id = Guid.NewGuid();
             ReviewedProductId = reviewedProductId;
-            TypeOfProduct = typeOfRating;
             RatingMark = ratingMark;
             RatedById = ratedById;
-            RateDate = rateDate;
+            RateDate = DateOnly.FromDateTime(DateTime.UtcNow);
         }
 
      

@@ -18,8 +18,8 @@ namespace ITventory.Domain
         public int Capacity { get;private set; }
         public int PersonResponsibleId {  get; private set; }
 
-        private List<InventoryProduct> _roomInventory = new List<InventoryProduct>();
-        private List<Guid> _employees = new List<Guid>();
+        private List<InventoryProduct> _roomInventory = new();
+        private List<Guid> _employees = new();
 
         public ReadOnlyCollection<Guid> Employees => _employees.AsReadOnly();
         public ReadOnlyCollection<InventoryProduct> RoomInventory => _roomInventory.AsReadOnly();
@@ -94,6 +94,7 @@ namespace ITventory.Domain
                 var newInventory = InventoryProduct.Create(this.Id, product, sku);
                 _roomInventory.Add(newInventory);
             }
+
             else
             {
                 inventory?.AddSku(sku);
@@ -109,7 +110,6 @@ namespace ITventory.Domain
             {
                 throw new ArgumentException("Cannot reduce inventory: inventory doesn't exist");
             }
-
             inventory?.ReduceSku(sku);
         }
 

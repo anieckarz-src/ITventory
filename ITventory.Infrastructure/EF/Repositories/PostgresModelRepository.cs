@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITventory.Domain.Repositories
+namespace ITventory.Infrastructure.EF.Repositories
 {
-    public interface IModelRepository
+    internal class PostgresModelRepository
     {
-        Task<Model> GetAsync(Guid modelId);
     }
 }

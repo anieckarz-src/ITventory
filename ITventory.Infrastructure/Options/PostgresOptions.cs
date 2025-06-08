@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITventory.Domain.Repositories
+namespace ITventory.Infrastructure.Options
 {
-    public interface IModelRepository
+    public class PostgresOptions
     {
-        Task<Model> GetAsync(Guid modelId);
+        public string ConnectionString { get; set; }
     }
 }

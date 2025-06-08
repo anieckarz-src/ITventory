@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITventory", "ITventory\ITventory.csproj", "{0C9DC49A-335A-40C1-9642-1C5EEDC95E79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITventory.Domain", "ITventory.Domain\ITventory.Domain.csproj", "{F546090C-5B4B-43DB-98E1-AE9C01A1AF24}"
 EndProject

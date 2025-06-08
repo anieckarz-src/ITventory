@@ -9,9 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ITventory.Infrastructure.Identity
 {
-    public static class IdentityMigrationsExtensions
+    public static class IdentityMigrationsApplyMigrations
     {
-        public static void ApplyMigration(this IApplicationBuilder app)
+        public static void ApplyMigrations(this IApplicationBuilder app)
         {
             using IServiceScope scope = app.ApplicationServices.CreateScope();
             using UserManagerDbContext context = scope.ServiceProvider.GetRequiredService<UserManagerDbContext>();

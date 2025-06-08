@@ -25,7 +25,7 @@ namespace ITventory.Domain
         public HardwareType HardwareType { get; init; }
         public bool IsActive { get; private set; }
         public int LoginCount => _historyOfLogons.Count;
-        private List<Logon> _historyOfLogons { get; set; }
+        public List<Logon> _historyOfLogons { get; private set; } = new List<Logon>();
         public ReadOnlyCollection<Logon> HistoryOfLogons => _historyOfLogons.AsReadOnly();
 
         private Hardware()
@@ -58,6 +58,7 @@ namespace ITventory.Domain
             {
                 throw new ArgumentException("This logon instance already exists");
             }
+            _historyOfLogons.Add(logon);
         }
 
         public void SetPrimaryUser(Employee user)

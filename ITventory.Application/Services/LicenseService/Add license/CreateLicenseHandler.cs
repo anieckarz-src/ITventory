@@ -23,9 +23,11 @@ namespace ITventory.Application.Services.LicenseService.Add_license
 
         public async Task HandleAsync(CreateLicense command)
         {
-           var (licenseType, licenseKey, validUntil, maxUse, softwareVersionId) = command;
+           var (licenseType, licenseKey, validUntil, maxUse, softwareVersionId, softwareId) = command;
 
-            if(await _softwareRepository.ExistsBySoftwareVersionId(softwareVersionId) == false)
+
+            var sofware = await _softwareRepository.GetAsync(softwareId) ?? throw new InvalidOperationException("Software not found");
+            if(!sofware.SoftwareVersions.Any(s => s.Id == softwareVersionId))
             {
                 throw new InvalidOperationException("Software version not found");
             }
