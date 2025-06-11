@@ -12,11 +12,11 @@ namespace ITventory.Domain
     {
         public Guid Id { get; init; }
         public string Name { get; init; }
-        public string? CountryCode {  get; private set; }
+        public string? CountryCode {  get; set; }
         public Region Region { get; init; }
         public string? Regulations { get; private set; }
 
-        private Country()
+        public Country()
         {
 
         }

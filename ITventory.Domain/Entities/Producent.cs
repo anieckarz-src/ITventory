@@ -10,10 +10,10 @@ namespace ITventory.Domain
     public class Producent: Entity
     {
         public Guid Id { get; init; }
-        public required string Name { get; init; }
+        public string Name { get; init; }
         public Guid CountryId {  get; init; }
 
-        private Producent()
+        public Producent()
         {
 
         }

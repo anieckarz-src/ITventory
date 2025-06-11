@@ -10,7 +10,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.Equipment_service.Add_equipment
 {
-    internal sealed class AddEquipmentHandler : ICommandHandler<AddEquipment>
+    public sealed class AddEquipmentHandler : ICommandHandler<AddEquipment>
     {
         private readonly IModelRepository _modelRepository;
         private readonly IProducentRepository _producentRepository;

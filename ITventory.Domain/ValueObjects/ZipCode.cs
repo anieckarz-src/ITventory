@@ -13,7 +13,7 @@ namespace ITventory.Domain.ValueObjects
 
         public ZipCode(string value)
         {
-            if (!value.Contains('-') || value.Length < 4){
+            if (value.Length < 3){
                 throw new ArgumentException("Invalid ZipCode");
             }
 

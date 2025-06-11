@@ -1,4 +1,6 @@
-﻿using ITventory.Application.Services.CountryService.Add_country;
+﻿using ITventory.Application.DTO;
+using ITventory.Application.Queries.Country;
+using ITventory.Application.Services.CountryService.Add_country;
 using ITventory.Application.Services.CountryService.Add_regulations;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
@@ -27,5 +29,14 @@ namespace ITventory.Controllers.Country
             await _commandDispatcher.DispatchAsync(command);
             return Created();
         }
+
+        [HttpGet]
+        public async Task<ActionResult<CountryDTO>> Get([FromQuery] Guid id)
+        {
+            var query = new GetCountryById { Id = id };
+            var result = await _queryDispatcher.QueryAsync(query);
+            return OkOrNotFound(result);
+        }
+
     }
 }

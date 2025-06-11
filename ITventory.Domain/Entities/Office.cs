@@ -13,18 +13,18 @@ namespace ITventory.Domain
     {
         public Guid Id { get; init; }
         public string Street { get; private set; }
-        public string BuildingNumber { get; private set; }
+        public string? BuildingNumber { get; private set; }
         public Guid LocationId {  get; private set; }
-        public Latitude Lattitude { get; private set; }
+        public Latitude Latitude { get; private set; }
         public Longitude Longitude { get; private set; }
-        public bool IsActive { get; private set; }
+        public bool? IsActive { get; private set; }
 
         private Office()
         {
 
         }
 
-        public Office(string street, string buildingNumber, Guid locationId, Latitude lattitude, Longitude longitude)
+        public Office(string street, string buildingNumber, Guid locationId, Latitude latitude, Longitude longitude)
         {
             if (String.IsNullOrWhiteSpace(street))
             {
@@ -39,7 +39,7 @@ namespace ITventory.Domain
             Street = street;
             BuildingNumber = buildingNumber;
             LocationId = locationId;
-            Lattitude = lattitude;
+            Latitude = latitude;
             Longitude = longitude;
 
             IsActive = true;

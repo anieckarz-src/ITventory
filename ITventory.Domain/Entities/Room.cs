@@ -14,7 +14,7 @@ namespace ITventory.Domain
         public Guid Id { get; init; }
         public Guid OfficeId { get; private set; }
         public int Floor { get; private set; }
-        public float? Area { get; private set; }
+        public double? Area { get; private set; }
         public int Capacity { get;private set; }
         public Guid PersonResponsibleId {  get; private set; }
 
@@ -59,7 +59,7 @@ namespace ITventory.Domain
                 
         }
 
-        public Room(Guid officeId, int floor, float area, int capacity, Guid personResponsibleId)
+        public Room(Guid officeId, int floor, double area, int capacity, Guid personResponsibleId)
         {
             if (floor < -1 || floor > 10)
             {

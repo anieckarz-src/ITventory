@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.DepartmentService.Add_department
 {
-    internal sealed class CreateDepartmentHandler : ICommandHandler<CreateDepartment>
+    public sealed class CreateDepartmentHandler : ICommandHandler<CreateDepartment>
     {
         private readonly IDepartmentRepository _departmentRepository;
 

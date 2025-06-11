@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using ITventory.Application.DTO;
 using ITventory.Shared.Abstractions.Queries;
 
-namespace ITventory.Application.Queries.Hardware
+namespace ITventory.Application.Queries.Country
 {
-    public class GetHardwareBySerialNumber: IQuery<HardwareDTO>
+    public class GetCountryById: IQuery<CountryDTO>
     {
-        public string SerialNumber { get; set; }
+        public Guid Id { get; set; }
     }
 }

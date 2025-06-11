@@ -54,6 +54,11 @@ namespace ITventory.Domain
 
         }
 
+        public static Location Create (string name, Guid countryId, ZipCode zipCode, string city, Latitude latitude, Longitude longitude, TypeOfPlant typeOfPlant)
+        {
+            return new Location(name, countryId, zipCode, city, latitude, longitude, typeOfPlant);
+        }
+
 
     }
 }

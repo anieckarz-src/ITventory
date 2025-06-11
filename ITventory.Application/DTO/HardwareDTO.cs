@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITventory.Application.DTO.Hardware
+namespace ITventory.Application.DTO
 {
     public class HardwareDTO
     {
