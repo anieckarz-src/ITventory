@@ -3,16 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ITventory.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitSeedFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -23,7 +25,7 @@ namespace ITventory.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,19 +50,19 @@ namespace ITventory.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CountryId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    ZipCode_Value = table.Column<string>(type: "text", nullable: false),
+                    ZipCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     City = table.Column<string>(type: "text", nullable: false),
-                    Latitude_Value = table.Column<double>(type: "double precision", nullable: false),
-                    Longitude_Value = table.Column<double>(type: "double precision", nullable: false),
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
                     TypeOfPlant = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Location", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Location_Country_CountryId",
+                        name: "FK_Location_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -77,9 +79,9 @@ namespace ITventory.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Producent", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Producent_Country_CountryId",
+                        name: "FK_Producent_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -114,7 +116,7 @@ namespace ITventory.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     ProducentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReleaseDate = table.Column<int>(type: "integer", nullable: true),
+                    ReleaseDate = table.Column<DateOnly>(type: "date", nullable: true),
                     Comments = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -547,6 +549,97 @@ namespace ITventory.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "Id", "CountryCode", "Name", "Region", "Regulations" },
+                values: new object[,]
+                {
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"), "US", "United States", "NorthAmerica", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0102"), "CN", "China", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0103"), "JP", "Japan", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"), "DE", "Germany", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"), "KR", "South Korea", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"), "IN", "India", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0107"), "TW", "Taiwan", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0108"), "IL", "Israel", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"), "GB", "United Kingdom", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"), "FR", "France", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0111"), "CA", "Canada", "NorthAmerica", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0112"), "SG", "Singapore", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"), "NL", "Netherlands", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0114"), "SE", "Sweden", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0115"), "FI", "Finland", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0116"), "AU", "Australia", "Australia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"), "IE", "Ireland", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0118"), "CH", "Switzerland", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0119"), "BE", "Belgium", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), "PL", "Poland", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0121"), "IT", "Italy", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0122"), "ES", "Spain", "Europe", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0123"), "AE", "UAE", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0124"), "MY", "Malaysia", "Asia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0125"), "NZ", "New Zealand", "Australia", null },
+                    { new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0126"), "NO", "Norway", "Europe", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Location",
+                columns: new[] { "Id", "City", "CountryId", "Latitude", "Longitude", "Name", "TypeOfPlant", "ZipCode" },
+                values: new object[] { new Guid("1a2b3c4d-0001-0000-0000-000000000001"), "Warsaw", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), 52.229700000000001, 21.0122, "Warsaw Factory", "Factory", "00-001" });
+
+            migrationBuilder.InsertData(
+                table: "Producent",
+                columns: new[] { "Id", "CountryId", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("04dabce6-41f7-4a66-8c34-963cedd62a7f"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0103"), "Toshiba" },
+                    { new Guid("58ea87f5-103a-4567-8fda-9b2a32be2ff9"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0103"), "Yamaha" },
+                    { new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f6"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0102"), "Huawei" },
+                    { new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f7"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0115"), "Nokia" },
+                    { new Guid("890a1b2c-d4e5-f678-90a1-b2c3d4e5f678"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0102"), "Lenovo" },
+                    { new Guid("890a1b2c-d4e5-f678-90a1-b2c3d4e5f679"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0114"), "Ericsson" },
+                    { new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f678"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"), "Siemens" },
+                    { new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f680"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"), "SAP" },
+                    { new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"), "Apple" },
+                    { new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67891"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"), "Bosch" },
+                    { new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67892"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"), "Philips" },
+                    { new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a1"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"), "Microsoft" },
+                    { new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a2"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"), "Infosys" },
+                    { new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a3"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), "Comarch" },
+                    { new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b2"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"), "Intel" },
+                    { new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b3"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0107"), "ASUS" },
+                    { new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b4"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"), "Dassault Systèmes" },
+                    { new Guid("d4e5f678-90a1-b2c3-d4e5-f67890a1b2c3"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"), "Google" },
+                    { new Guid("d4e5f678-90a1-b2c3-d4e5-f67890a1b2c4"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0107"), "Acer" },
+                    { new Guid("e5f67890-a1b2-c3d4-e5f6-7890a1b2c3d4"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"), "Samsung" },
+                    { new Guid("e5f67890-a1b2-c3d4-e5f6-7890a1b2c3d5"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"), "Spotify" },
+                    { new Guid("f67890a1-b2c3-d4e5-f678-90a1b2c3d4e5"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"), "LG Electronics" },
+                    { new Guid("f67890a1-b2c3-d4e5-f678-90a1b2c3d4e6"), new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"), "ARM Holdings" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Model",
+                columns: new[] { "Id", "Comments", "Name", "ProducentId", "ReleaseDate" },
+                values: new object[,]
+                {
+                    { new Guid("a1122334-5566-7788-99aa-bbccddeeff00"), null, "Xperia Z5", new Guid("04dabce6-41f7-4a66-8c34-963cedd62a7f"), new DateOnly(2015, 10, 1) },
+                    { new Guid("a2233445-6677-8899-aabb-ccddeeff0011"), null, "iPhone 12", new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"), new DateOnly(2020, 10, 23) },
+                    { new Guid("a3344556-7788-99aa-bbcc-ddeeff001122"), null, "Surface Pro 7", new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a1"), new DateOnly(2019, 10, 22) },
+                    { new Guid("a4455667-8899-aabb-ccdd-eeff00112233"), null, "Core i9-11900K", new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b2"), new DateOnly(2021, 3, 16) },
+                    { new Guid("a5566778-99aa-bbcc-ddee-ff0011223344"), null, "Pixel 5", new Guid("d4e5f678-90a1-b2c3-d4e5-f67890a1b2c3"), new DateOnly(2020, 10, 15) },
+                    { new Guid("a6677889-aabb-ccdd-eeff-001122334455"), null, "Galaxy S21", new Guid("e5f67890-a1b2-c3d4-e5f6-7890a1b2c3d4"), new DateOnly(2021, 1, 29) },
+                    { new Guid("a778899a-bbcc-ddee-ff00-112233445566"), null, "LG Velvet", new Guid("f67890a1-b2c3-d4e5-f678-90a1b2c3d4e5"), new DateOnly(2020, 5, 15) },
+                    { new Guid("a8899aab-ccdd-eeff-0011-223344556677"), null, "Mate 40 Pro", new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f6"), new DateOnly(2020, 10, 22) },
+                    { new Guid("a99aabbc-ddee-ff00-1122-334455667788"), null, "ThinkPad X1 Carbon Gen 9", new Guid("890a1b2c-d4e5-f678-90a1-b2c3d4e5f678"), new DateOnly(2021, 1, 12) },
+                    { new Guid("aaabbcdd-eeff-0011-2233-445566778899"), null, "XPS 13", new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f678"), new DateOnly(2020, 9, 30) },
+                    { new Guid("bbccddee-ff00-1122-3344-5566778899aa"), null, "SIMATIC S7-1500", new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f678"), new DateOnly(2015, 7, 15) },
+                    { new Guid("bfeee839-38a5-4aa7-89dd-6296f39b1694"), null, "ZH-500", new Guid("58ea87f5-103a-4567-8fda-9b2a32be2ff9"), new DateOnly(2016, 5, 2) },
+                    { new Guid("ccddeeff-0011-2233-4455-66778899aabb"), null, "PS5", new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"), new DateOnly(2020, 11, 12) },
+                    { new Guid("ddeeff00-1122-3344-5566-778899aabbcc"), null, "Nokia 8.3 5G", new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f7"), new DateOnly(2020, 9, 15) },
+                    { new Guid("eeff0011-2233-4455-6677-8899aabbccdd"), null, "AirPods Pro", new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"), new DateOnly(2019, 10, 30) },
+                    { new Guid("ff001122-3344-5566-7788-99aabbccddee"), null, "Razer Blade 15", new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"), new DateOnly(2021, 3, 1) }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Department_ManagerId",
                 table: "Department",
@@ -817,7 +910,7 @@ namespace ITventory.Infrastructure.Migrations
                 name: "Location");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Countries");
         }
     }
 }

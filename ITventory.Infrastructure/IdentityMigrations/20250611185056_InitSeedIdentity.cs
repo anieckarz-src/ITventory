@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITventory.Infrastructure.IdentityMigrations
 {
     /// <inheritdoc />
-    public partial class InitialIdentity : Migration
+    public partial class InitSeedIdentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

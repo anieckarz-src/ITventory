@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITventory.Infrastructure.Migrations
 {
     [DbContext(typeof(WriteDbContext))]
-    [Migration("20250611151256_Initial")]
-    partial class Initial
+    [Migration("20250611191309_InitSeedFix2")]
+    partial class InitSeedFix2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,7 +47,191 @@ namespace ITventory.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Country", (string)null);
+                    b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"),
+                            CountryCode = "US",
+                            Name = "United States",
+                            Region = "NorthAmerica"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0102"),
+                            CountryCode = "CN",
+                            Name = "China",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0103"),
+                            CountryCode = "JP",
+                            Name = "Japan",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
+                            CountryCode = "DE",
+                            Name = "Germany",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"),
+                            CountryCode = "KR",
+                            Name = "South Korea",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"),
+                            CountryCode = "IN",
+                            Name = "India",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0107"),
+                            CountryCode = "TW",
+                            Name = "Taiwan",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0108"),
+                            CountryCode = "IL",
+                            Name = "Israel",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"),
+                            CountryCode = "GB",
+                            Name = "United Kingdom",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"),
+                            CountryCode = "FR",
+                            Name = "France",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0111"),
+                            CountryCode = "CA",
+                            Name = "Canada",
+                            Region = "NorthAmerica"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0112"),
+                            CountryCode = "SG",
+                            Name = "Singapore",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"),
+                            CountryCode = "NL",
+                            Name = "Netherlands",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0114"),
+                            CountryCode = "SE",
+                            Name = "Sweden",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0115"),
+                            CountryCode = "FI",
+                            Name = "Finland",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0116"),
+                            CountryCode = "AU",
+                            Name = "Australia",
+                            Region = "Australia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"),
+                            CountryCode = "IE",
+                            Name = "Ireland",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0118"),
+                            CountryCode = "CH",
+                            Name = "Switzerland",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0119"),
+                            CountryCode = "BE",
+                            Name = "Belgium",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
+                            CountryCode = "PL",
+                            Name = "Poland",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0121"),
+                            CountryCode = "IT",
+                            Name = "Italy",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0122"),
+                            CountryCode = "ES",
+                            Name = "Spain",
+                            Region = "Europe"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0123"),
+                            CountryCode = "AE",
+                            Name = "UAE",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0124"),
+                            CountryCode = "MY",
+                            Name = "Malaysia",
+                            Region = "Asia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0125"),
+                            CountryCode = "NZ",
+                            Name = "New Zealand",
+                            Region = "Australia"
+                        },
+                        new
+                        {
+                            Id = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0126"),
+                            CountryCode = "NO",
+                            Name = "Norway",
+                            Region = "Europe"
+                        });
                 });
 
             modelBuilder.Entity("ITventory.Domain.Department", b =>
@@ -354,6 +538,14 @@ namespace ITventory.Infrastructure.Migrations
                     b.Property<Guid>("CountryId")
                         .HasColumnType("uuid");
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision")
+                        .HasColumnName("Latitude");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision")
+                        .HasColumnName("Longitude");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -362,11 +554,239 @@ namespace ITventory.Infrastructure.Migrations
                     b.Property<string>("TypeOfPlant")
                         .HasColumnType("text");
 
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("ZipCode");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
 
                     b.ToTable("Location", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1a2b3c4d-0001-0000-0000-000000000001"),
+                            City = "Warsaw",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
+                            Latitude = 52.229700000000001,
+                            Longitude = 21.0122,
+                            Name = "Warsaw Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "00-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("1a2b3c4d-0002-0000-0000-000000000002"),
+                            City = "Kraków",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
+                            Latitude = 50.064700000000002,
+                            Longitude = 19.945,
+                            Name = "Krakow Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "30-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("1a2b3c4d-0003-0000-0000-000000000003"),
+                            City = "Gdańsk",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
+                            Latitude = 54.351999999999997,
+                            Longitude = 18.646599999999999,
+                            Name = "Gdansk Other",
+                            TypeOfPlant = "Other",
+                            ZipCode = "80-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("1a2b3c4d-0004-0000-0000-000000000004"),
+                            City = "Wrocław",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
+                            Latitude = 51.107900000000001,
+                            Longitude = 17.038499999999999,
+                            Name = "Wroclaw Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "50-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("1a2b3c4d-0005-0000-0000-000000000005"),
+                            City = "Poznań",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
+                            Latitude = 52.4084,
+                            Longitude = 16.934200000000001,
+                            Name = "Poznan Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "60-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("2b3c4d5e-0001-0000-0000-000000000006"),
+                            City = "Skopje",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"),
+                            Latitude = 41.998100000000001,
+                            Longitude = 21.4254,
+                            Name = "Skopje Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "10-00"
+                        },
+                        new
+                        {
+                            Id = new Guid("2b3c4d5e-0002-0000-0000-000000000007"),
+                            City = "Bitola",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"),
+                            Latitude = 41.033299999999997,
+                            Longitude = 21.333300000000001,
+                            Name = "Bitola Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "70-00"
+                        },
+                        new
+                        {
+                            Id = new Guid("2b3c4d5e-0003-0000-0000-000000000008"),
+                            City = "Ohrid",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"),
+                            Latitude = 41.116700000000002,
+                            Longitude = 20.800000000000001,
+                            Name = "Ohrid Other",
+                            TypeOfPlant = "Other",
+                            ZipCode = "60-00"
+                        },
+                        new
+                        {
+                            Id = new Guid("3c4d5e6f-0001-0000-0000-000000000009"),
+                            City = "Berlin",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
+                            Latitude = 52.520000000000003,
+                            Longitude = 13.404999999999999,
+                            Name = "Berlin Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "10-115"
+                        },
+                        new
+                        {
+                            Id = new Guid("3c4d5e6f-0002-0000-0000-000000000010"),
+                            City = "Munich",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
+                            Latitude = 48.135100000000001,
+                            Longitude = 11.582000000000001,
+                            Name = "Munich Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "80-331"
+                        },
+                        new
+                        {
+                            Id = new Guid("4d5e6f70-0001-0000-0000-000000000011"),
+                            City = "Amsterdam",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"),
+                            Latitude = 52.367600000000003,
+                            Longitude = 4.9040999999999997,
+                            Name = "Amsterdam Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "10-12"
+                        },
+                        new
+                        {
+                            Id = new Guid("4d5e6f70-0002-0000-0000-000000000012"),
+                            City = "Rotterdam",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"),
+                            Latitude = 51.922499999999999,
+                            Longitude = 4.4791699999999999,
+                            Name = "Rotterdam Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "30-11"
+                        },
+                        new
+                        {
+                            Id = new Guid("5e6f7081-0001-0000-0000-000000000013"),
+                            City = "London",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"),
+                            Latitude = 51.507399999999997,
+                            Longitude = -0.1278,
+                            Name = "London Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "EC1A-1BB"
+                        },
+                        new
+                        {
+                            Id = new Guid("5e6f7081-0002-0000-0000-000000000014"),
+                            City = "Manchester",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"),
+                            Latitude = 53.480800000000002,
+                            Longitude = -2.2425999999999999,
+                            Name = "Manchester Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "M1-1AE"
+                        },
+                        new
+                        {
+                            Id = new Guid("6f708192-0001-0000-0000-000000000015"),
+                            City = "Rome",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"),
+                            Latitude = 41.902799999999999,
+                            Longitude = 12.4964,
+                            Name = "Rome Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "00-184"
+                        },
+                        new
+                        {
+                            Id = new Guid("6f708192-0002-0000-0000-000000000016"),
+                            City = "Milan",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"),
+                            Latitude = 45.464199999999998,
+                            Longitude = 9.1899999999999995,
+                            Name = "Milan Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "20-121"
+                        },
+                        new
+                        {
+                            Id = new Guid("708192a3-0001-0000-0000-000000000017"),
+                            City = "Paris",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"),
+                            Latitude = 48.8566,
+                            Longitude = 2.3521999999999998,
+                            Name = "Paris Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "75-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("708192a3-0002-0000-0000-000000000018"),
+                            City = "Lyon",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"),
+                            Latitude = 45.764000000000003,
+                            Longitude = 4.8357000000000001,
+                            Name = "Lyon Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "69-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("8192a3b4-0001-0000-0000-000000000019"),
+                            City = "Madrid",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"),
+                            Latitude = 40.416800000000002,
+                            Longitude = -3.7038000000000002,
+                            Name = "Madrid Factory",
+                            TypeOfPlant = "Factory",
+                            ZipCode = "28-001"
+                        },
+                        new
+                        {
+                            Id = new Guid("8192a3b4-0002-0000-0000-000000000020"),
+                            City = "Barcelona",
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"),
+                            Latitude = 41.385100000000001,
+                            Longitude = 2.1734,
+                            Name = "Barcelona Warehouse",
+                            TypeOfPlant = "Warehouse",
+                            ZipCode = "08-001"
+                        });
                 });
 
             modelBuilder.Entity("ITventory.Domain.Logon", b =>
@@ -418,14 +838,128 @@ namespace ITventory.Infrastructure.Migrations
                     b.Property<Guid>("ProducentId")
                         .HasColumnType("uuid");
 
-                    b.Property<int?>("ReleaseDate")
-                        .HasColumnType("integer");
+                    b.Property<DateOnly?>("ReleaseDate")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProducentId");
 
                     b.ToTable("Model", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bfeee839-38a5-4aa7-89dd-6296f39b1694"),
+                            Name = "ZH-500",
+                            ProducentId = new Guid("58ea87f5-103a-4567-8fda-9b2a32be2ff9"),
+                            ReleaseDate = new DateOnly(2016, 5, 2)
+                        },
+                        new
+                        {
+                            Id = new Guid("a1122334-5566-7788-99aa-bbccddeeff00"),
+                            Name = "Xperia Z5",
+                            ProducentId = new Guid("04dabce6-41f7-4a66-8c34-963cedd62a7f"),
+                            ReleaseDate = new DateOnly(2015, 10, 1)
+                        },
+                        new
+                        {
+                            Id = new Guid("a2233445-6677-8899-aabb-ccddeeff0011"),
+                            Name = "iPhone 12",
+                            ProducentId = new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"),
+                            ReleaseDate = new DateOnly(2020, 10, 23)
+                        },
+                        new
+                        {
+                            Id = new Guid("a3344556-7788-99aa-bbcc-ddeeff001122"),
+                            Name = "Surface Pro 7",
+                            ProducentId = new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a1"),
+                            ReleaseDate = new DateOnly(2019, 10, 22)
+                        },
+                        new
+                        {
+                            Id = new Guid("a4455667-8899-aabb-ccdd-eeff00112233"),
+                            Name = "Core i9-11900K",
+                            ProducentId = new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b2"),
+                            ReleaseDate = new DateOnly(2021, 3, 16)
+                        },
+                        new
+                        {
+                            Id = new Guid("a5566778-99aa-bbcc-ddee-ff0011223344"),
+                            Name = "Pixel 5",
+                            ProducentId = new Guid("d4e5f678-90a1-b2c3-d4e5-f67890a1b2c3"),
+                            ReleaseDate = new DateOnly(2020, 10, 15)
+                        },
+                        new
+                        {
+                            Id = new Guid("a6677889-aabb-ccdd-eeff-001122334455"),
+                            Name = "Galaxy S21",
+                            ProducentId = new Guid("e5f67890-a1b2-c3d4-e5f6-7890a1b2c3d4"),
+                            ReleaseDate = new DateOnly(2021, 1, 29)
+                        },
+                        new
+                        {
+                            Id = new Guid("a778899a-bbcc-ddee-ff00-112233445566"),
+                            Name = "LG Velvet",
+                            ProducentId = new Guid("f67890a1-b2c3-d4e5-f678-90a1b2c3d4e5"),
+                            ReleaseDate = new DateOnly(2020, 5, 15)
+                        },
+                        new
+                        {
+                            Id = new Guid("a8899aab-ccdd-eeff-0011-223344556677"),
+                            Name = "Mate 40 Pro",
+                            ProducentId = new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f6"),
+                            ReleaseDate = new DateOnly(2020, 10, 22)
+                        },
+                        new
+                        {
+                            Id = new Guid("a99aabbc-ddee-ff00-1122-334455667788"),
+                            Name = "ThinkPad X1 Carbon Gen 9",
+                            ProducentId = new Guid("890a1b2c-d4e5-f678-90a1-b2c3d4e5f678"),
+                            ReleaseDate = new DateOnly(2021, 1, 12)
+                        },
+                        new
+                        {
+                            Id = new Guid("aaabbcdd-eeff-0011-2233-445566778899"),
+                            Name = "XPS 13",
+                            ProducentId = new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f678"),
+                            ReleaseDate = new DateOnly(2020, 9, 30)
+                        },
+                        new
+                        {
+                            Id = new Guid("bbccddee-ff00-1122-3344-5566778899aa"),
+                            Name = "SIMATIC S7-1500",
+                            ProducentId = new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f678"),
+                            ReleaseDate = new DateOnly(2015, 7, 15)
+                        },
+                        new
+                        {
+                            Id = new Guid("ccddeeff-0011-2233-4455-66778899aabb"),
+                            Name = "PS5",
+                            ProducentId = new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"),
+                            ReleaseDate = new DateOnly(2020, 11, 12)
+                        },
+                        new
+                        {
+                            Id = new Guid("ddeeff00-1122-3344-5566-778899aabbcc"),
+                            Name = "Nokia 8.3 5G",
+                            ProducentId = new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f7"),
+                            ReleaseDate = new DateOnly(2020, 9, 15)
+                        },
+                        new
+                        {
+                            Id = new Guid("eeff0011-2233-4455-6677-8899aabbccdd"),
+                            Name = "AirPods Pro",
+                            ProducentId = new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"),
+                            ReleaseDate = new DateOnly(2019, 10, 30)
+                        },
+                        new
+                        {
+                            Id = new Guid("ff001122-3344-5566-7788-99aabbccddee"),
+                            Name = "Razer Blade 15",
+                            ProducentId = new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"),
+                            ReleaseDate = new DateOnly(2021, 3, 1)
+                        });
                 });
 
             modelBuilder.Entity("ITventory.Domain.Office", b =>
@@ -475,6 +1009,146 @@ namespace ITventory.Infrastructure.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Producent", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("04dabce6-41f7-4a66-8c34-963cedd62a7f"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0103"),
+                            Name = "Toshiba"
+                        },
+                        new
+                        {
+                            Id = new Guid("58ea87f5-103a-4567-8fda-9b2a32be2ff9"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0103"),
+                            Name = "Yamaha"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"),
+                            Name = "Apple"
+                        },
+                        new
+                        {
+                            Id = new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a1"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"),
+                            Name = "Microsoft"
+                        },
+                        new
+                        {
+                            Id = new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b2"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"),
+                            Name = "Intel"
+                        },
+                        new
+                        {
+                            Id = new Guid("d4e5f678-90a1-b2c3-d4e5-f67890a1b2c3"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0101"),
+                            Name = "Google"
+                        },
+                        new
+                        {
+                            Id = new Guid("e5f67890-a1b2-c3d4-e5f6-7890a1b2c3d4"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"),
+                            Name = "Samsung"
+                        },
+                        new
+                        {
+                            Id = new Guid("f67890a1-b2c3-d4e5-f678-90a1b2c3d4e5"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"),
+                            Name = "LG Electronics"
+                        },
+                        new
+                        {
+                            Id = new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f6"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0102"),
+                            Name = "Huawei"
+                        },
+                        new
+                        {
+                            Id = new Guid("890a1b2c-d4e5-f678-90a1-b2c3d4e5f678"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0102"),
+                            Name = "Lenovo"
+                        },
+                        new
+                        {
+                            Id = new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f678"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
+                            Name = "Siemens"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67891"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
+                            Name = "Bosch"
+                        },
+                        new
+                        {
+                            Id = new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a2"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"),
+                            Name = "Infosys"
+                        },
+                        new
+                        {
+                            Id = new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b3"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0107"),
+                            Name = "ASUS"
+                        },
+                        new
+                        {
+                            Id = new Guid("d4e5f678-90a1-b2c3-d4e5-f67890a1b2c4"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0107"),
+                            Name = "Acer"
+                        },
+                        new
+                        {
+                            Id = new Guid("e5f67890-a1b2-c3d4-e5f6-7890a1b2c3d5"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"),
+                            Name = "Spotify"
+                        },
+                        new
+                        {
+                            Id = new Guid("f67890a1-b2c3-d4e5-f678-90a1b2c3d4e6"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"),
+                            Name = "ARM Holdings"
+                        },
+                        new
+                        {
+                            Id = new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f7"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0115"),
+                            Name = "Nokia"
+                        },
+                        new
+                        {
+                            Id = new Guid("890a1b2c-d4e5-f678-90a1-b2c3d4e5f679"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0114"),
+                            Name = "Ericsson"
+                        },
+                        new
+                        {
+                            Id = new Guid("90a1b2c3-d4e5-f678-90a1-b2c3d4e5f680"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
+                            Name = "SAP"
+                        },
+                        new
+                        {
+                            Id = new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67892"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"),
+                            Name = "Philips"
+                        },
+                        new
+                        {
+                            Id = new Guid("b2c3d4e5-f678-90a1-b2c3-d4e5f67890a3"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
+                            Name = "Comarch"
+                        },
+                        new
+                        {
+                            Id = new Guid("c3d4e5f6-7890-a1b2-c3d4-e5f67890a1b4"),
+                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"),
+                            Name = "Dassault Systèmes"
+                        });
                 });
 
             modelBuilder.Entity("ITventory.Domain.Product", b =>
@@ -825,64 +1499,6 @@ namespace ITventory.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.OwnsOne("ITventory.Domain.ValueObjects.Latitude", "Latitude", b1 =>
-                        {
-                            b1.Property<Guid>("LocationId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<double>("Value")
-                                .HasColumnType("double precision");
-
-                            b1.HasKey("LocationId");
-
-                            b1.ToTable("Location");
-
-                            b1.WithOwner()
-                                .HasForeignKey("LocationId");
-                        });
-
-                    b.OwnsOne("ITventory.Domain.ValueObjects.Longitude", "Longitude", b1 =>
-                        {
-                            b1.Property<Guid>("LocationId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<double>("Value")
-                                .HasColumnType("double precision");
-
-                            b1.HasKey("LocationId");
-
-                            b1.ToTable("Location");
-
-                            b1.WithOwner()
-                                .HasForeignKey("LocationId");
-                        });
-
-                    b.OwnsOne("ITventory.Domain.ValueObjects.ZipCode", "ZipCode", b1 =>
-                        {
-                            b1.Property<Guid>("LocationId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("LocationId");
-
-                            b1.ToTable("Location");
-
-                            b1.WithOwner()
-                                .HasForeignKey("LocationId");
-                        });
-
-                    b.Navigation("Latitude")
-                        .IsRequired();
-
-                    b.Navigation("Longitude")
-                        .IsRequired();
-
-                    b.Navigation("ZipCode")
                         .IsRequired();
                 });
 

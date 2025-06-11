@@ -3,6 +3,7 @@ using System;
 using ITventory.Infrastructure.EF.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITventory.Infrastructure.Migrations
 {
     [DbContext(typeof(WriteDbContext))]
-    partial class WriteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250611191148_InitSeedFix")]
+    partial class InitSeedFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -571,218 +574,9 @@ namespace ITventory.Infrastructure.Migrations
                             CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
                             Latitude = 52.229700000000001,
                             Longitude = 21.0122,
-                            Name = "Warsaw AGR East",
+                            Name = "Warsaw Factory",
                             TypeOfPlant = "Factory",
                             ZipCode = "00-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("1a2b3c4d-0002-0000-0000-000000000002"),
-                            City = "Kraków",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
-                            Latitude = 50.064700000000002,
-                            Longitude = 19.945,
-                            Name = "Krakow Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "30-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("1a2b3c4d-0003-0000-0000-000000000003"),
-                            City = "Gdańsk",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
-                            Latitude = 54.351999999999997,
-                            Longitude = 18.646599999999999,
-                            Name = "Gdansk Other",
-                            TypeOfPlant = "Other",
-                            ZipCode = "80-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("1a2b3c4d-0004-0000-0000-000000000004"),
-                            City = "Wrocław",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
-                            Latitude = 51.107900000000001,
-                            Longitude = 17.038499999999999,
-                            Name = "Wroclaw Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "50-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("1a2b3c4d-0005-0000-0000-000000000005"),
-                            City = "Poznań",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"),
-                            Latitude = 52.4084,
-                            Longitude = 16.934200000000001,
-                            Name = "Poznan Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "60-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("2b3c4d5e-0001-0000-0000-000000000006"),
-                            City = "Skopje",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"),
-                            Latitude = 41.998100000000001,
-                            Longitude = 21.4254,
-                            Name = "Skopje Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "10-00"
-                        },
-                        new
-                        {
-                            Id = new Guid("2b3c4d5e-0002-0000-0000-000000000007"),
-                            City = "Bitola",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"),
-                            Latitude = 41.033299999999997,
-                            Longitude = 21.333300000000001,
-                            Name = "Bitola Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "70-00"
-                        },
-                        new
-                        {
-                            Id = new Guid("2b3c4d5e-0003-0000-0000-000000000008"),
-                            City = "Ohrid",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"),
-                            Latitude = 41.116700000000002,
-                            Longitude = 20.800000000000001,
-                            Name = "Ohrid Other",
-                            TypeOfPlant = "Other",
-                            ZipCode = "60-00"
-                        },
-                        new
-                        {
-                            Id = new Guid("3c4d5e6f-0001-0000-0000-000000000009"),
-                            City = "Berlin",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
-                            Latitude = 52.520000000000003,
-                            Longitude = 13.404999999999999,
-                            Name = "Berlin Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "10-115"
-                        },
-                        new
-                        {
-                            Id = new Guid("3c4d5e6f-0002-0000-0000-000000000010"),
-                            City = "Munich",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"),
-                            Latitude = 48.135100000000001,
-                            Longitude = 11.582000000000001,
-                            Name = "Munich Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "80-331"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d5e6f70-0001-0000-0000-000000000011"),
-                            City = "Amsterdam",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"),
-                            Latitude = 52.367600000000003,
-                            Longitude = 4.9040999999999997,
-                            Name = "Amsterdam Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "10-12"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d5e6f70-0002-0000-0000-000000000012"),
-                            City = "Rotterdam",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"),
-                            Latitude = 51.922499999999999,
-                            Longitude = 4.4791699999999999,
-                            Name = "Rotterdam Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "30-11"
-                        },
-                        new
-                        {
-                            Id = new Guid("5e6f7081-0001-0000-0000-000000000013"),
-                            City = "London",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"),
-                            Latitude = 51.507399999999997,
-                            Longitude = -0.1278,
-                            Name = "London Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "EC1A-1BB"
-                        },
-                        new
-                        {
-                            Id = new Guid("5e6f7081-0002-0000-0000-000000000014"),
-                            City = "Manchester",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"),
-                            Latitude = 53.480800000000002,
-                            Longitude = -2.2425999999999999,
-                            Name = "Manchester Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "M1-1AE"
-                        },
-                        new
-                        {
-                            Id = new Guid("6f708192-0001-0000-0000-000000000015"),
-                            City = "Rome",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"),
-                            Latitude = 41.902799999999999,
-                            Longitude = 12.4964,
-                            Name = "Rome Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "00-184"
-                        },
-                        new
-                        {
-                            Id = new Guid("6f708192-0002-0000-0000-000000000016"),
-                            City = "Milan",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"),
-                            Latitude = 45.464199999999998,
-                            Longitude = 9.1899999999999995,
-                            Name = "Milan Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "20-121"
-                        },
-                        new
-                        {
-                            Id = new Guid("708192a3-0001-0000-0000-000000000017"),
-                            City = "Paris",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"),
-                            Latitude = 48.8566,
-                            Longitude = 2.3521999999999998,
-                            Name = "Paris Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "75-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("708192a3-0002-0000-0000-000000000018"),
-                            City = "Lyon",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"),
-                            Latitude = 45.764000000000003,
-                            Longitude = 4.8357000000000001,
-                            Name = "Lyon Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "69-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("8192a3b4-0001-0000-0000-000000000019"),
-                            City = "Madrid",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"),
-                            Latitude = 40.416800000000002,
-                            Longitude = -3.7038000000000002,
-                            Name = "Madrid Factory",
-                            TypeOfPlant = "Factory",
-                            ZipCode = "28-001"
-                        },
-                        new
-                        {
-                            Id = new Guid("8192a3b4-0002-0000-0000-000000000020"),
-                            City = "Barcelona",
-                            CountryId = new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"),
-                            Latitude = 41.385100000000001,
-                            Longitude = 2.1734,
-                            Name = "Barcelona Warehouse",
-                            TypeOfPlant = "Warehouse",
-                            ZipCode = "08-001"
                         });
                 });
 
@@ -966,21 +760,14 @@ namespace ITventory.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("BuildingNumber")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("double precision")
-                        .HasColumnName("Latitude");
 
                     b.Property<Guid>("LocationId")
                         .HasColumnType("uuid");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("double precision")
-                        .HasColumnName("Longitude");
 
                     b.Property<string>("Street")
                         .IsRequired()
@@ -991,309 +778,7 @@ namespace ITventory.Infrastructure.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Office");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0001-0000-0000-000000000001"),
-                            BuildingNumber = "3A",
-                            IsActive = true,
-                            Latitude = 52.229700000000001,
-                            LocationId = new Guid("1a2b3c4d-0001-0000-0000-000000000001"),
-                            Longitude = 21.0122,
-                            Street = "Marszałkowska 5"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0002-0000-0000-000000000002"),
-                            BuildingNumber = "5B",
-                            IsActive = true,
-                            Latitude = 50.064700000000002,
-                            LocationId = new Guid("1a2b3c4d-0002-0000-0000-000000000002"),
-                            Longitude = 19.945,
-                            Street = "Krakowska 12"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0003-0000-0000-000000000003"),
-                            BuildingNumber = "1C",
-                            IsActive = true,
-                            Latitude = 54.351999999999997,
-                            LocationId = new Guid("1a2b3c4d-0003-0000-0000-000000000003"),
-                            Longitude = 18.646599999999999,
-                            Street = "Długa 7"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0004-0000-0000-000000000004"),
-                            BuildingNumber = "2",
-                            IsActive = true,
-                            Latitude = 51.107900000000001,
-                            LocationId = new Guid("1a2b3c4d-0004-0000-0000-000000000004"),
-                            Longitude = 17.038499999999999,
-                            Street = "Rynek 1"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0005-0000-0000-000000000005"),
-                            BuildingNumber = "A",
-                            IsActive = true,
-                            Latitude = 52.4084,
-                            LocationId = new Guid("1a2b3c4d-0005-0000-0000-000000000005"),
-                            Longitude = 16.934200000000001,
-                            Street = "Stary Rynek 10"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0006-0000-0000-000000000006"),
-                            BuildingNumber = "1",
-                            IsActive = true,
-                            Latitude = 41.998100000000001,
-                            LocationId = new Guid("2b3c4d5e-0001-0000-0000-000000000006"),
-                            Longitude = 21.4254,
-                            Street = "Main Street 10"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0007-0000-0000-000000000007"),
-                            BuildingNumber = "12",
-                            IsActive = true,
-                            Latitude = 41.033299999999997,
-                            LocationId = new Guid("2b3c4d5e-0002-0000-0000-000000000007"),
-                            Longitude = 21.333300000000001,
-                            Street = "Bitola Blvd 45"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0008-0000-0000-000000000008"),
-                            BuildingNumber = "4C",
-                            IsActive = true,
-                            Latitude = 41.116700000000002,
-                            LocationId = new Guid("2b3c4d5e-0003-0000-0000-000000000008"),
-                            Longitude = 20.800000000000001,
-                            Street = "Ohrid Lakeside 3"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0009-0000-0000-000000000009"),
-                            BuildingNumber = "10",
-                            IsActive = true,
-                            Latitude = 52.520000000000003,
-                            LocationId = new Guid("3c4d5e6f-0001-0000-0000-000000000009"),
-                            Longitude = 13.404999999999999,
-                            Street = "Alexanderplatz 2"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0010-0000-0000-000000000010"),
-                            BuildingNumber = "7B",
-                            IsActive = true,
-                            Latitude = 48.135100000000001,
-                            LocationId = new Guid("3c4d5e6f-0002-0000-0000-000000000010"),
-                            Longitude = 11.582000000000001,
-                            Street = "Marienplatz 1"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0011-0000-0000-000000000011"),
-                            BuildingNumber = "5A",
-                            IsActive = true,
-                            Latitude = 52.367600000000003,
-                            LocationId = new Guid("4d5e6f70-0001-0000-0000-000000000011"),
-                            Longitude = 4.9040999999999997,
-                            Street = "Damrak 20"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0012-0000-0000-000000000012"),
-                            BuildingNumber = "2",
-                            IsActive = true,
-                            Latitude = 51.922499999999999,
-                            LocationId = new Guid("4d5e6f70-0002-0000-0000-000000000012"),
-                            Longitude = 4.4791699999999999,
-                            Street = "Coolsingel 100"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0013-0000-0000-000000000013"),
-                            BuildingNumber = "1",
-                            IsActive = true,
-                            Latitude = 51.507399999999997,
-                            LocationId = new Guid("5e6f7081-0001-0000-0000-000000000013"),
-                            Longitude = -0.1278,
-                            Street = "Baker Street 221B"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0014-0000-0000-000000000014"),
-                            BuildingNumber = "5",
-                            IsActive = true,
-                            Latitude = 53.480800000000002,
-                            LocationId = new Guid("5e6f7081-0002-0000-0000-000000000014"),
-                            Longitude = -2.2425999999999999,
-                            Street = "Deansgate 50"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0015-0000-0000-000000000015"),
-                            BuildingNumber = "6",
-                            IsActive = true,
-                            Latitude = 41.902799999999999,
-                            LocationId = new Guid("6f708192-0001-0000-0000-000000000015"),
-                            Longitude = 12.4964,
-                            Street = "Via del Corso 15"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0016-0000-0000-000000000016"),
-                            BuildingNumber = "3",
-                            IsActive = true,
-                            Latitude = 45.464199999999998,
-                            LocationId = new Guid("6f708192-0002-0000-0000-000000000016"),
-                            Longitude = 9.1899999999999995,
-                            Street = "Via Monte Napoleone 20"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0017-0000-0000-000000000017"),
-                            BuildingNumber = "8",
-                            IsActive = true,
-                            Latitude = 48.8566,
-                            LocationId = new Guid("708192a3-0001-0000-0000-000000000017"),
-                            Longitude = 2.3521999999999998,
-                            Street = "Rue de Rivoli 10"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0018-0000-0000-000000000018"),
-                            BuildingNumber = "4",
-                            IsActive = true,
-                            Latitude = 45.764000000000003,
-                            LocationId = new Guid("708192a3-0002-0000-0000-000000000018"),
-                            Longitude = 4.8357000000000001,
-                            Street = "Rue Mercière 12"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0019-0000-0000-000000000019"),
-                            BuildingNumber = "7",
-                            IsActive = true,
-                            Latitude = 40.416800000000002,
-                            LocationId = new Guid("8192a3b4-0001-0000-0000-000000000019"),
-                            Longitude = -3.7038000000000002,
-                            Street = "Gran Via 50"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0020-0000-0000-000000000020"),
-                            BuildingNumber = "9",
-                            IsActive = true,
-                            Latitude = 41.385100000000001,
-                            LocationId = new Guid("8192a3b4-0002-0000-0000-000000000020"),
-                            Longitude = 2.1734,
-                            Street = "Passeig de Gràcia 30"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0021-0000-0000-000000000021"),
-                            BuildingNumber = "5",
-                            IsActive = true,
-                            Latitude = 52.229700000000001,
-                            LocationId = new Guid("1a2b3c4d-0001-0000-0000-000000000001"),
-                            Longitude = 21.0122,
-                            Street = "Nowy Świat 20"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0022-0000-0000-000000000022"),
-                            BuildingNumber = "2",
-                            IsActive = true,
-                            Latitude = 51.107900000000001,
-                            LocationId = new Guid("1a2b3c4d-0004-0000-0000-000000000004"),
-                            Longitude = 17.038499999999999,
-                            Street = "Kazimierza Wielkiego 8"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0023-0000-0000-000000000023"),
-                            BuildingNumber = "3",
-                            IsActive = true,
-                            Latitude = 54.351999999999997,
-                            LocationId = new Guid("1a2b3c4d-0003-0000-0000-000000000003"),
-                            Longitude = 18.646599999999999,
-                            Street = "Chmielna 10"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0024-0000-0000-000000000024"),
-                            BuildingNumber = "6",
-                            IsActive = true,
-                            Latitude = 50.064700000000002,
-                            LocationId = new Guid("1a2b3c4d-0002-0000-0000-000000000002"),
-                            Longitude = 19.945,
-                            Street = "Krakowska 45"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0025-0000-0000-000000000025"),
-                            BuildingNumber = "1",
-                            IsActive = true,
-                            Latitude = 52.4084,
-                            LocationId = new Guid("1a2b3c4d-0005-0000-0000-000000000005"),
-                            Longitude = 16.934200000000001,
-                            Street = "Plac Wolności 5"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0026-0000-0000-000000000026"),
-                            BuildingNumber = "7",
-                            IsActive = true,
-                            Latitude = 41.998100000000001,
-                            LocationId = new Guid("2b3c4d5e-0001-0000-0000-000000000006"),
-                            Longitude = 21.4254,
-                            Street = "Skopje Center 3"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0027-0000-0000-000000000027"),
-                            BuildingNumber = "8",
-                            IsActive = true,
-                            Latitude = 52.520000000000003,
-                            LocationId = new Guid("3c4d5e6f-0001-0000-0000-000000000009"),
-                            Longitude = 13.404999999999999,
-                            Street = "Berlin Wall Str 15"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0028-0000-0000-000000000028"),
-                            BuildingNumber = "9",
-                            IsActive = true,
-                            Latitude = 51.507399999999997,
-                            LocationId = new Guid("5e6f7081-0001-0000-0000-000000000013"),
-                            Longitude = -0.1278,
-                            Street = "London Bridge 22"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0029-0000-0000-000000000029"),
-                            BuildingNumber = "4",
-                            IsActive = true,
-                            Latitude = 41.902799999999999,
-                            LocationId = new Guid("6f708192-0001-0000-0000-000000000015"),
-                            Longitude = 12.4964,
-                            Street = "Via Roma 100"
-                        },
-                        new
-                        {
-                            Id = new Guid("f1a2b3c4-0030-0000-0000-000000000030"),
-                            BuildingNumber = "3",
-                            IsActive = true,
-                            Latitude = 48.8566,
-                            LocationId = new Guid("708192a3-0001-0000-0000-000000000017"),
-                            Longitude = 2.3521999999999998,
-                            Street = "Rue Lafayette 10"
-                        });
+                    b.ToTable("Office", (string)null);
                 });
 
             modelBuilder.Entity("ITventory.Domain.Producent", b =>
@@ -1838,6 +1323,44 @@ namespace ITventory.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("ITventory.Domain.ValueObjects.Latitude", "Lattitude", b1 =>
+                        {
+                            b1.Property<Guid>("OfficeId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<double>("Value")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("OfficeId");
+
+                            b1.ToTable("Office");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OfficeId");
+                        });
+
+                    b.OwnsOne("ITventory.Domain.ValueObjects.Longitude", "Longitude", b1 =>
+                        {
+                            b1.Property<Guid>("OfficeId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<double>("Value")
+                                .HasColumnType("double precision");
+
+                            b1.HasKey("OfficeId");
+
+                            b1.ToTable("Office");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OfficeId");
+                        });
+
+                    b.Navigation("Lattitude")
+                        .IsRequired();
+
+                    b.Navigation("Longitude")
                         .IsRequired();
                 });
 
