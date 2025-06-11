@@ -18,7 +18,7 @@ namespace ITventory.Infrastructure.EF.Repositories
         public PostgresModelRepository(WriteDbContext writeDbContext)
         {
             _writeDbContext = writeDbContext;
-            _model = (DbSet<Model>)_writeDbContext.Model;
+            _model = _writeDbContext.Models;
         }
 
         public Task<Model> GetAsync(Guid modelId)

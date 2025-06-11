@@ -3,6 +3,7 @@ using System;
 using ITventory.Infrastructure.EF.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITventory.Infrastructure.Migrations
 {
     [DbContext(typeof(WriteDbContext))]
-    partial class WriteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250611222729_AddingRoom")]
+    partial class AddingRoom
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1525,8 +1528,8 @@ namespace ITventory.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<double?>("Area")
-                        .HasColumnType("double precision");
+                    b.Property<float?>("Area")
+                        .HasColumnType("real");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("integer");
@@ -1547,17 +1550,6 @@ namespace ITventory.Infrastructure.Migrations
                     b.HasIndex("PersonResponsibleId");
 
                     b.ToTable("Rooms", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8f5f3d88-cb83-4748-9d93-191b99b903cc"),
-                            Area = 1149.0,
-                            Capacity = 100,
-                            Floor = 3,
-                            OfficeId = new Guid("f1a2b3c4-0001-0000-0000-000000000001"),
-                            PersonResponsibleId = new Guid("7ebc5231-ae71-4c64-8154-ffe53c88cd0c")
-                        });
                 });
 
             modelBuilder.Entity("ITventory.Domain.Software", b =>
