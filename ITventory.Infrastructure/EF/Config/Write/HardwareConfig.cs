@@ -16,23 +16,39 @@ namespace ITventory.Infrastructure.EF.Config.Write
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.PrimaryUserId)
-                .IsRequired();
-
-            builder
-                .HasOne<Employee>()
+            builder.HasOne<Employee>()
                 .WithMany()
                 .HasForeignKey(x => x.PrimaryUserId);
 
             builder
-                .HasOne<Employee>()
+                .HasOne<Producent>()
                 .WithMany()
-                .HasForeignKey(x => x.TopUser)
-                .IsRequired(false);
+                .HasForeignKey(x => x.ProducentId);
+
+            builder.
+               HasOne<Model>()
+               .WithMany()
+               .HasForeignKey(x => x.ModelId);
+
+            builder
+                .HasOne<Room>()
+                .WithMany()
+                .HasForeignKey(x => x.RoomId);
+
+            builder
+                .HasOne<Department>()
+                .WithMany()
+                .HasForeignKey(x => x.DepartmentId);
+
+            builder
+                .Ignore(x => x.TopUser);
 
             builder.HasMany(x => x.HistoryOfLogons)
-                .WithOne()
-                .HasForeignKey(l => l.HardwareId);
+            .WithOne()
+            .HasForeignKey(l => l.HardwareId);
+
+            builder.Navigation(x => x.HistoryOfLogons)
+                .UsePropertyAccessMode(PropertyAccessMode.Field);
 
             builder.Property(x => x.DefaultDomain)
                 .HasConversion<string>();
