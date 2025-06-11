@@ -45,6 +45,7 @@ namespace ITventory.Domain
             Id = Guid.NewGuid();
             IdentityId = identityId;
             Username = username;
+            IsActive = true;
         }
 
         public static Employee CreateMinimal(Username username, string identityId)
