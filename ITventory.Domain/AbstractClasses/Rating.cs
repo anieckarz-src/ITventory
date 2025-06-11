@@ -16,6 +16,11 @@ namespace ITventory.Domain.AbstractClasses
         public Guid RatedById { get; private set; }
         public DateOnly RateDate { get; private set; }
 
+
+        public Rating()
+        {
+
+        }
         public Rating(Guid reviewedProductId, int ratingMark, Guid ratedById)
         {
             if(ratingMark < 1 || ratingMark > 5)

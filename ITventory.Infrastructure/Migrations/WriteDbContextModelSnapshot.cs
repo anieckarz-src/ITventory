@@ -110,6 +110,11 @@ namespace ITventory.Infrastructure.Migrations
                     b.Property<string>("Seniority")
                         .HasColumnType("text");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Username");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
@@ -681,26 +686,6 @@ namespace ITventory.Infrastructure.Migrations
                     b.HasOne("ITventory.Domain.Room", null)
                         .WithMany("Employees")
                         .HasForeignKey("RoomId");
-
-                    b.OwnsOne("ITventory.Domain.ValueObjects.Username", "Username", b1 =>
-                        {
-                            b1.Property<Guid>("EmployeeId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Value")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.HasKey("EmployeeId");
-
-                            b1.ToTable("Employee");
-
-                            b1.WithOwner()
-                                .HasForeignKey("EmployeeId");
-                        });
-
-                    b.Navigation("Username")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ITventory.Domain.Entities.JoinTables.EmployeeLicense", b =>

@@ -24,7 +24,7 @@ namespace ITventory.Application.Services.RoomService.AssignToRoom
             var (roomId, employeeId) = command;
 
             var room = await _roomRepository.GetAsync(roomId) ?? throw new InvalidOperationException("Room does not exist");
-            var user = await _employeeRepository.GetAsync(employeeId) ?? throw new InvalidOperationException("User does not exist");
+            var user = await _employeeRepository.GetAsync(employeeId.Id) ?? throw new InvalidOperationException("User does not exist");
 
             room.AssignToRoom(employeeId);
             await _roomRepository.UpdateAsync(room);

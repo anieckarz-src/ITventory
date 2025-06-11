@@ -7,11 +7,11 @@ using ITventory.Domain.AbstractClasses;
 
 namespace ITventory.Domain.ValueObjects
 {
-    public record Lattitude: ValueObject
+    public record Latitude: ValueObject
     {
-        public double Value;
+        public double Value { get; private set; }
 
-        public Lattitude(double value)
+        public Latitude(double value)
         {
             if(value < -90 || value > 90)
             {
@@ -22,10 +22,10 @@ namespace ITventory.Domain.ValueObjects
             Value = value;
         }
 
-        public static implicit operator double(Lattitude value) =>
+        public static implicit operator double(Latitude value) =>
              value.Value;
 
-        public static implicit operator Lattitude(double value) =>
+        public static implicit operator Latitude(double value) =>
             new(value);
     }
 }

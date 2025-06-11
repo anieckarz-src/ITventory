@@ -26,7 +26,7 @@ namespace ITventory.Application.Services.HardwareService.ReviewService.Add_revie
 
             var user = await _employeeRepository.GetAsync(reviewerId) ?? throw new InvalidOperationException("User not found");
             var equipment = await _equipmentRepository.GetAsync(equipmentId) ?? throw new InvalidOperationException("Equipment not found");
-            var newReview = Review.Create(reviewerId, details, reviewDate, condition);
+            var newReview = Review.Create(equipmentId, reviewerId, details, reviewDate, condition);
 
             equipment.AddReview(newReview);
             // Repozytoria tylko dla aggregate rootów - usuwam repozytorium dla review

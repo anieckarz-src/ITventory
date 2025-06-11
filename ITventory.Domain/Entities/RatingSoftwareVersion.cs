@@ -13,6 +13,11 @@ namespace ITventory.Domain.Entities
     {
         public Guid SoftwareVersionId { get; init; }
 
+        private RatingSoftwareVersion()
+        {
+
+        }
+
         private RatingSoftwareVersion(Guid reviewedProductId, int ratingMark, Guid ratedById) :
             base(reviewedProductId, ratingMark, ratedById)
         {

@@ -9,7 +9,7 @@ namespace ITventory.Domain.ValueObjects
 {
     public record ZipCode: ValueObject
     {
-        public string Value;
+        public string Value { get; private set; }
 
         public ZipCode(string value)
         {

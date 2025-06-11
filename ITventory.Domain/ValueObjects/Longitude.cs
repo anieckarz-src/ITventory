@@ -11,7 +11,7 @@ namespace ITventory.Domain.ValueObjects
 {
     public record Longitude: ValueObject
     {
-        public double Value;
+        public double Value { get; private set; }
 
         public Longitude(double value)
         {

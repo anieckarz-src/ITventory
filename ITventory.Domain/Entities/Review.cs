@@ -12,6 +12,7 @@ namespace ITventory.Domain
     public class Review: Entity
     {
         public Guid Id { get; init; }
+        public Guid ReviwedEquipmentId { get; private set; }
         public Guid ReviewerId { get; init; }
         public string? Details { get; private set; }
         public DateOnly ReviewDate { get; private set; }
@@ -22,7 +23,7 @@ namespace ITventory.Domain
 
         }
 
-        public Review(Guid reviewerId, string? details, DateOnly reviewDate, Condition condition)
+        public Review(Guid reviewerId, Guid reviewedEquipmentId, string? details, DateOnly reviewDate, Condition condition)
         {
             if(reviewDate > DateOnly.FromDateTime(DateTime.UtcNow))
             {
@@ -35,14 +36,15 @@ namespace ITventory.Domain
 
             Id = Guid.NewGuid();
             ReviewerId = reviewerId;
+            ReviwedEquipmentId = reviewedEquipmentId;
             Details = details;
             ReviewDate = reviewDate;
             Condition = condition;
         }
 
-        public static Review Create(Guid reviewerId, string? details, DateOnly reviewDate, Condition condition)
+        public static Review Create(Guid reviwedEquipmentId, Guid reviewerId, string? details, DateOnly reviewDate, Condition condition)
         {
-            return new Review(reviewerId, details, reviewDate, condition);
+            return new Review ( reviwedEquipmentId, reviewerId, details, reviewDate, condition);
         }
     }
 }

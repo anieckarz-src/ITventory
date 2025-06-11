@@ -9,19 +9,19 @@ using ITventory.Shared.Abstractions;
 
 namespace ITventory.Domain
 {
-    public class Room: Entity
+    public class Room
     {
         public Guid Id { get; init; }
-        public int OfficeId { get; private set; }
+        public Guid OfficeId { get; private set; }
         public int Floor { get; private set; }
         public float? Area { get; private set; }
         public int Capacity { get;private set; }
-        public int PersonResponsibleId {  get; private set; }
+        public Guid PersonResponsibleId {  get; private set; }
 
         private List<InventoryProduct> _roomInventory = new();
-        private List<Guid> _employees = new();
+        private List<Employee> _employees = new();
 
-        public ReadOnlyCollection<Guid> Employees => _employees.AsReadOnly();
+        public ReadOnlyCollection<Employee> Employees => _employees.AsReadOnly();
         public ReadOnlyCollection<InventoryProduct> RoomInventory => _roomInventory.AsReadOnly();
 
 
@@ -30,9 +30,9 @@ namespace ITventory.Domain
 
         }
 
-        public void AssignToRoom(Guid employeeId)
+        public void AssignToRoom(Employee employee)
         {
-            if(employeeId == Guid.Empty)
+            if(employee == null)
             {
                 throw new ArgumentNullException("Invalid employee id");
             }
@@ -41,25 +41,25 @@ namespace ITventory.Domain
             {
                 throw new InvalidOperationException("Room capacity limit has been met");
             }
-            _employees.Add(employeeId);
+            _employees.Add(employee);
         }
 
-        public void RemoveFromRoom(Guid employeeId)
+        public void RemoveFromRoom(Employee employee)
         {
-            if (employeeId == Guid.Empty)
+            if (employee == null)
             {
                 throw new ArgumentNullException("Invalid employee id");
             }
 
-            if(! _employees.Any(e => e == employeeId)){
+            if(! _employees.Any(e => e.Id == employee.Id)){
                 throw new InvalidOperationException("User not in the room");
             }
 
-            _employees.RemoveAll(e => e == employeeId);
+            _employees.Remove(employee);
                 
         }
 
-        public Room(int officeId, int floor, float area, int capacity, int personResponsibleId)
+        public Room(Guid officeId, int floor, float area, int capacity, Guid personResponsibleId)
         {
             if (floor < -1 || floor > 10)
             {

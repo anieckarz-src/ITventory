@@ -36,6 +36,7 @@ namespace ITventory.Application.Services.Equipment_service.Add_equipment
                           purchasedDate, roomId, departmentId, condition) = command;
 
             var model = _modelRepository.GetAsync(modelId) ?? throw new InvalidOperationException("Model not found");
+
             if(await _producentRepository.ExistsById(producentId) == false){
                 throw new InvalidOperationException("Producent not found");
             }

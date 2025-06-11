@@ -11,14 +11,14 @@ namespace ITventory.Domain
     {
         public Guid Id { get; init; }
         public required string Name { get; init; }
-        public int CountryId {  get; init; }
+        public Guid CountryId {  get; init; }
 
         private Producent()
         {
 
         }
 
-        public Producent(string name, int countryId)
+        public Producent(string name, Guid countryId)
         {
             this.Id = Guid.NewGuid();
             Name = name;

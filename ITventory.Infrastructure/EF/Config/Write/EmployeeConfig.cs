@@ -17,9 +17,9 @@ namespace ITventory.Infrastructure.EF.Config.Write
 
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
-            //var usernameConverter = new ValueConverter<Username, string>(
-            //u => u == null ? null : u.Value,
-            //u => u == null ? null : new Username(u));
+            var usernameConverter = new ValueConverter<Username, string>(
+             username => username.Value,        // To DB conversion
+             value => new Username(value));    // From DB conversion
 
 
             builder.HasKey(x => x.Id);
@@ -28,11 +28,14 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 .IsRequired();
 
             //builder.ComplexProperty(x => x.Username);
-        
-            //builder.Property(x => x.Username).
-                //HasConversion(x => x.Value, x => new Username(x));
 
-            builder.OwnsOne(x => x.Username);
+            //builder.Property(x => x.Username).
+            //HasConversion(x => x.Value, x => new Username(x));
+
+            builder.Property(e => e.Username)
+                .HasConversion(usernameConverter)
+                .HasColumnName("Username");
+                
 
 
 

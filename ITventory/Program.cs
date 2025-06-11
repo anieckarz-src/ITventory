@@ -40,7 +40,7 @@ builder.Services.AddCors(options =>
 
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); // Optional: if using cookies/auth
+            .AllowCredentials(); 
     });
 });
 

@@ -18,6 +18,11 @@ namespace ITventory.Domain
         public DateTime LogonTime { get; private set; }
         public string IpAddress {  get; init; }
 
+
+        private Logon()
+        {
+
+        }
         public Logon(Guid hardwareId, Guid userId, Region domain, DateTime logonTime, string ipAddress)
         {
             if(!Enum.IsDefined(typeof(Region), domain))

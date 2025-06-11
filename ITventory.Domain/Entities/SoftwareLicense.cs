@@ -4,13 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ITventory.Domain.Entities.JoinTables;
 using ITventory.Domain.Enums;
 using ITventory.Domain.ValueObjects;
 using ITventory.Shared.Abstractions;
 
 namespace ITventory.Domain
 {
-    public class SoftwareLicense: Entity
+    public class SoftwareLicense
     {
         public Guid Id { get; init; }
         public LicenseType LicenseType { get; private set; }
@@ -27,12 +28,12 @@ namespace ITventory.Domain
         };
 
 
-        private List<Username> _assignedUsers = new();
-        public ReadOnlyCollection<Username> AssignedUsers => _assignedUsers.AsReadOnly();
+        private List<EmployeeLicense> _assignedUsers = new();
+        public ReadOnlyCollection<EmployeeLicense> AssignedUsers => _assignedUsers.AsReadOnly();
 
-        private List<string> _assignedHardware = new();
+        private List<HardwareLicense> _assignedHardware = new();
         //Po serial numberze
-        public ReadOnlyCollection<string> AssignedHardware => _assignedHardware.AsReadOnly();
+        public ReadOnlyCollection<HardwareLicense> AssignedHardware => _assignedHardware.AsReadOnly();
 
         private SoftwareLicense()
         {
@@ -68,11 +69,11 @@ namespace ITventory.Domain
                 throw new InvalidOperationException($"License already used {this.MaxUse} times");
             }
 
-            if(_assignedUsers.Any(u => u.Value == user.Username))
+            if(_assignedUsers.Any(u => u.EmployeeId == user.Id))
             {
                 throw new InvalidOperationException("User already assigned to the license");
             }
-            _assignedUsers.Add(user.Username);
+            _assignedUsers.Add(EmployeeLicense.Create(this.Id, user.Id));
         }
 
         public void ReassignLicenseToUser(Employee newUser, Employee oldUser)
@@ -89,18 +90,18 @@ namespace ITventory.Domain
                 throw new ArgumentNullException("User cannot be null");
             }
 
-            if(_assignedUsers.Any(u => u.Value == newUser.Username))
+            if(_assignedUsers.Any(u => u.EmployeeId == newUser.Id))
             {
                 throw new InvalidOperationException("Cannot reassign the license to the same user");
             }
-            if(!_assignedUsers.Any(u => u.Value == oldUser.Username))
+            if(!_assignedUsers.Any(u => u.EmployeeId == oldUser.Id))
             {
                 throw new InvalidOperationException("The license does not belong to this user");
             }
 
-            _assignedUsers.RemoveAll(u => u.Value == oldUser.Username);
+            _assignedUsers.RemoveAll(u => u.EmployeeId == oldUser.Id);
 
-            _assignedUsers.Add(newUser.Username);
+            _assignedUsers.Add(EmployeeLicense.Create(this.Id, newUser.Id));
 
         }
 
@@ -118,11 +119,11 @@ namespace ITventory.Domain
                 throw new InvalidOperationException($"License already used {this.MaxUse} times");
             }
 
-            if (_assignedHardware.Any(h => h == hardware.SerialNumber))
+            if (_assignedHardware.Any(h => h.HardwareId == hardware.Id))
             {
                 throw new InvalidOperationException("Hardware already assigned to the license");
             }
-            _assignedHardware.Add(hardware.SerialNumber);
+            _assignedHardware.Add(HardwareLicense.Create(this.Id, hardware.Id));
         }
 
 
@@ -140,18 +141,18 @@ namespace ITventory.Domain
                 throw new ArgumentNullException("Hardware cannot be null");
             }
 
-            if (_assignedHardware.Any(h => h == newHardware.SerialNumber))
+            if (_assignedHardware.Any(h => h.HardwareId == newHardware.Id))
             {
                 throw new InvalidOperationException("Cannot reassign the license to the same hardware");
             }
-            if (!_assignedUsers.Any(h=> h == oldHardware.SerialNumber))
+            if (!_assignedHardware.Any(h=> h.HardwareId == oldHardware.Id))
             {
                 throw new InvalidOperationException("The license does not belong to this hardware");
             }
 
-            _assignedHardware.RemoveAll(h => h == oldHardware.SerialNumber);
+            _assignedHardware.RemoveAll(h => h.HardwareId == oldHardware.Id);
 
-            _assignedHardware.Add(newHardware.SerialNumber);
+            _assignedHardware.Add(HardwareLicense.Create(this.Id, newHardware.Id));
 
         }
     }

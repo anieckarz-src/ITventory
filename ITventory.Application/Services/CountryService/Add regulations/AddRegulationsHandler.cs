@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.CountryService.Add_regulations
 {
-    internal sealed class AddRegulationsHandler : ICommandHandler<SetRegulations>
+    public sealed class AddRegulationsHandler : ICommandHandler<SetRegulations>
     {
         private readonly ICountryRepository _countryRepository;
 

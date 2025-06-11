@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace ITventory.Domain
     {
         public Guid Id { get; private set; }
         public Guid PrimaryUserId { get; private set; }
+
         public Guid? TopUser =>
          _historyOfLogons
         .GroupBy(l => l.UserId)
@@ -25,7 +27,9 @@ namespace ITventory.Domain
         public HardwareType HardwareType { get; init; }
         public bool IsActive { get; private set; }
         public int LoginCount => _historyOfLogons.Count;
-        public List<Logon> _historyOfLogons { get; private set; } = new List<Logon>();
+
+        private List<Logon> _historyOfLogons = new();
+
         public ReadOnlyCollection<Logon> HistoryOfLogons => _historyOfLogons.AsReadOnly();
 
         private Hardware()

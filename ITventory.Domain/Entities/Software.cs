@@ -13,7 +13,7 @@ namespace ITventory.Domain
         public Guid Id { get; init; }
         public string Name { get; private set; }
         public Guid PublisherId { get; private set; }
-        public SoftwareVersion DefaultVersion => _softwareVersions.FirstOrDefault(v => v.IsDefault);
+        public Guid DefaultVersion => _softwareVersions.FirstOrDefault(v => v.IsDefault).Id;
 
         public ApprovalType ApprovalType { get; private set; }
 

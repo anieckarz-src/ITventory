@@ -16,7 +16,7 @@ namespace ITventory.Domain
         public string Name { get; private set; }
         public ZipCode ZipCode { get; init; }
         public string City { get; init; }
-        public Lattitude Latitude { get; init; }
+        public Latitude Latitude { get; init; }
         public Longitude Longitude { get; init; }
         public TypeOfPlant? TypeOfPlant { get;private set; }
 
@@ -26,7 +26,7 @@ namespace ITventory.Domain
 
         }
 
-        public Location(string name, Guid countryId, ZipCode zipCode, string city, Lattitude latitude, Longitude longitude, TypeOfPlant typeOfPlant)
+        public Location(string name, Guid countryId, ZipCode zipCode, string city, Latitude latitude, Longitude longitude, TypeOfPlant typeOfPlant)
         {
             if (String.IsNullOrWhiteSpace(name) || name.Length < 3)
             {

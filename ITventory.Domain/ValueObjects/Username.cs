@@ -9,29 +9,27 @@ namespace ITventory.Domain.ValueObjects
 {
     public record Username
     {
-        public string Value;
-
-        public Username(string value)
+        private Username()
         {
-            if (String.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentNullException("Empty value");
-            }
-            if(value.Length < 4)
-            {
-                throw new ArgumentException("Username must be at least 4 characters");
-            }
-            if (!value.Any(char.IsLetter))
-            {
-                throw new ArgumentException("Username must contain at least one character");
-            }
-
-            Value = value;
 
         }
-        public static implicit operator Username(string value) =>
-            new Username(value);
-        public static implicit operator string(Username username) =>
-            username.Value;
+        public Username(string value)
+            {
+                if (String.IsNullOrWhiteSpace(value) || value.Length != 6)
+                {
+                    throw new InvalidOperationException("Username cannot be empty");
+                }
+
+                Value = value;
+            }
+
+            public string Value { get; private set; }
+
+
+            public static implicit operator Username(string username)
+                => new(username);
+            public static implicit operator string(Username usn)
+                => usn.Value;
+
+        }
     }
-}
