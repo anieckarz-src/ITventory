@@ -7,7 +7,7 @@ using ITventory.Domain.Enums;
 
 namespace ITventory.Infrastructure.EF.Models
 {
-    internal class CountryReadModel
+    public class CountryReadModel
     {
         public Guid Id { get; init; }
         public string Name { get; init; }

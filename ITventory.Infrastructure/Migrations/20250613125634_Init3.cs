@@ -5,7 +5,7 @@
 namespace ITventory.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddingRoom : Migration
+    public partial class Init3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -48,5 +48,11 @@ namespace ITventory.Infrastructure.EF.Repositories
             _rooms.Update(room);
             await _writeDbContxet.SaveChangesAsync();
         }
+
+        public Task<bool> RoomExistsInOffice(Guid officeId, string name)
+        {
+            return _rooms.AnyAsync(x => x.OfficeId == officeId && x.RoomName == name);
+
+        }
     }
 }

@@ -31,6 +31,7 @@ namespace ITventory.Infrastructure.EF
             services.AddScoped<IRoomRepository, PostgresRoomRepository>();
             services.AddScoped<ISoftwareRepository, PostgresSoftwareRepository>();
             services.AddScoped<ILocationRepository, PostgresLocationRepository>();
+            services.AddScoped<IOfficeRepository, PostgresOfficeRepository>();
 
 
             var options = configuration.GetOptions<PostgresOptions>("Postgres");

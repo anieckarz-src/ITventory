@@ -10,7 +10,7 @@ using ITventory.Shared.Abstractions;
 
 namespace ITventory.Infrastructure.EF.Models
 {
-    internal class LocationReadModel
+    public class LocationReadModel
     {
 
         public Guid Id { get; init; }

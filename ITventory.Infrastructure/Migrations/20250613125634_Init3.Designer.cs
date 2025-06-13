@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITventory.Infrastructure.Migrations
 {
     [DbContext(typeof(WriteDbContext))]
-    [Migration("20250611195950_InitSeedFix3")]
-    partial class InitSeedFix3
+    [Migration("20250613125634_Init3")]
+    partial class Init3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1528,8 +1528,8 @@ namespace ITventory.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<float?>("Area")
-                        .HasColumnType("real");
+                    b.Property<double?>("Area")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Capacity")
                         .HasColumnType("integer");
@@ -1542,6 +1542,10 @@ namespace ITventory.Infrastructure.Migrations
 
                     b.Property<Guid>("PersonResponsibleId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("RoomName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

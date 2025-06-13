@@ -1540,6 +1540,10 @@ namespace ITventory.Infrastructure.Migrations
                     b.Property<Guid>("PersonResponsibleId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("RoomName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OfficeId");
@@ -1547,17 +1551,6 @@ namespace ITventory.Infrastructure.Migrations
                     b.HasIndex("PersonResponsibleId");
 
                     b.ToTable("Rooms", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8f5f3d88-cb83-4748-9d93-191b99b903cc"),
-                            Area = 1149.0,
-                            Capacity = 100,
-                            Floor = 3,
-                            OfficeId = new Guid("f1a2b3c4-0001-0000-0000-000000000001"),
-                            PersonResponsibleId = new Guid("7ebc5231-ae71-4c64-8154-ffe53c88cd0c")
-                        });
                 });
 
             modelBuilder.Entity("ITventory.Domain.Software", b =>

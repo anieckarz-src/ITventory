@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ITventory.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitSeedFix : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -92,11 +92,11 @@ namespace ITventory.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Street = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    BuildingNumber = table.Column<string>(type: "text", nullable: false),
+                    BuildingNumber = table.Column<string>(type: "text", nullable: true),
                     LocationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Lattitude_Value = table.Column<double>(type: "double precision", nullable: false),
-                    Longitude_Value = table.Column<double>(type: "double precision", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -315,8 +315,9 @@ namespace ITventory.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     OfficeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RoomName = table.Column<string>(type: "text", nullable: false),
                     Floor = table.Column<int>(type: "integer", nullable: false),
-                    Area = table.Column<float>(type: "real", nullable: true),
+                    Area = table.Column<double>(type: "double precision", nullable: true),
                     Capacity = table.Column<int>(type: "integer", nullable: false),
                     PersonResponsibleId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -585,7 +586,29 @@ namespace ITventory.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "Location",
                 columns: new[] { "Id", "City", "CountryId", "Latitude", "Longitude", "Name", "TypeOfPlant", "ZipCode" },
-                values: new object[] { new Guid("1a2b3c4d-0001-0000-0000-000000000001"), "Warsaw", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), 52.229700000000001, 21.0122, "Warsaw Factory", "Factory", "00-001" });
+                values: new object[,]
+                {
+                    { new Guid("1a2b3c4d-0001-0000-0000-000000000001"), "Warsaw", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), 52.229700000000001, 21.0122, "Warsaw AGR East", "Factory", "00-001" },
+                    { new Guid("1a2b3c4d-0002-0000-0000-000000000002"), "Kraków", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), 50.064700000000002, 19.945, "Krakow Warehouse", "Warehouse", "30-001" },
+                    { new Guid("1a2b3c4d-0003-0000-0000-000000000003"), "Gdańsk", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), 54.351999999999997, 18.646599999999999, "Gdansk Other", "Other", "80-001" },
+                    { new Guid("1a2b3c4d-0004-0000-0000-000000000004"), "Wrocław", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), 51.107900000000001, 17.038499999999999, "Wroclaw Factory", "Factory", "50-001" },
+                    { new Guid("1a2b3c4d-0005-0000-0000-000000000005"), "Poznań", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0120"), 52.4084, 16.934200000000001, "Poznan Warehouse", "Warehouse", "60-001" },
+                    { new Guid("2b3c4d5e-0001-0000-0000-000000000006"), "Skopje", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"), 41.998100000000001, 21.4254, "Skopje Factory", "Factory", "10-00" },
+                    { new Guid("2b3c4d5e-0002-0000-0000-000000000007"), "Bitola", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"), 41.033299999999997, 21.333300000000001, "Bitola Warehouse", "Warehouse", "70-00" },
+                    { new Guid("2b3c4d5e-0003-0000-0000-000000000008"), "Ohrid", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0117"), 41.116700000000002, 20.800000000000001, "Ohrid Other", "Other", "60-00" },
+                    { new Guid("3c4d5e6f-0001-0000-0000-000000000009"), "Berlin", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"), 52.520000000000003, 13.404999999999999, "Berlin Factory", "Factory", "10-115" },
+                    { new Guid("3c4d5e6f-0002-0000-0000-000000000010"), "Munich", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0104"), 48.135100000000001, 11.582000000000001, "Munich Warehouse", "Warehouse", "80-331" },
+                    { new Guid("4d5e6f70-0001-0000-0000-000000000011"), "Amsterdam", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"), 52.367600000000003, 4.9040999999999997, "Amsterdam Factory", "Factory", "10-12" },
+                    { new Guid("4d5e6f70-0002-0000-0000-000000000012"), "Rotterdam", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0113"), 51.922499999999999, 4.4791699999999999, "Rotterdam Warehouse", "Warehouse", "30-11" },
+                    { new Guid("5e6f7081-0001-0000-0000-000000000013"), "London", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"), 51.507399999999997, -0.1278, "London Factory", "Factory", "EC1A-1BB" },
+                    { new Guid("5e6f7081-0002-0000-0000-000000000014"), "Manchester", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0109"), 53.480800000000002, -2.2425999999999999, "Manchester Warehouse", "Warehouse", "M1-1AE" },
+                    { new Guid("6f708192-0001-0000-0000-000000000015"), "Rome", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"), 41.902799999999999, 12.4964, "Rome Factory", "Factory", "00-184" },
+                    { new Guid("6f708192-0002-0000-0000-000000000016"), "Milan", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0105"), 45.464199999999998, 9.1899999999999995, "Milan Warehouse", "Warehouse", "20-121" },
+                    { new Guid("708192a3-0001-0000-0000-000000000017"), "Paris", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"), 48.8566, 2.3521999999999998, "Paris Factory", "Factory", "75-001" },
+                    { new Guid("708192a3-0002-0000-0000-000000000018"), "Lyon", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0106"), 45.764000000000003, 4.8357000000000001, "Lyon Warehouse", "Warehouse", "69-001" },
+                    { new Guid("8192a3b4-0001-0000-0000-000000000019"), "Madrid", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"), 40.416800000000002, -3.7038000000000002, "Madrid Factory", "Factory", "28-001" },
+                    { new Guid("8192a3b4-0002-0000-0000-000000000020"), "Barcelona", new Guid("d61dc6e9-a541-4337-8c4d-7480dfdd0110"), 41.385100000000001, 2.1734, "Barcelona Warehouse", "Warehouse", "08-001" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Producent",
@@ -638,6 +661,43 @@ namespace ITventory.Infrastructure.Migrations
                     { new Guid("ddeeff00-1122-3344-5566-778899aabbcc"), null, "Nokia 8.3 5G", new Guid("7890a1b2-c3d4-e5f6-7890-a1b2c3d4e5f7"), new DateOnly(2020, 9, 15) },
                     { new Guid("eeff0011-2233-4455-6677-8899aabbccdd"), null, "AirPods Pro", new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"), new DateOnly(2019, 10, 30) },
                     { new Guid("ff001122-3344-5566-7788-99aabbccddee"), null, "Razer Blade 15", new Guid("a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890"), new DateOnly(2021, 3, 1) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Office",
+                columns: new[] { "Id", "BuildingNumber", "IsActive", "Latitude", "LocationId", "Longitude", "Street" },
+                values: new object[,]
+                {
+                    { new Guid("f1a2b3c4-0001-0000-0000-000000000001"), "3A", true, 52.229700000000001, new Guid("1a2b3c4d-0001-0000-0000-000000000001"), 21.0122, "Marszałkowska 5" },
+                    { new Guid("f1a2b3c4-0002-0000-0000-000000000002"), "5B", true, 50.064700000000002, new Guid("1a2b3c4d-0002-0000-0000-000000000002"), 19.945, "Krakowska 12" },
+                    { new Guid("f1a2b3c4-0003-0000-0000-000000000003"), "1C", true, 54.351999999999997, new Guid("1a2b3c4d-0003-0000-0000-000000000003"), 18.646599999999999, "Długa 7" },
+                    { new Guid("f1a2b3c4-0004-0000-0000-000000000004"), "2", true, 51.107900000000001, new Guid("1a2b3c4d-0004-0000-0000-000000000004"), 17.038499999999999, "Rynek 1" },
+                    { new Guid("f1a2b3c4-0005-0000-0000-000000000005"), "A", true, 52.4084, new Guid("1a2b3c4d-0005-0000-0000-000000000005"), 16.934200000000001, "Stary Rynek 10" },
+                    { new Guid("f1a2b3c4-0006-0000-0000-000000000006"), "1", true, 41.998100000000001, new Guid("2b3c4d5e-0001-0000-0000-000000000006"), 21.4254, "Main Street 10" },
+                    { new Guid("f1a2b3c4-0007-0000-0000-000000000007"), "12", true, 41.033299999999997, new Guid("2b3c4d5e-0002-0000-0000-000000000007"), 21.333300000000001, "Bitola Blvd 45" },
+                    { new Guid("f1a2b3c4-0008-0000-0000-000000000008"), "4C", true, 41.116700000000002, new Guid("2b3c4d5e-0003-0000-0000-000000000008"), 20.800000000000001, "Ohrid Lakeside 3" },
+                    { new Guid("f1a2b3c4-0009-0000-0000-000000000009"), "10", true, 52.520000000000003, new Guid("3c4d5e6f-0001-0000-0000-000000000009"), 13.404999999999999, "Alexanderplatz 2" },
+                    { new Guid("f1a2b3c4-0010-0000-0000-000000000010"), "7B", true, 48.135100000000001, new Guid("3c4d5e6f-0002-0000-0000-000000000010"), 11.582000000000001, "Marienplatz 1" },
+                    { new Guid("f1a2b3c4-0011-0000-0000-000000000011"), "5A", true, 52.367600000000003, new Guid("4d5e6f70-0001-0000-0000-000000000011"), 4.9040999999999997, "Damrak 20" },
+                    { new Guid("f1a2b3c4-0012-0000-0000-000000000012"), "2", true, 51.922499999999999, new Guid("4d5e6f70-0002-0000-0000-000000000012"), 4.4791699999999999, "Coolsingel 100" },
+                    { new Guid("f1a2b3c4-0013-0000-0000-000000000013"), "1", true, 51.507399999999997, new Guid("5e6f7081-0001-0000-0000-000000000013"), -0.1278, "Baker Street 221B" },
+                    { new Guid("f1a2b3c4-0014-0000-0000-000000000014"), "5", true, 53.480800000000002, new Guid("5e6f7081-0002-0000-0000-000000000014"), -2.2425999999999999, "Deansgate 50" },
+                    { new Guid("f1a2b3c4-0015-0000-0000-000000000015"), "6", true, 41.902799999999999, new Guid("6f708192-0001-0000-0000-000000000015"), 12.4964, "Via del Corso 15" },
+                    { new Guid("f1a2b3c4-0016-0000-0000-000000000016"), "3", true, 45.464199999999998, new Guid("6f708192-0002-0000-0000-000000000016"), 9.1899999999999995, "Via Monte Napoleone 20" },
+                    { new Guid("f1a2b3c4-0017-0000-0000-000000000017"), "8", true, 48.8566, new Guid("708192a3-0001-0000-0000-000000000017"), 2.3521999999999998, "Rue de Rivoli 10" },
+                    { new Guid("f1a2b3c4-0018-0000-0000-000000000018"), "4", true, 45.764000000000003, new Guid("708192a3-0002-0000-0000-000000000018"), 4.8357000000000001, "Rue Mercière 12" },
+                    { new Guid("f1a2b3c4-0019-0000-0000-000000000019"), "7", true, 40.416800000000002, new Guid("8192a3b4-0001-0000-0000-000000000019"), -3.7038000000000002, "Gran Via 50" },
+                    { new Guid("f1a2b3c4-0020-0000-0000-000000000020"), "9", true, 41.385100000000001, new Guid("8192a3b4-0002-0000-0000-000000000020"), 2.1734, "Passeig de Gràcia 30" },
+                    { new Guid("f1a2b3c4-0021-0000-0000-000000000021"), "5", true, 52.229700000000001, new Guid("1a2b3c4d-0001-0000-0000-000000000001"), 21.0122, "Nowy Świat 20" },
+                    { new Guid("f1a2b3c4-0022-0000-0000-000000000022"), "2", true, 51.107900000000001, new Guid("1a2b3c4d-0004-0000-0000-000000000004"), 17.038499999999999, "Kazimierza Wielkiego 8" },
+                    { new Guid("f1a2b3c4-0023-0000-0000-000000000023"), "3", true, 54.351999999999997, new Guid("1a2b3c4d-0003-0000-0000-000000000003"), 18.646599999999999, "Chmielna 10" },
+                    { new Guid("f1a2b3c4-0024-0000-0000-000000000024"), "6", true, 50.064700000000002, new Guid("1a2b3c4d-0002-0000-0000-000000000002"), 19.945, "Krakowska 45" },
+                    { new Guid("f1a2b3c4-0025-0000-0000-000000000025"), "1", true, 52.4084, new Guid("1a2b3c4d-0005-0000-0000-000000000005"), 16.934200000000001, "Plac Wolności 5" },
+                    { new Guid("f1a2b3c4-0026-0000-0000-000000000026"), "7", true, 41.998100000000001, new Guid("2b3c4d5e-0001-0000-0000-000000000006"), 21.4254, "Skopje Center 3" },
+                    { new Guid("f1a2b3c4-0027-0000-0000-000000000027"), "8", true, 52.520000000000003, new Guid("3c4d5e6f-0001-0000-0000-000000000009"), 13.404999999999999, "Berlin Wall Str 15" },
+                    { new Guid("f1a2b3c4-0028-0000-0000-000000000028"), "9", true, 51.507399999999997, new Guid("5e6f7081-0001-0000-0000-000000000013"), -0.1278, "London Bridge 22" },
+                    { new Guid("f1a2b3c4-0029-0000-0000-000000000029"), "4", true, 41.902799999999999, new Guid("6f708192-0001-0000-0000-000000000015"), 12.4964, "Via Roma 100" },
+                    { new Guid("f1a2b3c4-0030-0000-0000-000000000030"), "3", true, 48.8566, new Guid("708192a3-0001-0000-0000-000000000017"), 2.3521999999999998, "Rue Lafayette 10" }
                 });
 
             migrationBuilder.CreateIndex(

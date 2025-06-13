@@ -27,9 +27,10 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 .HasForeignKey(x => x.PersonResponsibleId);
 
             builder
-                .HasMany(x => x.Employees)
-                .WithOne()
-                .HasForeignKey("RoomId");
+            .HasMany(e => e.Employees)
+            .WithOne()
+            .HasForeignKey(e => e.RoomId);
+
 
             builder
                 .HasMany(x => x.RoomInventory)
@@ -39,7 +40,7 @@ namespace ITventory.Infrastructure.EF.Config.Write
             builder
                 .ToTable("Rooms");
 
-            builder
+            /*builder
                 .HasData(
                 new
                 {
@@ -52,7 +53,7 @@ namespace ITventory.Infrastructure.EF.Config.Write
 
                 }
                 );
-            
+            */ //poprawic zeby ten user tez byl inicjowany przez entity
         }
     }
 }
