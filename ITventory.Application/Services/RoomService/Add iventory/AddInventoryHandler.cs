@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.RoomService.Add_iventory
 {
-    internal sealed class AddInventoryHandler : ICommandHandler<AddInventory>
+    public sealed class AddInventoryHandler : ICommandHandler<AddInventory>
     {
         private readonly IProductRepository _productRepository;
         private readonly IRoomRepository _roomRepository;

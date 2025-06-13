@@ -25,6 +25,7 @@ namespace ITventory.Domain
         public Guid? DepartmentId { get; private set; }
         public DateOnly? HireDate { get; private set; }
         public DateOnly? BirthDate { get; private set; }
+        public Guid? RoomId { get; private set; }
         public int Experience => HireDate.HasValue
         ? DateOnly.FromDateTime(DateTime.UtcNow).Year - HireDate.Value.Year
         : 0;
@@ -55,7 +56,7 @@ namespace ITventory.Domain
 
         public void SetDetails(string name, string lastName, Area area, string positionName,
                                   Seniority seniority, Guid managerId, Guid departmentId, DateOnly hireDate,
-                                  DateOnly birthDate)
+                                  DateOnly birthDate, Guid roomId)
         {
             Name = name;
             LastName = lastName;
@@ -66,6 +67,7 @@ namespace ITventory.Domain
             DepartmentId = departmentId;
             HireDate = hireDate;
             BirthDate = birthDate;
+            RoomId = roomId;
             
         }
 

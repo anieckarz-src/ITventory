@@ -23,7 +23,7 @@ namespace ITventory.Application.Services.EmployeeService.SetEmployeeDetails
         {
             var (userId, name, lastName, area, positionName,
             seniority, managerId, departmentId, hireDate,
-            birthDate) = command;
+            birthDate, roomId) = command;
 
             var employee = await _employeeRepository.GetAsync(userId);
 
@@ -32,7 +32,7 @@ namespace ITventory.Application.Services.EmployeeService.SetEmployeeDetails
                 throw new InvalidOperationException("User not found");
             }
 
-            employee.SetDetails(name, lastName, area, positionName, seniority, managerId, departmentId, hireDate, birthDate);
+            employee.SetDetails(name, lastName, area, positionName, seniority, managerId, departmentId, hireDate, birthDate, roomId);
             await _employeeRepository.UpdateAsync(employee);
         }
     }

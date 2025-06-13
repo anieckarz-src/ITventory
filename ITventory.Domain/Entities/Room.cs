@@ -13,16 +13,14 @@ namespace ITventory.Domain
     {
         public Guid Id { get; init; }
         public Guid OfficeId { get; private set; }
+        public string RoomName { get; private set; }
         public int Floor { get; private set; }
         public double? Area { get; private set; }
         public int Capacity { get;private set; }
         public Guid PersonResponsibleId {  get; private set; }
 
-        private List<InventoryProduct> _roomInventory = new();
-        private List<Employee> _employees = new();
-
-        public ReadOnlyCollection<Employee> Employees => _employees.AsReadOnly();
-        public ReadOnlyCollection<InventoryProduct> RoomInventory => _roomInventory.AsReadOnly();
+        public List<Employee> Employees { get; private set; } = new();
+        public List<InventoryProduct> RoomInventory { get; private set; } = new();
 
 
         private Room()
@@ -37,11 +35,11 @@ namespace ITventory.Domain
                 throw new ArgumentNullException("Invalid employee id");
             }
 
-            if(_employees.Count >= Capacity)
+            if(Employees.Count >= Capacity)
             {
                 throw new InvalidOperationException("Room capacity limit has been met");
             }
-            _employees.Add(employee);
+            Employees.Add(employee);
         }
 
         public void RemoveFromRoom(Employee employee)
@@ -51,15 +49,15 @@ namespace ITventory.Domain
                 throw new ArgumentNullException("Invalid employee id");
             }
 
-            if(! _employees.Any(e => e.Id == employee.Id)){
+            if(! Employees.Any(e => e.Id == employee.Id)){
                 throw new InvalidOperationException("User not in the room");
             }
 
-            _employees.Remove(employee);
+            Employees.Remove(employee);
                 
         }
 
-        public Room(Guid officeId, int floor, double area, int capacity, Guid personResponsibleId)
+        public Room(Guid officeId, string roomName, int floor, double area, int capacity, Guid personResponsibleId)
         {
             if (floor < -1 || floor > 10)
             {
@@ -73,6 +71,10 @@ namespace ITventory.Domain
             {
                 throw new ArgumentException("Capacity must be between 2 and 100");
             }
+            if (String.IsNullOrWhiteSpace(roomName))
+            {
+                throw new ArgumentException("Room name cannot be empty");
+            }
 
 
             Id = Guid.NewGuid();
@@ -81,18 +83,25 @@ namespace ITventory.Domain
             Area = area;
             Capacity = capacity;
             PersonResponsibleId = personResponsibleId;
+            RoomName = roomName;
 
 
         }
 
+        public static Room Create(Guid officeId, string roomName, int floor, double area, int capacity, Guid personResponsibleId)
+        {
+            return new Room(officeId, roomName, floor, area, capacity, personResponsibleId);
+        }
+
+
         public void AddInventory(Product product, int sku)
         {
-            var inventory = _roomInventory.FirstOrDefault(i => i.Product == product);
+            var inventory = RoomInventory.FirstOrDefault(i => i.Product == product);
 
             if (inventory == null)
             {
                 var newInventory = InventoryProduct.Create(this.Id, product, sku);
-                _roomInventory.Add(newInventory);
+                RoomInventory.Add(newInventory);
             }
 
             else
@@ -104,7 +113,7 @@ namespace ITventory.Domain
 
         public void ReduceInventory(Product product, int sku)
         {
-            var inventory = _roomInventory.FirstOrDefault(i => i.Product == product);
+            var inventory = RoomInventory.FirstOrDefault(i => i.Product == product);
 
             if(inventory == null)
             {

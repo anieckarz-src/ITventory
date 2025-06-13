@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ITventory.Controllers
 {
     [ApiController]
-    [Route("carfleet/[controller]")]
+    [Route("itventory/[controller]")]
 
     public abstract class BaseController : ControllerBase
     {

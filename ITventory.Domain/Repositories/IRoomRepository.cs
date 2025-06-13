@@ -15,5 +15,6 @@ namespace ITventory.Domain.Repositories
 
         //read service w repozytorium
         Task<bool> ExistsById(Guid roomId);
+        Task<bool> RoomExistsInOffice(Guid officeId, string name);
     }
 }

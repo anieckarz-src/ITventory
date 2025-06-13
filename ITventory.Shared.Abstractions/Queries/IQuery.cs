@@ -15,4 +15,5 @@ namespace ITventory.Shared.Abstractions.Queries
     {
 
     }
+
 }

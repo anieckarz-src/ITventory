@@ -10,6 +10,6 @@ namespace ITventory.Application.Services.EmployeeService.SetEmployeeDetails
 {
     public record SetEmployeeDetails(Guid userId, string name, string lastName, Area area, string positionName,
                                              Seniority seniority, Guid managerId, Guid departmentId, DateOnly hireDate,
-                                             DateOnly birthDate): ICommand_;
+                                             DateOnly birthDate, Guid roomId): ICommand_;
     
 }
