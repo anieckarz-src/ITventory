@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.ProductService.Change_sku
 {
-    internal sealed class ChangeSkuHandler : ICommandHandler<ChangeSku>
+    public sealed class ChangeSkuHandler : ICommandHandler<ChangeSku>
     {
         private readonly IProductRepository _productRepository;
 

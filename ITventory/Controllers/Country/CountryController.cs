@@ -1,7 +1,7 @@
-﻿using ITventory.Application.DTO;
-using ITventory.Application.Queries.Country;
+﻿using ITventory.Application.Queries.Country;
 using ITventory.Application.Services.CountryService.Add_country;
 using ITventory.Application.Services.CountryService.Add_regulations;
+using ITventory.Infrastructure.EF.DTO;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;

@@ -15,6 +15,7 @@ namespace ITventory.Infrastructure.EF.Contexts
         public DbSet<LocationReadModel> Locations { get; set; }
         public DbSet<ProducentReadModel> Producents { get; set; }
         public DbSet<ModelReadModel> Models { get; set; }
+        public DbSet<ProductReadModel> Products { get; set; }
 
 
         public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options)

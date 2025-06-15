@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.ProductService.Change_nominal_worth
 {
-    internal sealed class ChangeNominalWorthHandler : ICommandHandler<ChangeNominalWorth>
+    public sealed class ChangeNominalWorthHandler : ICommandHandler<ChangeNominalWorth>
     {
         private readonly IProductRepository _productRepository;
 

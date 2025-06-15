@@ -1,79 +1,105 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ITventory.Domain.AbstractClasses;
+﻿using ITventory.Domain.AbstractClasses;
 using ITventory.Domain.Enums;
-using ITventory.Domain.ValueObjects;
+using ITventory.Domain;
+using System.Collections.ObjectModel;
 
-namespace ITventory.Domain
+public class Hardware : Item
 {
-    public class Hardware : Item
-    {
-        public Guid Id { get; private set; }
-        public Guid PrimaryUserId { get; private set; }
+    public Guid Id { get; private set; }
+    public Guid PrimaryUserId { get; private set; }
 
-        public Guid? TopUser =>
-         _historyOfLogons
+    public Guid? TopUser =>
+        _historyOfLogons
         .GroupBy(l => l.UserId)
         .OrderByDescending(g => g.Count())
         .FirstOrDefault()
         ?.Key;
 
-        public Region DefaultDomain { get; private set; }
-        public HardwareType HardwareType { get; init; }
-        public bool IsActive { get; private set; }
-        public int LoginCount => _historyOfLogons.Count;
+    public Region DefaultDomain { get; private set; }
+    public HardwareType HardwareType { get; init; }
+    public bool IsActive { get; private set; }
+    public int LoginCount => _historyOfLogons.Count;
 
-        private List<Logon> _historyOfLogons = new();
+    private IList<Logon> _historyOfLogons = new List<Logon>();
+    public IReadOnlyCollection<Logon> HistoryOfLogons => (_historyOfLogons as List<Logon>).AsReadOnly();
 
-        public ReadOnlyCollection<Logon> HistoryOfLogons => _historyOfLogons.AsReadOnly();
+    private Hardware() { }
 
-        private Hardware()
+    public Hardware(
+        Guid primaryUserId,
+        Region defaultDomain,
+        HardwareType hardwareType,
+        string description,
+        double worth,
+        Guid producentId,
+        Guid modelId,
+        int modelYear,
+        string serialNumber,
+        DateOnly purchasedDate,
+        Guid roomId,
+        Guid departmentId
+    ) : base(description, worth, producentId, modelId, modelYear, serialNumber, purchasedDate, roomId, departmentId)
+    {
+        Id = Guid.NewGuid();
+        PrimaryUserId = primaryUserId;
+        DefaultDomain = defaultDomain;
+        HardwareType = hardwareType;
+        IsActive = true;
+    }
+
+    public static Hardware Create(
+        Guid primaryUserId,
+        Region defaultDomain,
+        HardwareType hardwareType,
+        string description,
+        double worth,
+        Guid producentId,
+        Guid modelId,
+        int modelYear,
+        string serialNumber,
+        DateOnly purchasedDate,
+        Guid roomId,
+        Guid departmentId
+    )
+    {
+        return new Hardware(
+            primaryUserId,
+            defaultDomain,
+            hardwareType,
+            description,
+            worth,
+            producentId,
+            modelId,
+            modelYear,
+            serialNumber,
+            purchasedDate,
+            roomId,
+            departmentId
+        );
+    }
+
+    public void AddLogon(Logon logon)
+    {
+        if (logon == null)
         {
-
+            throw new ArgumentNullException(nameof(logon));
         }
 
-        public Hardware(Guid primaryUserId, Region defaultDomain, HardwareType hardwareType)
+        if (_historyOfLogons.Any(l => l.Id == logon.Id))
         {
-            Id = Guid.NewGuid();
-            PrimaryUserId = primaryUserId;
-            DefaultDomain = defaultDomain;
-            HardwareType = hardwareType;
-            IsActive = true;
+            throw new ArgumentException("This logon instance already exists");
         }
 
-        public static Hardware Create(Guid primaryUserId, Region defaultDomain, HardwareType hardwareType)
+        _historyOfLogons.Add(logon);
+    }
+
+    public void SetPrimaryUser(Employee user)
+    {
+        if (user == null)
         {
-            return new Hardware(primaryUserId, defaultDomain, hardwareType);
+            throw new ArgumentNullException("User cannot be empty");
         }
 
-        public void AddLogon(Logon logon)
-        {
-            if (logon == null)
-            {
-                throw new ArgumentNullException(nameof(logon));
-            }
-
-            if (_historyOfLogons.Any(l => l.Id == logon.Id))
-            {
-                throw new ArgumentException("This logon instance already exists");
-            }
-            _historyOfLogons.Add(logon);
-        }
-
-        public void SetPrimaryUser(Employee user)
-        {
-            if (user == null)
-            {
-                throw new ArgumentNullException("User cannot be empty");
-            }
-
-            this.PrimaryUserId = user.Id;
-
-        }
+        PrimaryUserId = user.Id;
     }
 }

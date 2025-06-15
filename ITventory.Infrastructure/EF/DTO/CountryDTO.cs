@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITventory.Application.DTO
+namespace ITventory.Infrastructure.EF.DTO
 {
     public class CountryDTO
     {

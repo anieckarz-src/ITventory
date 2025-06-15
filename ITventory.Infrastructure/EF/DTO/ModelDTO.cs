@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITventory.Application.DTO
+namespace ITventory.Infrastructure.EF.DTO
 {
-    public class ProducentDTO
+    public class ModelDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string CountryName { get; set; }
-
-        public ICollection<ModelDTO> Models { get; set; }
+        public string ProducentName { get; set; }
+        public DateOnly ReleaseDate { get; set; }
+        public string Comments { get; set; }
     }
 }

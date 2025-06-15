@@ -1,6 +1,6 @@
-﻿using ITventory.Application.DTO;
-using ITventory.Application.Queries.Country;
+﻿using ITventory.Application.Queries.Country;
 using ITventory.Application.Queries.Producent;
+using ITventory.Infrastructure.EF.DTO;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;

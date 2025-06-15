@@ -9,9 +9,15 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.ProductService.Add_product
 {
-    internal sealed class AddProductHandler : ICommandHandler<AddProduct>
+    public sealed class AddProductHandler : ICommandHandler<AddProduct>
     {
         private readonly IProductRepository _productRepository;
+
+        public AddProductHandler(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
+
         public async Task HandleAsync(AddProduct command)
         {
             var (description, productType, maxSKU, nominalWorth) = command;

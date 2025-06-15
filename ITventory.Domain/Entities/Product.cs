@@ -23,7 +23,7 @@ namespace ITventory.Domain
             {
                 throw new ArgumentNullException("Description cannot be empty");
             }
-            if(!Enum.IsDefined(typeof(ProductType), descrption))
+            if(!Enum.IsDefined(typeof(ProductType), productType))
             {
                 throw new ArgumentException("Invalid product type");
             }
