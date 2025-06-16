@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ITventory.Infrastructure.EF.DTO.Minimal_DTOs;
 using ITventory.Infrastructure.EF.Models;
 
 namespace ITventory.Infrastructure.EF.DTO
@@ -27,9 +28,9 @@ namespace ITventory.Infrastructure.EF.DTO
 
         public virtual ICollection<LogonDTO>? Logons { get; set; }
         public virtual EmployeeBasicDto PrimaryUser { get; set; }
-        public virtual ProducentDTO Producent { get; set; }
+        public virtual ProducentMinimalDTO Producent { get; set; }
         public virtual ModelDTO Model { get; set; }
-        public virtual RoomDTO Room { get; set; }
+        public virtual RoomMinimalDTO Room { get; set; }
         public virtual DepartmentDTO Department { get; set; }
 
 

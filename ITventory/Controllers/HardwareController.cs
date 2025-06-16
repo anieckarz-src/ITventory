@@ -1,5 +1,6 @@
 ﻿using ITventory.Application.Queries.Hardware;
 using ITventory.Application.Services.HardwareService.Add_hardware;
+using ITventory.Application.Services.HardwareService.Add_logon;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
@@ -24,7 +25,13 @@ namespace ITventory.Controllers
         public async Task<ICollection<HardwareDTO>> Get([FromQuery] GetHardware query)
         {
             return await _queryDispatcher.QueryAsync(query);
-            
+        }
+
+        [HttpPost("logons")]
+        public async Task<IActionResult> Post([FromBody] AddLogon command)
+        {
+            await _commandDispatcher.DispatchAsync(command);
+            return Created();
         }
     }
 }

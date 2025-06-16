@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.HardwareService.Add_logon
 {
-    internal sealed class AddLogonHandler : ICommandHandler<AddLogon>
+    public sealed class AddLogonHandler : ICommandHandler<AddLogon>
     {
         private readonly IHardwareRepository _hardwareRepository;
         private readonly IEmployeeRepository _employeeRepository;

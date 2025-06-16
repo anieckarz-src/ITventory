@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using ITventory.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Metadata;
+
 
 namespace ITventory.Infrastructure.EF.Config.Write
 {
@@ -43,12 +45,12 @@ namespace ITventory.Infrastructure.EF.Config.Write
             builder
                 .Ignore(x => x.TopUser);
 
-            builder.HasMany(x => x.HistoryOfLogons)
-            .WithOne()
-            .HasForeignKey(l => l.HardwareId);
+            builder.HasMany(x => x._historyOfLogons)
+       .WithOne()
+       .HasForeignKey(l => l.HardwareId);
 
-            builder.Navigation(x => x.HistoryOfLogons)
-                .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+
 
             builder.Property(x => x.DefaultDomain)
                 .HasConversion<string>();

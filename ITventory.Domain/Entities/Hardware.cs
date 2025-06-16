@@ -20,8 +20,8 @@ public class Hardware : Item
     public bool IsActive { get; private set; }
     public int LoginCount => _historyOfLogons.Count;
 
-    private IList<Logon> _historyOfLogons = new List<Logon>();
-    public IReadOnlyCollection<Logon> HistoryOfLogons => (_historyOfLogons as List<Logon>).AsReadOnly();
+    public List<Logon> _historyOfLogons = new List<Logon>();
+    //public IReadOnlyCollection<Logon> HistoryOfLogons => (_historyOfLogons as List<Logon>).AsReadOnly();
 
     private Hardware() { }
 

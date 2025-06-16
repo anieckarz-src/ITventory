@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ITventory.Application.Queries.Hardware;
 using ITventory.Infrastructure.EF.Contexts;
 using ITventory.Infrastructure.EF.DTO;
+using ITventory.Infrastructure.EF.DTO.Minimal_DTOs;
 using ITventory.Infrastructure.EF.Models;
 using ITventory.Infrastructure.EF.QueryHandlers.Department;
 using ITventory.Shared.Abstractions.Queries;
@@ -94,12 +95,11 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Hardware
                     Seniority = x.PrimaryUser.Seniority
                 },
 
-                Producent = new ProducentDTO
+                Producent = new ProducentMinimalDTO
                 {
                     Id = x.Producent.Id,
                     Name = x.Producent.Name,
                     CountryName = x.Producent.Country.Name,
-                    //Pusta lista z modelami
                 },
 
                 Model = new ModelDTO
@@ -110,7 +110,7 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Hardware
                     Comments = x.Model.Comments
                 },
 
-                Room = new RoomDTO
+                Room = new RoomMinimalDTO
                 {
                   RoomName = x.Room.RoomName,
                   Floor = x.Room.Floor
