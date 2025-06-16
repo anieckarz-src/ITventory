@@ -45,9 +45,12 @@ namespace ITventory.Infrastructure.EF.Config.Write
             builder
                 .Ignore(x => x.TopUser);
 
-            builder.HasMany(x => x._historyOfLogons)
-       .WithOne()
-       .HasForeignKey(l => l.HardwareId);
+
+
+            builder
+              .HasMany(x => x._historyOfLogons)
+                .WithOne()
+                .HasForeignKey(l => l.HardwareId);
 
 
 

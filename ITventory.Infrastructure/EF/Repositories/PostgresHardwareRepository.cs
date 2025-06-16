@@ -43,14 +43,14 @@ namespace ITventory.Infrastructure.EF.Repositories
             return _hardware.AnyAsync(x => x.SerialNumber == serialNumber);
         }
 
-        public Task<Hardware> GetAsync(Guid hardwareId)
+        public async Task<Hardware> GetAsync(Guid hardwareId)
         {
-            return _hardware.SingleOrDefaultAsync(x => x.Id == hardwareId);
+            return await _hardware.SingleOrDefaultAsync(x => x.Id == hardwareId);
         }
 
-        public Task<Hardware> GetBySerialNumberAsync(string serialNumber)
+        public async Task<Hardware> GetBySerialNumberAsync(string serialNumber)
         {
-            return _hardware.SingleOrDefaultAsync(x => x.SerialNumber == serialNumber);
+            return await _hardware.SingleOrDefaultAsync(x => x.SerialNumber == serialNumber);
         }
 
         public async Task UpdateAsync(Hardware hardware)

@@ -25,6 +25,11 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 .HasForeignKey(x => x.UserId);
 
             builder
+                .HasOne<Hardware>()
+                .WithMany()
+                .HasForeignKey(x => x.HardwareId);
+
+            builder
                 .ToTable("Logon");
 
         }
