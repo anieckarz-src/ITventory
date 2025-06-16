@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions;
 
 namespace ITventory.Domain
 {
-    public sealed class Logon: Entity
+    public sealed class Logon
     {
         public Guid Id { get; init; }
         public Guid HardwareId {  get; init; }
