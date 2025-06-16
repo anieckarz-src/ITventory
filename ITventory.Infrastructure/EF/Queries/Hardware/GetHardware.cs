@@ -8,8 +8,11 @@ using ITventory.Shared.Abstractions.Queries;
 
 namespace ITventory.Application.Queries.Hardware
 {
-    public class GetHardwareBySerialNumber: IQuery<HardwareDTO>
+    public class GetHardware: IQuery<ICollection<HardwareDTO>>
     {
-        public string SerialNumber { get; set; }
+        public string? SerialNumber { get; set; }
+        public string? Domain { get; set; }
+        public string? HardwareType { get; set; }
+
     }
 }

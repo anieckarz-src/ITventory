@@ -11,7 +11,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.EmployeeService.SetEmployeeDetails
 {
-    internal sealed class SetEmployeeDetailsHandler : ICommandHandler<SetEmployeeDetails>
+    public sealed class SetEmployeeDetailsHandler : ICommandHandler<SetEmployeeDetails>
     {
         private readonly IEmployeeRepository _employeeRepository;
 

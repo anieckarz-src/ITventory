@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.EmployeeService.ChangeManager
 {
-    internal sealed class ChangeManagerHandler : ICommandHandler<ChangeManager>
+    public sealed class ChangeManagerHandler : ICommandHandler<ChangeManager>
     {
         private readonly IEmployeeRepository _employeeRepository;
 

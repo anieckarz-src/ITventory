@@ -55,9 +55,47 @@ namespace ITventory.Domain
         }
 
         public void SetDetails(string name, string lastName, Area area, string positionName,
-                                  Seniority seniority, Guid managerId, Guid departmentId, DateOnly hireDate,
-                                  DateOnly birthDate, Guid roomId)
+                       Seniority seniority, Guid managerId, Guid departmentId, DateOnly hireDate,
+                       DateOnly birthDate, Guid roomId)
         {
+            // Validate string inputs
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Name cannot be null or empty.", nameof(name));
+
+            if (string.IsNullOrWhiteSpace(lastName))
+                throw new ArgumentException("LastName cannot be null or empty.", nameof(lastName));
+
+            if (string.IsNullOrWhiteSpace(positionName))
+                throw new ArgumentException("PositionName cannot be null or empty.", nameof(positionName));
+
+            // Validate enums
+            if (!Enum.IsDefined(typeof(Area), area))
+                throw new ArgumentException("Invalid Area value.", nameof(area));
+
+            if (!Enum.IsDefined(typeof(Seniority), seniority))
+                throw new ArgumentException("Invalid Seniority value.", nameof(seniority));
+
+            // Validate GUIDs
+            if (managerId == Guid.Empty)
+                throw new ArgumentException("ManagerId cannot be empty.", nameof(managerId));
+
+            if (departmentId == Guid.Empty)
+                throw new ArgumentException("DepartmentId cannot be empty.", nameof(departmentId));
+
+            if (roomId == Guid.Empty)
+                throw new ArgumentException("RoomId cannot be empty.", nameof(roomId));
+
+            // Validate Dates
+            if (birthDate > DateOnly.FromDateTime(DateTime.Today))
+                throw new ArgumentException("BirthDate cannot be in the future.", nameof(birthDate));
+
+            if (hireDate > DateOnly.FromDateTime(DateTime.Today))
+                throw new ArgumentException("HireDate cannot be in the future.", nameof(hireDate));
+
+            if (birthDate > hireDate)
+                throw new ArgumentException("BirthDate cannot be after HireDate.");
+
+            // Set properties after validation
             Name = name;
             LastName = lastName;
             Area = area;
@@ -68,8 +106,8 @@ namespace ITventory.Domain
             HireDate = hireDate;
             BirthDate = birthDate;
             RoomId = roomId;
-            
         }
+
 
         public void SetManager(Guid managerId)
         {

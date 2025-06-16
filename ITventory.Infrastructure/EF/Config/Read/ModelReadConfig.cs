@@ -9,26 +9,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ITventory.Infrastructure.EF.Config.Read
 {
-    internal sealed class ProducentConfig : IEntityTypeConfiguration<ProducentReadModel>
+    internal class ModelReadConfig : IEntityTypeConfiguration<ModelReadModel>
     {
-        public void Configure(EntityTypeBuilder<ProducentReadModel> builder)
+        public void Configure(EntityTypeBuilder<ModelReadModel> builder)
         {
-
             builder
-                .ToTable("Producent");
+                .ToTable("Model");
 
             builder
                 .HasKey(x => x.Id);
 
             builder
-                .HasOne(c => c.Country)
+                .HasOne(x => x.Producent)
                 .WithMany()
-                .HasForeignKey(c => c.CountryId);
-
-            builder
-                .HasMany(x => x.Models)
-                .WithOne(x => x.Producent)
                 .HasForeignKey(x => x.ProducentId);
+            
+
         }
     }
 }

@@ -9,21 +9,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ITventory.Infrastructure.EF.Config.Read
 {
-    internal class ModelConfig : IEntityTypeConfiguration<ModelReadModel>
+    internal sealed class LocationReadConfig : IEntityTypeConfiguration<LocationReadModel>
     {
-        public void Configure(EntityTypeBuilder<ModelReadModel> builder)
+        public void Configure(EntityTypeBuilder<LocationReadModel> builder)
         {
+
             builder
-                .ToTable("Model");
+                .ToTable("Location");
 
             builder
                 .HasKey(x => x.Id);
 
-            builder
-                .HasOne(x => x.Producent)
-                .WithMany()
-                .HasForeignKey(x => x.ProducentId);
-            
 
         }
     }

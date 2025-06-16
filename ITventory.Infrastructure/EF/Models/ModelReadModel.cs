@@ -12,7 +12,7 @@ namespace ITventory.Infrastructure.EF.Models
         public string Name { get; set; }
         public Guid ProducentId { get; set; }
         public DateOnly ReleaseDate { get; set; }
-        public string Comments { get; set; }
+        public string? Comments { get; set; }
 
         // Inkorporacja relacji
 

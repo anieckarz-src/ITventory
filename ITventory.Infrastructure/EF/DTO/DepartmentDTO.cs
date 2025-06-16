@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace ITventory.Infrastructure.EF.DTO
 {
-    public class ModelDTO
+    public class DepartmentDTO
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string ProducentName { get; set; }
-        public DateOnly ReleaseDate { get; set; }
-        public string? Comments { get; set; }
+        public EmployeeBasicDto Manager { get; set; }
     }
 }
