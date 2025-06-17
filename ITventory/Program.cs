@@ -36,8 +36,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("LocalDevelopment", policy =>
     {
         policy.WithOrigins(
-                "http://localhost:5173")
-
+                "http://localhost:5173",
+                "http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials(); 
@@ -53,9 +53,15 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddIdentityCore<UserIdentity>(options =>
 {
-    options.Password.RequiredLength = 8;
-    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 5;
+    options.Password.RequireDigit = false;
     options.User.RequireUniqueEmail = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Lockout = new LockoutOptions()
+    {
+        MaxFailedAccessAttempts = 100
+    };
 })
     .AddEntityFrameworkStores<UserManagerDbContext>()
     .AddApiEndpoints();
@@ -116,3 +122,4 @@ app.MapIdentityApi<UserIdentity>();
 
 
 app.Run();
+

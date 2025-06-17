@@ -15,7 +15,7 @@ namespace ITventory.Domain.ValueObjects
         }
         public Username(string value)
             {
-                if (String.IsNullOrWhiteSpace(value) || value.Length != 6)
+                if (String.IsNullOrWhiteSpace(value))
                 {
                     throw new InvalidOperationException("Username cannot be empty");
                 }
