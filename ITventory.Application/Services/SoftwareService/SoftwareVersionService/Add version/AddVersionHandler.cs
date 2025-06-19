@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.SoftwareService.SoftwareVersionService.Add_version
 {
-    internal sealed class AddVersionHandler : ICommandHandler<AddVersion>
+    public sealed class AddVersionHandler : ICommandHandler<AddVersion>
     {
         private readonly ISoftwareRepository _softwareRepository;
 
@@ -27,6 +27,7 @@ namespace ITventory.Application.Services.SoftwareService.SoftwareVersionService.
             var version = SoftwareVersion.Create(softwareId, versionNumber, price, published, licenseType);
             software.AddVersion(version);
             await _softwareRepository.UpdateAsync(software);
+            
 
             
         }

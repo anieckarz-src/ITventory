@@ -7,7 +7,7 @@ using ITventory.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ITventory.Infrastructure.EF.Config.Write
+namespace ITventory.Infrastructure.EF.Config.Old
 {
     internal sealed class LogonConfig : IEntityTypeConfiguration<Logon>
     {
@@ -24,10 +24,6 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 .WithMany()
                 .HasForeignKey(x => x.UserId);
 
-            builder
-                .HasOne<Hardware>()
-                .WithMany()
-                .HasForeignKey(x => x.HardwareId);
 
             builder
                 .ToTable("Logon");

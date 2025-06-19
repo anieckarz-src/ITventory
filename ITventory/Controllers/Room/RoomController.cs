@@ -1,4 +1,8 @@
-﻿using ITventory.Application.Services.RoomService.Add_room;
+﻿using ITventory.Application.Services.RoomService.Add_iventory;
+using ITventory.Application.Services.RoomService.Add_room;
+using ITventory.Application.Services.RoomService.Reduce_inventory;
+using ITventory.Infrastructure.EF.DTO;
+using ITventory.Infrastructure.EF.Queries;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +21,26 @@ namespace ITventory.Controllers.Room
         {
             await _commandDispatcher.DispatchAsync(command);
             return Created();
+        }
+
+        [HttpPut("inventory-add")]
+        public async Task<IActionResult> Put([FromBody] AddInventory command)
+        {
+            await _commandDispatcher.DispatchAsync(command);
+            return NoContent();
+        }
+
+        [HttpPut("inventory-reduce")]
+        public async Task<IActionResult> Put([FromBody] ReduceInventory command)
+        {
+            await _commandDispatcher.DispatchAsync(command);
+            return NoContent();
+        }
+
+        [HttpGet("inventory")]
+        public async Task<ICollection<ProductInventoryDTO>> Get([FromQuery] GetInventoryProduct query)
+        {
+            return await _queryDispatcher.QueryAsync(query);
         }
     }
 }

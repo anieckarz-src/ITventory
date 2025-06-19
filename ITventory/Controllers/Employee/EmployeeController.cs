@@ -1,4 +1,5 @@
-﻿using ITventory.Application.Services.EmployeeService.SetEmployeeDetails;
+﻿using ITventory.Application.Services.EmployeeService.ChangeManager;
+using ITventory.Application.Services.EmployeeService.SetEmployeeDetails;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Infrastructure.EF.Queries;
 using ITventory.Shared.Abstractions.Commands;
@@ -19,6 +20,16 @@ namespace ITventory.Controllers.Employee
             await _commandDispatcher.DispatchAsync(command);
             return NoContent();
         }
+
+        [HttpPut("manager")]
+        public async Task<IActionResult> Put([FromBody] ChangeManager command)
+        {
+            await _commandDispatcher.DispatchAsync(command);
+            return NoContent();
+            
+        }
+        
+
 
         [HttpGet]
         public async Task<ICollection<EmployeeDTO>> Get([FromQuery] GetEmployee query)

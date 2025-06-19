@@ -26,12 +26,13 @@ namespace ITventory.Domain
         }
         public double CurrentWorth => Worth * ConditionMultiplier();
 
-        public DateOnly? LastReviewed => _historyOfReviews.Count == 0 ? null : _historyOfReviews.Max(r => r.ReviewDate);
-        public int ReviewCount => _historyOfReviews.Count;
+        public DateOnly? LastReviewed => HistoryOfReviews.Count == 0 ? null : HistoryOfReviews.Max(r => r.ReviewDate);
+        public int ReviewCount => HistoryOfReviews.Count;
 
 
-        private List<Review> _historyOfReviews = new();
-        public IReadOnlyCollection<Review> HistoryOfReviews => _historyOfReviews.AsReadOnly();
+        //private IList<Review> _historyOfReviews = new List<Review>();
+        public List <Review> HistoryOfReviews { get; private set; } = new();
+
 
         private Equipment()
         {
@@ -56,12 +57,12 @@ namespace ITventory.Domain
         {
             if (review == null) throw new ArgumentNullException("Review is empty here");
 
-            if(_historyOfReviews.Any(r => r.Id == review.Id))
+            if(HistoryOfReviews.Any(r => r.Id == review.Id))
             {
                 throw new ArgumentException("Review already exists");
             }
 
-            _historyOfReviews.Add(review);
+            HistoryOfReviews.Add(review);
             Condition = review.Condition;
 
         }

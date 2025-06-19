@@ -5,7 +5,7 @@
 namespace ITventory.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class FixHistoryOfLogons : Migration
+    public partial class InitFix5 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

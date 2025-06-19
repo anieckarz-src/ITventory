@@ -8,17 +8,16 @@ using ITventory.Shared.Abstractions;
 
 namespace ITventory.Domain
 {
-    public class Software: Entity
+    public class Software
     {
         public Guid Id { get; init; }
         public string Name { get; private set; }
         public Guid PublisherId { get; private set; }
-        public Guid DefaultVersion => _softwareVersions.FirstOrDefault(v => v.IsDefault).Id;
+        public Guid? DefaultVersion => SoftwareVersions.FirstOrDefault(v => v.IsDefault).Id;
 
         public ApprovalType ApprovalType { get; private set; }
 
-        private readonly List<SoftwareVersion> _softwareVersions = new();
-        public IReadOnlyCollection<SoftwareVersion> SoftwareVersions => _softwareVersions.AsReadOnly();
+        public List<SoftwareVersion> SoftwareVersions { get; private set; } = new();
 
         private Software()
         {
@@ -31,11 +30,12 @@ namespace ITventory.Domain
             {
                 throw new ArgumentException("Invalid software name");
             }
-
+            
             Id = Guid.NewGuid();
             PublisherId = publisherId;
             ApprovalType = approvalType;
             Name = name;
+            
         }
 
         public static Software Create (Guid publisherId, ApprovalType approvalType, string name)
@@ -62,10 +62,10 @@ namespace ITventory.Domain
 
         public void AddVersion(SoftwareVersion version)
         {
-            if(_softwareVersions.Any(v => v.VersionNumber == version.VersionNumber)) {
+            if(SoftwareVersions.Any(v => v.VersionNumber == version.VersionNumber)) {
                 throw new InvalidOperationException("This software version already exists");
             }
-            _softwareVersions.Add(version);
+            SoftwareVersions.Add(version);
         }
     }
 }

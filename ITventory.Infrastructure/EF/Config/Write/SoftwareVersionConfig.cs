@@ -16,6 +16,10 @@ namespace ITventory.Infrastructure.EF.Config.Write
             builder
                 .HasKey(x => x.Id);
 
+            builder
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
+
 
             builder
                 .Property(x => x.LicenseType)

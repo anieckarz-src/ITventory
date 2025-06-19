@@ -23,7 +23,8 @@ namespace ITventory.Infrastructure.EF.Config.Read
                 .HasOne(x => x.Producent)
                 .WithMany()
                 .HasForeignKey(x => x.ProducentId);
-            
+
+           
 
         }
     }

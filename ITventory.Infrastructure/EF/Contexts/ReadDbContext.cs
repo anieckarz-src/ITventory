@@ -22,6 +22,8 @@
             public DbSet<RoomReadModel> Rooms { get; set; }
             public DbSet<HardwareReadModel> Hardware { get; set; }
             public DbSet<LogonReadModel> Logon { get; set; }
+            public DbSet<EquipmentReadModel> Equipment { get; set; }
+            public DbSet<ProductInventoryReadModel> ProductInventory { get; set; }
 
             public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options)
             {

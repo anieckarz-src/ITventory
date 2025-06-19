@@ -10,7 +10,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.LicenseService.Add_license
 {
-    internal sealed class CreateLicenseHandler : ICommandHandler<CreateLicense>
+    public sealed class CreateLicenseHandler : ICommandHandler<CreateLicense>
     {
         private readonly ILicenseRepository _licenseRepository;
         private readonly ISoftwareRepository _softwareRepository;

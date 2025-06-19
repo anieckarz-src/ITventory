@@ -45,7 +45,7 @@ namespace ITventory.Infrastructure.EF.Repositories
 
         public Task<Software> GetAsync(Guid softwareId)
         {
-            return _software.FirstOrDefaultAsync(x => x.Id == softwareId);
+            return _software.Include(x => x.SoftwareVersions).FirstOrDefaultAsync(x => x.Id == softwareId);
         }
 
         public Task<Software> GetByNameAsync(string name)

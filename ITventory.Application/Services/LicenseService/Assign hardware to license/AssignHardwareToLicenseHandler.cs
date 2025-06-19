@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.LicenseService.Assign_hardware_to_license
 {
-    internal sealed class AssignHardwareToLicenseHandler : ICommandHandler<AssignHardwareToLicense>
+    public sealed class AssignHardwareToLicenseHandler : ICommandHandler<AssignHardwareToLicense>
     {
         private readonly IHardwareRepository _hardwareRepository;
         private readonly ILicenseRepository _licenseRepository;

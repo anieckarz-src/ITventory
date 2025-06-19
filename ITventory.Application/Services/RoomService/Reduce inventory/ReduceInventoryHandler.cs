@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.RoomService.Reduce_inventory
 {
-    internal sealed class ReduceInventoryHandler : ICommandHandler<ReduceInventory>
+    public sealed class ReduceInventoryHandler : ICommandHandler<ReduceInventory>
     {
 
         private readonly IProductRepository _productRepository;

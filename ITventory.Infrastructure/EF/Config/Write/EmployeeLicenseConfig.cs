@@ -18,6 +18,10 @@ namespace ITventory.Infrastructure.EF.Config.Write
             builder
                 .HasKey(e => e.Id);
 
+            builder
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
+
             builder.HasOne<SoftwareLicense>()
                 .WithMany()
                 .HasForeignKey(e => e.LicenseId);

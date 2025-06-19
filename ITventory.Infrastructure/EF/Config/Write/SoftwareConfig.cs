@@ -32,7 +32,9 @@ namespace ITventory.Infrastructure.EF.Config.Write
             builder
                 .HasMany(x => x.SoftwareVersions)
                 .WithOne()
-                .HasForeignKey("SoftwareId");
+                .HasForeignKey(x => x.SoftwareId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             builder
                 .ToTable("Software");

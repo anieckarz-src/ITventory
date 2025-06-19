@@ -46,7 +46,7 @@ namespace ITventory.Infrastructure.EF.Repositories
 
         public Task<Employee> GetAsync(Guid employeeId)
         {
-            return _employees.FirstOrDefaultAsync(x => x.Id == employeeId);
+            return  _employees.FirstOrDefaultAsync(x => x.Id == employeeId);
         }
 
         public Task<Employee> GetByUsernameAsync(string username)

@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.SoftwareService.SoftwareVersionService.Add_rating
 {
-    internal sealed class AddSoftwareRatingHandler : ICommandHandler<AddSoftwareRating>
+    public sealed class AddSoftwareRatingHandler : ICommandHandler<AddSoftwareRating>
     {
         private readonly ISoftwareRepository _softwareRepository;
         private readonly IEmployeeRepository _employeeRepository;
@@ -41,10 +41,6 @@ namespace ITventory.Application.Services.SoftwareService.SoftwareVersionService.
             version.AddRating(rating);
             await _softwareRepository.UpdateAsync(software);
 
-
-            version.AddRating(rating);
-
-            await _softwareRepository.UpdateAsync(software);
 
         }
     }

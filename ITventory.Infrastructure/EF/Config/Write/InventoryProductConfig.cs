@@ -17,6 +17,10 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 .HasKey(x => x.Id);
 
             builder
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
+
+            builder
                 .HasOne<Room>()
                 .WithMany()
                 .HasForeignKey(x => x.RoomId);

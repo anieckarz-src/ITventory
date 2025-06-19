@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 
 public class Hardware : Item
 {
-    public Guid Id { get; private set; }
     public Guid PrimaryUserId { get; private set; }
 
     public Guid? TopUser =>

@@ -35,7 +35,7 @@ namespace ITventory.Application.Services.Equipment_service.Add_equipment
             var (description, worth, producentId, modelId, modelYear, serialNumber,
                           purchasedDate, roomId, departmentId, condition) = command;
 
-            var model = _modelRepository.GetAsync(modelId) ?? throw new InvalidOperationException("Model not found");
+            var model = await _modelRepository.GetAsync(modelId) ?? throw new InvalidOperationException("Model not found");
 
             if(await _producentRepository.ExistsById(producentId) == false){
                 throw new InvalidOperationException("Producent not found");

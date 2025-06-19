@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.LicenseService.Assign_user_to_license
 {
-    internal sealed class AssignUserToLicenseHandler : ICommandHandler<AssignUserToLicense>
+    public sealed class AssignUserToLicenseHandler : ICommandHandler<AssignUserToLicense>
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ILicenseRepository _licenseRepository;

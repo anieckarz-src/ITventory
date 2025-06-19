@@ -18,19 +18,15 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 .HasKey(x => x.Id);
 
             builder
-                .HasOne<Product>()
-                .WithMany()
-                .HasForeignKey(x => x.ReviewedProductId);
+                .Property(x => x.Id)
+                .ValueGeneratedNever();
+
 
             builder
                 .HasOne<Employee>()
                 .WithMany()
                 .HasForeignKey(x => x.RatedById);
 
-            builder
-                .HasOne<SoftwareVersion>()
-                .WithMany()
-                .HasForeignKey(x => x.SoftwareVersionId);
 
             builder
                 .ToTable("RatingSoftwareVersion");

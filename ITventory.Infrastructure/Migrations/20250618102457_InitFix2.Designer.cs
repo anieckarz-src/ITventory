@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ITventory.Infrastructure.Migrations
 {
     [DbContext(typeof(WriteDbContext))]
-    [Migration("20250616174504_FixHistoryOfLogons")]
-    partial class FixHistoryOfLogons
+    [Migration("20250618102457_InitFix2")]
+    partial class InitFix2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -789,38 +789,6 @@ namespace ITventory.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ITventory.Domain.Logon", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Domain")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("HardwareId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("IpAddress")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("LogonTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HardwareId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Logon", (string)null);
-                });
-
             modelBuilder.Entity("ITventory.Domain.Model", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1486,42 +1454,6 @@ namespace ITventory.Infrastructure.Migrations
                     b.ToTable("Product", (string)null);
                 });
 
-            modelBuilder.Entity("ITventory.Domain.Review", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Condition")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Details")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("EquipmentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateOnly>("ReviewDate")
-                        .HasColumnType("date");
-
-                    b.Property<Guid>("ReviewerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ReviwedEquipmentId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EquipmentId");
-
-                    b.HasIndex("ReviewerId");
-
-                    b.HasIndex("ReviwedEquipmentId");
-
-                    b.ToTable("Review", (string)null);
-                });
-
             modelBuilder.Entity("ITventory.Domain.Room", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1685,6 +1617,48 @@ namespace ITventory.Infrastructure.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsMany("ITventory.Domain.Logon", "_historyOfLogons", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Domain")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<Guid>("HardwareId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("IpAddress")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<DateTime>("LogonTime")
+                                .HasColumnType("timestamp with time zone");
+
+                            b1.Property<Guid>("UserId")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("HardwareId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("Logons", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("HardwareId");
+
+                            b1.HasOne("ITventory.Domain.Employee", null)
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
+
+                    b.Navigation("_historyOfLogons");
                 });
 
             modelBuilder.Entity("ITventory.Domain.Department", b =>
@@ -1787,6 +1761,47 @@ namespace ITventory.Infrastructure.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsMany("ITventory.Domain.Review", "HistoryOfReviews", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Condition")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Details")
+                                .HasColumnType("text");
+
+                            b1.Property<DateOnly>("ReviewDate")
+                                .HasColumnType("date");
+
+                            b1.Property<Guid>("ReviewerId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<Guid>("ReviwedEquipmentId")
+                                .HasColumnType("uuid");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("ReviewerId");
+
+                            b1.HasIndex("ReviwedEquipmentId");
+
+                            b1.ToTable("Review");
+
+                            b1.HasOne("ITventory.Domain.Employee", null)
+                                .WithMany()
+                                .HasForeignKey("ReviewerId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("ReviwedEquipmentId");
+                        });
+
+                    b.Navigation("HistoryOfReviews");
                 });
 
             modelBuilder.Entity("ITventory.Domain.InventoryProduct", b =>
@@ -1815,21 +1830,6 @@ namespace ITventory.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ITventory.Domain.Logon", b =>
-                {
-                    b.HasOne("Hardware", null)
-                        .WithMany("HistoryOfLogons")
-                        .HasForeignKey("HardwareId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITventory.Domain.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ITventory.Domain.Model", b =>
                 {
                     b.HasOne("ITventory.Domain.Producent", null)
@@ -1853,25 +1853,6 @@ namespace ITventory.Infrastructure.Migrations
                     b.HasOne("ITventory.Domain.Country", null)
                         .WithMany()
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ITventory.Domain.Review", b =>
-                {
-                    b.HasOne("ITventory.Domain.Equipment", null)
-                        .WithMany("HistoryOfReviews")
-                        .HasForeignKey("EquipmentId");
-
-                    b.HasOne("ITventory.Domain.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("ReviewerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITventory.Domain.Equipment", null)
-                        .WithMany()
-                        .HasForeignKey("ReviwedEquipmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1922,19 +1903,9 @@ namespace ITventory.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Hardware", b =>
-                {
-                    b.Navigation("HistoryOfLogons");
-                });
-
             modelBuilder.Entity("ITventory.Domain.Department", b =>
                 {
                     b.Navigation("RecommendedSoftware");
-                });
-
-            modelBuilder.Entity("ITventory.Domain.Equipment", b =>
-                {
-                    b.Navigation("HistoryOfReviews");
                 });
 
             modelBuilder.Entity("ITventory.Domain.Room", b =>

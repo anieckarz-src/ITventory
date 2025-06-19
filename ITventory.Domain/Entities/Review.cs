@@ -23,13 +23,13 @@ namespace ITventory.Domain
 
         }
 
-        public Review(Guid reviewerId, Guid reviewedEquipmentId, string? details, DateOnly reviewDate, Condition condition)
+        public Review(Guid reviewedEquipmentId, Guid reviewerId, string? details, DateOnly reviewDate, Condition condition)
         {
             if(reviewDate > DateOnly.FromDateTime(DateTime.UtcNow))
             {
                 throw new ArgumentException("Review from future");
             }
-            if(!Enum.IsDefined(typeof(Review), reviewerId))
+            if(!Enum.IsDefined(typeof(Condition), condition))
             {
                 throw new ArgumentException("Condition not defined");
             }

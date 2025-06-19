@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.HardwareService.Set_primary_user
 {
-    internal sealed class SetPrimaryUserHandler : ICommandHandler<SetPrimaryUser>
+    public sealed class SetPrimaryUserHandler : ICommandHandler<SetPrimaryUser>
     {
         private readonly IHardwareRepository _hardwareRepository;
         private readonly IEmployeeRepository _employeeRepository;

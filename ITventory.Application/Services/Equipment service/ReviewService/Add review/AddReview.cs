@@ -8,6 +8,6 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.HardwareService.ReviewService.Add_review
 {
-    public record AddReview(Guid equipmentId, Guid reviwerId, string details, DateOnly reviewDate, Condition condition): ICommand_;
+    public record AddReview(Guid equipmentId, Guid reviewerId, string details, DateOnly reviewDate, Condition condition): ICommand_;
     
 }

@@ -15,12 +15,16 @@ namespace ITventory.Infrastructure.EF.Config.Read
         public void Configure(EntityTypeBuilder<LogonReadModel> builder)
         {
             builder
+                .ToTable("Logons");
+
+            builder
                 .HasKey(x => x.Id);
 
             builder
                 .HasOne(x => x.User)
                 .WithMany()
                 .HasForeignKey(x => x.UserId);
+
         }
     }
 }

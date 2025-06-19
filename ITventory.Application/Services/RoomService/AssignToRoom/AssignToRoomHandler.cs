@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.RoomService.AssignToRoom
 {
-    internal sealed class AssignToRoomHandler : ICommandHandler<AssignToRoom>
+    public sealed class AssignToRoomHandler : ICommandHandler<AssignToRoom>
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IEmployeeRepository _employeeRepository;

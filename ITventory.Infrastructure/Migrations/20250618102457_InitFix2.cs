@@ -5,7 +5,7 @@
 namespace ITventory.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init2 : Migration
+    public partial class InitFix2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

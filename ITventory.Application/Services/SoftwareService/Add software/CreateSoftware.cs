@@ -8,5 +8,5 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.SoftwareService.Add_software;
 
-public record CreateSoftware (Guid publisherId, ApprovalType approvalType, string name, Guid softwareVersionId) : ICommand_;
+public record CreateSoftware (Guid publisherId, ApprovalType approvalType, string name) : ICommand_;
 

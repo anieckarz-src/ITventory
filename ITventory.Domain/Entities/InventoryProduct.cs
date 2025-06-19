@@ -24,7 +24,7 @@ namespace ITventory.Domain
 
         private InventoryProduct(Guid roomId, Product product, int sku)
         {
-            if(sku < 0 || sku > Product.MaxSKU)
+            if(sku < 0 || sku > product.MaxSKU)
             {
                 //wstawic domain service 
                 throw new ArgumentException("Invalid sku: it must be between 1 and 999");

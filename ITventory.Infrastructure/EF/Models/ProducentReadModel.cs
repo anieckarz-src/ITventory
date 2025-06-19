@@ -14,7 +14,7 @@ namespace ITventory.Infrastructure.EF.Models
 
         // załączenie całych obiektów w read modelu
 
-       public CountryReadModel Country { get; set; }
-       public ICollection<ModelReadModel> Models { get; set; }
+       public virtual CountryReadModel Country { get; set; }
+       public virtual ICollection<ModelReadModel> Models { get; set; }
     }
 }

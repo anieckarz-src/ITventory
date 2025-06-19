@@ -40,7 +40,11 @@ namespace ITventory.Infrastructure.EF.Repositories
 
         public Task<SoftwareLicense> GetAsync(Guid licenseId)
         {
-            return _licenses.SingleOrDefaultAsync(x => x.Id == licenseId);
+            return _licenses
+                .Include(x => x.AssignedUsers)
+                .Include(x => x.AssignedHardware)
+                
+                .SingleOrDefaultAsync(x => x.Id == licenseId);
         }
 
         public async Task UpdateAsync(SoftwareLicense license)

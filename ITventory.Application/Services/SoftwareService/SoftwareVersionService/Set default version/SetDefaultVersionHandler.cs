@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.SoftwareService.SoftwareVersionService.Set_default_version
 {
-    internal sealed class SetDefaultVersionHandler : ICommandHandler<SetDefaultVersion>
+    public sealed class SetDefaultVersionHandler : ICommandHandler<SetDefaultVersion>
     {
         private readonly ISoftwareRepository _softwareRepository;
 

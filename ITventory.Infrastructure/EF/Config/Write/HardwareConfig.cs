@@ -47,10 +47,25 @@ namespace ITventory.Infrastructure.EF.Config.Write
 
 
 
-            builder
-              .HasMany(x => x._historyOfLogons)
-                .WithOne()
-                .HasForeignKey(l => l.HardwareId);
+            builder.OwnsMany(x => x._historyOfLogons, logonBuilder =>
+            {
+                logonBuilder.WithOwner().HasForeignKey(l => l.HardwareId);
+                logonBuilder.HasKey(l => l.Id); // Required if Logon has an Id
+
+                logonBuilder.Property(x => x.Id)
+                .ValueGeneratedNever();
+
+                logonBuilder.Property(x => x.Domain)
+                .HasConversion<string>();
+
+                logonBuilder
+                    .HasOne<Employee>()
+                    .WithMany()
+                    .HasForeignKey(x => x.UserId);
+
+                logonBuilder.ToTable("Logons"); // Optional: if stored in a separate table
+            });
+
 
 
 

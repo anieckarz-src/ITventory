@@ -40,7 +40,9 @@ namespace ITventory.Infrastructure.EF.Repositories
 
         public Task<Room> GetAsync(Guid roomId)
         {
-            return _rooms.FirstOrDefaultAsync(x => x.Id == roomId);
+            return _rooms
+                .Include(x => x.RoomInventory)
+                .FirstOrDefaultAsync(x => x.Id == roomId);
         }
 
         public async Task UpdateAsync(Room room)

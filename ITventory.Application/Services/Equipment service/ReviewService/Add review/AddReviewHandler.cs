@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.HardwareService.ReviewService.Add_review
 {
-    internal sealed class AddReviewHandler : ICommandHandler<AddReview>
+    public sealed class AddReviewHandler : ICommandHandler<AddReview>
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IEquipmentRepository _equipmentRepository;
@@ -19,6 +19,7 @@ namespace ITventory.Application.Services.HardwareService.ReviewService.Add_revie
             _employeeRepository = employeeRepository;
             _equipmentRepository = equipmentRepository;
         }
+
 
         public async Task HandleAsync(AddReview command)
         {

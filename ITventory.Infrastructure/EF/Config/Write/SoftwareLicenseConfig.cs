@@ -18,7 +18,7 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.LicenseKey)
+                .Property(x => x.LicenseType)
                 .HasConversion<string>();
 
             builder
@@ -29,12 +29,12 @@ namespace ITventory.Infrastructure.EF.Config.Write
             builder
                 .HasMany(x => x.AssignedUsers)
                 .WithOne()
-                .HasForeignKey("LicenseId");
+                .HasForeignKey(x => x.LicenseId);
 
             builder
                .HasMany(x => x.AssignedHardware)
                .WithOne()
-               .HasForeignKey("LicenseId");
+               .HasForeignKey(x => x.LicenseId);
 
             builder
                 .ToTable("SoftwareLicense");

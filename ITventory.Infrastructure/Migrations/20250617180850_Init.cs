@@ -472,8 +472,7 @@ namespace ITventory.Infrastructure.Migrations
                     ReviewerId = table.Column<Guid>(type: "uuid", nullable: false),
                     Details = table.Column<string>(type: "text", nullable: true),
                     ReviewDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Condition = table.Column<string>(type: "text", nullable: false),
-                    EquipmentId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Condition = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -484,11 +483,6 @@ namespace ITventory.Infrastructure.Migrations
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Review_Equipment_EquipmentId",
-                        column: x => x.EquipmentId,
-                        principalTable: "Equipment",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Review_Equipment_ReviwedEquipmentId",
                         column: x => x.ReviwedEquipmentId,
@@ -523,7 +517,7 @@ namespace ITventory.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Logon",
+                name: "Logons",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -535,15 +529,15 @@ namespace ITventory.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Logon", x => x.Id);
+                    table.PrimaryKey("PK_Logons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Logon_Employee_UserId",
+                        name: "FK_Logons_Employee_UserId",
                         column: x => x.UserId,
                         principalTable: "Employee",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Logon_Hardware_HardwareId",
+                        name: "FK_Logons_Hardware_HardwareId",
                         column: x => x.HardwareId,
                         principalTable: "Hardware",
                         principalColumn: "Id",
@@ -801,13 +795,13 @@ namespace ITventory.Infrastructure.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Logon_HardwareId",
-                table: "Logon",
+                name: "IX_Logons_HardwareId",
+                table: "Logons",
                 column: "HardwareId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Logon_UserId",
-                table: "Logon",
+                name: "IX_Logons_UserId",
+                table: "Logons",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -839,11 +833,6 @@ namespace ITventory.Infrastructure.Migrations
                 name: "IX_RatingSoftwareVersion_SoftwareVersionId",
                 table: "RatingSoftwareVersion",
                 column: "SoftwareVersionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Review_EquipmentId",
-                table: "Review",
-                column: "EquipmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_ReviewerId",
@@ -922,7 +911,7 @@ namespace ITventory.Infrastructure.Migrations
                 name: "InventoryProduct");
 
             migrationBuilder.DropTable(
-                name: "Logon");
+                name: "Logons");
 
             migrationBuilder.DropTable(
                 name: "RatingSoftwareVersion");

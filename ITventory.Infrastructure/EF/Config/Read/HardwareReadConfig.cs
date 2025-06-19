@@ -43,7 +43,7 @@ namespace ITventory.Infrastructure.EF.Config.Read
 
             builder
                 .HasMany(x => x.Logons)
-                .WithOne()
+                .WithOne(y => y.Hardware)
                 .HasForeignKey(x => x.HardwareId);
         }
     }

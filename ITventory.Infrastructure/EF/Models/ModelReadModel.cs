@@ -17,7 +17,6 @@ namespace ITventory.Infrastructure.EF.Models
         // Inkorporacja relacji
 
         public virtual ProducentReadModel Producent { get; set; }
-        public virtual CountryReadModel Country { get; set; }
         
 
     }

@@ -7,7 +7,7 @@ using ITventory.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ITventory.Infrastructure.EF.Config.Write
+namespace ITventory.Infrastructure.EF.Config.Old
 {
     internal sealed class ReviewConfig : IEntityTypeConfiguration<Review>
     {
@@ -15,11 +15,6 @@ namespace ITventory.Infrastructure.EF.Config.Write
         {
             builder
                 .HasKey(x => x.Id);
-
-            builder
-                .HasOne<Equipment>()
-                .WithMany()
-                .HasForeignKey(x => x.ReviwedEquipmentId);
 
             builder
                 .HasOne<Employee>()

@@ -1,16 +1,18 @@
 ﻿using ITventory.Application.Queries.Hardware;
 using ITventory.Application.Services.HardwareService.Add_hardware;
 using ITventory.Application.Services.HardwareService.Add_logon;
+using ITventory.Application.Services.HardwareService.Set_primary_user;
 using ITventory.Infrastructure.EF.DTO;
+using ITventory.Infrastructure.EF.Queries;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITventory.Controllers
 {
-    public class HardwareController : BaseController
+    public class hardwareController : BaseController
     {
-        public HardwareController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public hardwareController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 
@@ -33,5 +35,20 @@ namespace ITventory.Controllers
             await _commandDispatcher.DispatchAsync(command);
             return Created();
         }
+
+        [HttpGet("logons")]
+
+        public async Task<ICollection<LogonDTO>> Get([FromQuery] GetLogon query)
+        {
+            return await _queryDispatcher.QueryAsync(query);
+        }
+
+        [HttpPut("primary-user")]
+        public async Task<IActionResult> Put([FromBody] SetPrimaryUser command)
+        {
+            await _commandDispatcher.DispatchAsync(command);
+            return NoContent();
+        }
+
     }
 }

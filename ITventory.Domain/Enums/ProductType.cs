@@ -11,5 +11,6 @@ namespace ITventory.Domain.Enums
         Stationery = 0,
         EHS = 1,
         Fuel = 2,
+        Food = 3,
     }
 }

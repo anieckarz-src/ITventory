@@ -40,10 +40,23 @@ namespace ITventory.Infrastructure.EF.Config.Write
                 Property(x => x.Condition)
                 .HasConversion<string>();
 
-            builder
-                .HasMany(x => x.HistoryOfReviews)
-                .WithOne()
-                .HasForeignKey(r => r.ReviwedEquipmentId);
+
+            builder.OwnsMany(x => x.HistoryOfReviews, logonBuilder =>
+            {
+                logonBuilder.WithOwner().HasForeignKey(l => l.ReviwedEquipmentId);
+                logonBuilder.HasKey(l => l.Id);
+
+                logonBuilder.Property(l => l.Id).ValueGeneratedNever();
+
+                logonBuilder.Property(l => l.Condition).HasConversion<string>().HasColumnType("text");
+
+
+                logonBuilder.HasOne<Employee>()
+                .WithMany()
+                .HasForeignKey(l => l.ReviewerId);
+
+
+            });
 
             builder
                 .ToTable("Equipment");

@@ -9,7 +9,7 @@ using ITventory.Shared.Abstractions.Commands;
 
 namespace ITventory.Application.Services.LicenseService.Reassign_user_to_license
 {
-    internal sealed class ReassignUserToLicenseHandler : ICommandHandler<ReassignUserToLicense>
+    public sealed class ReassignUserToLicenseHandler : ICommandHandler<ReassignUserToLicense>
     {
         private readonly ILicenseRepository _licenseRepository;
         private readonly IEmployeeRepository _employeeRepository;

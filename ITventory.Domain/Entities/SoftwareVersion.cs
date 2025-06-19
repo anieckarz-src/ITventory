@@ -21,8 +21,7 @@ namespace ITventory.Domain
         public bool IsActive { get; private set; }
         public LicenseType LicenseType { get; private set; }
 
-        private List<RatingSoftwareVersion> _reviews = new();
-        public IReadOnlyCollection<RatingSoftwareVersion> Reviews => _reviews.AsReadOnly();
+        public List<RatingSoftwareVersion> Reviews { get; private set; } = new();
 
         private SoftwareVersion()
         {
@@ -95,7 +94,7 @@ namespace ITventory.Domain
 
         public void AddRating(RatingSoftwareVersion rating)
         {
-            _reviews.Add(rating);
+            Reviews.Add(rating);
         }
 
     }
