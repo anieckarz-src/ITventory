@@ -36,7 +36,6 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Producent
                     {
                         Id = m.Id,
                         Name = m.Name,
-                        ProducentName = m.Producent.Name,
                         ReleaseDate = m.ReleaseDate,
                         Comments = m.Comments
                     }).ToList()

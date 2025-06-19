@@ -15,16 +15,16 @@ namespace ITventory.Controllers.Producent
         }
 
         [HttpGet]
-        public async Task<ActionResult<ProducentDTO>> Get([FromQuery] Guid id)
+        public async Task<ActionResult<ICollection<ProducentDTO>>> Get([FromQuery] GetProducent query)
         {
-            var query = new GetProducentById { Id = id };
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);
         }
 
-        [HttpGet("producents")]
-        public async Task<ActionResult<ICollection<ProducentDTO>>> Get([FromQuery] GetProducentByPartialName query)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<ProducentDTO>> GetById([FromRoute] Guid id)
         {
+            var query = new GetProducentById { Id = id };
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);
         }

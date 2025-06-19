@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITventory.Controllers.Location
 {
-    public class LocationController : BaseController
+    public class locationController : BaseController
     {
-        public LocationController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public locationController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 

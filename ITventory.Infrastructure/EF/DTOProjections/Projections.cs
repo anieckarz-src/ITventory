@@ -8,8 +8,8 @@ using ITventory.Infrastructure.EF.Models;
 
 namespace ITventory.Infrastructure.EF.DTOProjections
 {
-    public static class Projections
-    {
+    public static class Projections { }
+    /*{
         public static ProducentDTO AsDto(this ProducentReadModel readModel) =>
             new()
             {
@@ -27,5 +27,5 @@ namespace ITventory.Infrastructure.EF.DTOProjections
 
             };
         
-    }
+    }*/
 }

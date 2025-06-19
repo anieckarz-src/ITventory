@@ -14,7 +14,7 @@ namespace ITventory.Controllers.Employee
         {
         }
 
-        [HttpPut]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> Put([FromBody] SetEmployeeDetails command)
         {
             await _commandDispatcher.DispatchAsync(command);

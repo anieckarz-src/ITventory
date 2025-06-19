@@ -4,6 +4,7 @@ using ITventory.Application.Services.HardwareService.Add_logon;
 using ITventory.Application.Services.HardwareService.Set_primary_user;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Infrastructure.EF.Queries;
+using ITventory.Infrastructure.EF.Queries.Hardware;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,15 @@ namespace ITventory.Controllers
         {
             return await _queryDispatcher.QueryAsync(query);
         }
+
+        [HttpGet("{id:guid}")]
+        public async Task<HardwareDTO> GetById([FromRoute] Guid id)
+        {
+            var query = new GetHardwareById { Id = id };
+            return await _queryDispatcher.QueryAsync(query);
+        }
+
+
 
         [HttpPost("logons")]
         public async Task<IActionResult> Post([FromBody] AddLogon command)

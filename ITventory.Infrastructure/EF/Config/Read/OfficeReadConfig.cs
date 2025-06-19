@@ -9,21 +9,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ITventory.Infrastructure.EF.Config.Read
 {
-    internal sealed class CountryReadConfig : IEntityTypeConfiguration<CountryReadModel>
+    internal class OfficeReadConfig : IEntityTypeConfiguration<OfficeReadModel>
     {
-        public void Configure(EntityTypeBuilder<CountryReadModel> builder)
+        public void Configure(EntityTypeBuilder<OfficeReadModel> builder)
         {
             builder
-                .ToTable("Countries");
+                .ToTable("Office");
 
             builder
                 .HasKey(x => x.Id);
 
             builder
-                .HasMany(x => x.Locations)
-                .WithOne(x => x.Country)
-                .HasForeignKey(c => c.CountryId);
-                
+                .HasOne(x => x.Location)
+                .WithMany()
+                .HasForeignKey(x => x.LocationId);
+
         }
     }
 }

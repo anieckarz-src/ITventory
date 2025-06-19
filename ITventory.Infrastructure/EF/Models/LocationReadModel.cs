@@ -20,11 +20,11 @@ namespace ITventory.Infrastructure.EF.Models
         public string City { get; init; }
         public double Latitude { get; init; }
         public double Longitude { get; init; }
-        public TypeOfPlant? TypeOfPlant { get; private set; }
+        public string? TypeOfPlant { get; private set; }
 
         //
 
-        public virtual Country Country { get; set; }
+        public virtual CountryReadModel Country { get; set; }
 
 
     }

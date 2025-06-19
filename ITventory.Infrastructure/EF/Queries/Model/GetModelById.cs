@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Shared.Abstractions.Queries;
 
-namespace ITventory.Application.Queries.Producent
+namespace ITventory.Infrastructure.EF.Queries.Model
 {
-    public class GetProducentByPartialName: IQuery<ICollection<ProducentDTO>>
+    public class GetModelById: IQuery<ModelDTO>
     {
-        public string Name { get; set; }
+        public Guid Id { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using ITventory.Infrastructure.EF.Models;
 
 namespace ITventory.Infrastructure.EF.DTO
 {
-    internal class OfficeDTO
+    public class OfficeDTO
     {
         public Guid Id { get; set; }
         public string Street { get; set; }
@@ -19,6 +19,6 @@ namespace ITventory.Infrastructure.EF.DTO
         public double Longitude { get; set; }
         public bool IsActive { get; set; }
 
-        public LocationDTO Location { get; set; }
+        public LocationDTO? Location { get; set; }
     }
 }

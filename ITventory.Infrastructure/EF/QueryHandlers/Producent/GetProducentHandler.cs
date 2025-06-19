@@ -13,26 +13,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ITventory.Infrastructure.EF.QueryHandlers.Producent
 {
-    internal sealed class GetProducentByPartialNameHandler : IQueryHandler<GetProducentByPartialName, ICollection<ProducentDTO>>
+    internal sealed class GetProducentHandler : IQueryHandler<GetProducent, ICollection<ProducentDTO>>
     {
         private readonly DbSet<ProducentReadModel> _producents;
 
-        public GetProducentByPartialNameHandler (ReadDbContext readDbContext)
+        public GetProducentHandler (ReadDbContext readDbContext)
         {
             _producents = readDbContext.Producents;
         }
 
-        public async Task<ICollection<ProducentDTO>> HandleAsync(GetProducentByPartialName query)
+        public async Task<ICollection<ProducentDTO>> HandleAsync(GetProducent query)
         {
             var dbQuery = _producents
                 .Include(x => x.Country)
                 .Include(x => x.Models)
                 .AsQueryable();
 
-            if (query.Name is not null)
+            if (!String.IsNullOrWhiteSpace(query.Name))
             {
                 dbQuery = dbQuery.Where(x =>
                 Microsoft.EntityFrameworkCore.EF.Functions.ILike(x.Name, $"%{query.Name}%"));
+            }
+            if(query.CountryId.HasValue && query.CountryId != Guid.Empty)
+            {
+                dbQuery = dbQuery.Where(x => x.CountryId == query.CountryId);
             }
 
             return await dbQuery
@@ -47,7 +51,6 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Producent
                     {
                         Id = m.Id,
                         Name = m.Name,
-                        ProducentName = m.Producent.Name,
                         ReleaseDate = m.ReleaseDate,
                         Comments = m.Comments
                     }).ToList()

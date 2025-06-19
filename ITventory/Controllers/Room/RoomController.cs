@@ -3,25 +3,42 @@ using ITventory.Application.Services.RoomService.Add_room;
 using ITventory.Application.Services.RoomService.Reduce_inventory;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Infrastructure.EF.Queries;
+using ITventory.Infrastructure.EF.Queries.Room;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ITventory.Controllers.Room
 {
-    public class RoomController : BaseController
+    public class roomController : BaseController
     {
-        public RoomController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public roomController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 
-        [HttpPost]
 
+
+        [HttpPost]
         public async Task<ActionResult> Post([FromBody] AddRoom command)
         {
             await _commandDispatcher.DispatchAsync(command);
             return Created();
         }
+
+        [HttpGet]
+        public async Task<ICollection<RoomDTO>> Get([FromQuery] GetRoom query)
+        {
+            return await _queryDispatcher.QueryAsync(query);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<RoomDTO> GetById([FromRoute] Guid id)
+        {
+            var query = new GetRoomById { Id = id };
+            return await _queryDispatcher.QueryAsync(query);
+        }
+
+
 
         [HttpPut("inventory-add")]
         public async Task<IActionResult> Put([FromBody] AddInventory command)

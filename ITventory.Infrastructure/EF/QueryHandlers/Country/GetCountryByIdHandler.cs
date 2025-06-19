@@ -25,6 +25,7 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Country
         {
             return await _countries
                 .Include(l => l.Locations)
+                .AsSplitQuery()
                 .Where(c => c.Id == query.Id)
                 .Select(c => new CountryDTO
                 {

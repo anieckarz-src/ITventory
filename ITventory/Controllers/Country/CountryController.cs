@@ -2,6 +2,7 @@
 using ITventory.Application.Services.CountryService.Add_country;
 using ITventory.Application.Services.CountryService.Add_regulations;
 using ITventory.Infrastructure.EF.DTO;
+using ITventory.Infrastructure.EF.Queries.Country;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -30,10 +31,17 @@ namespace ITventory.Controllers.Country
             return Created();
         }
 
-        [HttpGet]
-        public async Task<ActionResult<CountryDTO>> Get([FromQuery] Guid id)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<CountryDTO>> GetById([FromRoute] Guid id)
         {
             var query = new GetCountryById { Id = id };
+            var result = await _queryDispatcher.QueryAsync(query);
+            return OkOrNotFound(result);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ICollection<CountryDTO>>> Get([FromQuery] GetCountry query)
+        {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);
         }
