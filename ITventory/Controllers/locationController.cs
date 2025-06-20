@@ -4,7 +4,7 @@ using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITventory.Controllers.Location
+namespace ITventory.Controllers
 {
     public class locationController : BaseController
     {

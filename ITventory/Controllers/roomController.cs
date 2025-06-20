@@ -8,7 +8,7 @@ using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITventory.Controllers.Room
+namespace ITventory.Controllers
 {
     public class roomController : BaseController
     {

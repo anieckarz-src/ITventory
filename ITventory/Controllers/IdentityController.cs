@@ -5,7 +5,7 @@ using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITventory.Controllers.Identity;
+namespace ITventory.Controllers;
 
 public class IdentityController : BaseController
 {

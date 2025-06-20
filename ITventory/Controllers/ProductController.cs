@@ -8,18 +8,20 @@ using ITventory.Application.Services.ProductService.Add_product;
 
 namespace ITventory.Controllers
 {
-    public class ProductController : BaseController
+    public class productController : BaseController
     {
-        public ProductController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public productController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 
         [HttpGet]
-        public async Task<ActionResult<ICollection<ProductDTO>>> Get([FromQuery] GetProductByDescription query)
+        public async Task<ActionResult<ICollection<ProductDTO>>> Get([FromQuery] GetProduct query)
         {
             var result = await _queryDispatcher.QueryAsync(query);
             return OkOrNotFound(result);
         }
+
+        [HttpGet]
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddProduct command)
@@ -27,5 +29,7 @@ namespace ITventory.Controllers
             await _commandDispatcher.DispatchAsync(command);
             return Created();
         }
+
+        
     }
 }

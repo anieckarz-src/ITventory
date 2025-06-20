@@ -1,16 +1,16 @@
 ﻿using ITventory.Application.Services.Equipment_service.Add_equipment;
 using ITventory.Application.Services.HardwareService.ReviewService.Add_review;
 using ITventory.Infrastructure.EF.DTO;
-using ITventory.Infrastructure.EF.Queries;
+using ITventory.Infrastructure.EF.Queries.Equipment;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITventory.Controllers.Equipment
+namespace ITventory.Controllers
 {
-    public class EquipmentController : BaseController
+    public class equipmentController : BaseController
     {
-        public EquipmentController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public equipmentController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
             
         }
@@ -34,6 +34,13 @@ namespace ITventory.Controllers.Equipment
         {
             return await _queryDispatcher.QueryAsync(query);
             
+        }
+        [HttpGet("{id:guid}")]
+        
+        public async Task<EquipmentDTO> Get([FromRoute] Guid id)
+        {
+            var query = new GetEquipmentById { Id = id };
+            return await _queryDispatcher.QueryAsync(query);
         }
     }
 

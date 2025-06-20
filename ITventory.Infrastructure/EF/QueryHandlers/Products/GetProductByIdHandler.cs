@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using ITventory.Infrastructure.EF.Contexts;
@@ -14,25 +12,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ITventory.Infrastructure.EF.QueryHandlers.Products
 {
-    internal sealed class GetProductByDescriptionHandler : IQueryHandler<GetProductByDescription, ICollection<ProductDTO>>
+    internal sealed class GetProductByIdHandler : IQueryHandler<GetProductById, ProductDTO>
     {
         private readonly DbSet<ProductReadModel> _products;
 
-        public GetProductByDescriptionHandler(ReadDbContext readDbContext)
+        public GetProductByIdHandler(ReadDbContext readCbContext)
         {
-            _products = readDbContext.Products;
+            _products = readCbContext.Products;
         }
-
-        public async Task<ICollection<ProductDTO>> HandleAsync(GetProductByDescription query)
+        public async Task<ProductDTO> HandleAsync(GetProductById query)
         {
-
-            var dbQuery = _products.AsQueryable();
-
-            if(query.Description != null)
-            {
-                dbQuery = dbQuery.Where(x =>
-                Microsoft.EntityFrameworkCore.EF.Functions.ILike(x.Description, $"%{query.Description}%"));
-            }
+            var dbQuery = _products.AsNoTracking().AsQueryable();
 
             return await dbQuery
                 .Select(x => new ProductDTO
@@ -42,7 +32,7 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Products
                     ProductType = x.ProductType,
                     MaxSKU = x.MaxSKU,
                     NominalWorth = x.NominalWorth,
-                }).AsNoTracking().ToListAsync();
+                }).SingleOrDefaultAsync();
         }
     }
 }

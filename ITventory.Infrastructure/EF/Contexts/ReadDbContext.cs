@@ -25,6 +25,10 @@
             public DbSet<EquipmentReadModel> Equipment { get; set; }
             public DbSet<ProductInventoryReadModel> ProductInventory { get; set; }
             public DbSet<OfficeReadModel> Office { get; set; }
+            public DbSet<SoftwareReadModel> Software { get; set; }
+            public DbSet<SoftwareVersionReadModel> SoftwareVersion { get; set; }
+            public DbSet<SoftwareLicenseReadModel> SoftwareLicense { get; set; }
+        
 
             public ReadDbContext(DbContextOptions<ReadDbContext> options) : base(options)
             {

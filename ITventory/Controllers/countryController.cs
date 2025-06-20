@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITventory.Controllers.Country
 {
-    public class CountryController : BaseController
+    public class countryController : BaseController
     {
-        public CountryController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public countryController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 

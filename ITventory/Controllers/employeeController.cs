@@ -1,20 +1,20 @@
 ﻿using ITventory.Application.Services.EmployeeService.ChangeManager;
 using ITventory.Application.Services.EmployeeService.SetEmployeeDetails;
 using ITventory.Infrastructure.EF.DTO;
-using ITventory.Infrastructure.EF.Queries;
+using ITventory.Infrastructure.EF.Queries.Employee;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITventory.Controllers.Employee
+namespace ITventory.Controllers
 {
-    public class EmployeeController : BaseController
+    public class employeeController : BaseController
     {
-        public EmployeeController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public employeeController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 
-        [HttpPut("{id:guid}")]
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody] SetEmployeeDetails command)
         {
             await _commandDispatcher.DispatchAsync(command);
@@ -28,7 +28,14 @@ namespace ITventory.Controllers.Employee
             return NoContent();
             
         }
-        
+
+        [HttpGet("{id:guid}")]
+
+        public async Task<EmployeeDTO> GetById([FromRoute] Guid id)
+        {
+            var query = new GetEmployeeById { Id = id };
+            return await _queryDispatcher.QueryAsync(query);
+        }
 
 
         [HttpGet]

@@ -3,6 +3,8 @@ using ITventory.Application.Services.SoftwareService.Add_software;
 using ITventory.Application.Services.SoftwareService.SoftwareVersionService.Add_rating;
 using ITventory.Application.Services.SoftwareService.SoftwareVersionService.Add_version;
 using ITventory.Application.Services.SoftwareService.SoftwareVersionService.Set_default_version;
+using ITventory.Infrastructure.EF.DTO;
+using ITventory.Infrastructure.EF.Queries.Software;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +24,14 @@ namespace ITventory.Controllers
             return Created();
         }
 
+        [HttpGet]
+        
+        public async Task<ICollection<SoftwareDTO>> Get([FromQuery] GetSoftware query)
+        {
+            return await _queryDispatcher.QueryAsync(query);
+        }
+
+
         [HttpPut("version")]
         public async Task<IActionResult> Put([FromBody] AddVersion command)
         {
@@ -36,7 +46,7 @@ namespace ITventory.Controllers
             return Created();
         }
 
-        [HttpPut("version-default")]
+        [HttpPut("version/set-default")]
         public async Task<IActionResult> Put([FromBody] SetDefaultVersion command)
         {
             await _commandDispatcher.DispatchAsync(command);

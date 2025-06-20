@@ -19,4 +19,15 @@
     <ProjectReference Include="..\ITventory.Infrastructure\ITventory.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Country\" />
+    <Folder Include="Controllers\Department\" />
+    <Folder Include="Controllers\Employee\" />
+    <Folder Include="Controllers\Equipment\" />
+    <Folder Include="Controllers\Identity\" />
+    <Folder Include="Controllers\Location\" />
+    <Folder Include="Controllers\Producent\" />
+    <Folder Include="Controllers\Room\" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Shared.Abstractions.Queries;
 
-namespace ITventory.Infrastructure.EF.Queries
+namespace ITventory.Infrastructure.EF.Queries.Equipment
 {
     public class GetEquipment : IQuery<ICollection<EquipmentDTO>>
     {

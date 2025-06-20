@@ -16,5 +16,6 @@ namespace ITventory.Infrastructure.EF.Models
 
        public virtual CountryReadModel Country { get; set; }
        public virtual ICollection<ModelReadModel> Models { get; set; }
+       public virtual ICollection<SoftwareReadModel> Software { get; set; }
     }
 }

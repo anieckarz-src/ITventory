@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Shared.Abstractions.Queries;
 
-namespace ITventory.Infrastructure.EF.Queries.Product
+namespace ITventory.Infrastructure.EF.Queries.Equipment
 {
-    public class GetProductByDescription: IQuery<ICollection<ProductDTO>>
+    public class GetEquipmentById: IQuery<EquipmentDTO>
     {
-        public string Description { get; set; }
+        public Guid Id { get; set; }
     }
 }

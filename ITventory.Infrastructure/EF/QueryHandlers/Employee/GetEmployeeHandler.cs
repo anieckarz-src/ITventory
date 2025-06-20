@@ -8,11 +8,11 @@ using ITventory.Infrastructure.EF.Config.Read;
 using ITventory.Infrastructure.EF.Contexts;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Infrastructure.EF.Models;
-using ITventory.Infrastructure.EF.Queries;
+using ITventory.Infrastructure.EF.Queries.Employee;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 
-namespace ITventory.Infrastructure.EF.QueryHandlers
+namespace ITventory.Infrastructure.EF.QueryHandlers.Employee
 {
     internal sealed class GetEmployeeHandler : IQueryHandler<GetEmployee, ICollection<EmployeeDTO>>
     {
@@ -33,15 +33,15 @@ namespace ITventory.Infrastructure.EF.QueryHandlers
                 .AsQueryable();
 
 
-            if (!String.IsNullOrWhiteSpace(query.Username))
+            if (!string.IsNullOrWhiteSpace(query.Username))
             {
                 dbQuery = dbQuery.Where(x => x.Username == query.Username);
             }
-            if (!String.IsNullOrWhiteSpace(query.PositionName))
+            if (!string.IsNullOrWhiteSpace(query.PositionName))
             {
                 dbQuery = dbQuery.Where(x => x.PositionName == query.PositionName);
             }
-            if (!String.IsNullOrWhiteSpace(query.Area))
+            if (!string.IsNullOrWhiteSpace(query.Area))
             {
                 dbQuery = dbQuery.Where(x => x.Area == query.Area);
             }

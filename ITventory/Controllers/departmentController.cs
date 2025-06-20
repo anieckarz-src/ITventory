@@ -7,11 +7,11 @@ using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ITventory.Controllers.Department
+namespace ITventory.Controllers
 {
-    public sealed class DepartmentController : BaseController
+    public sealed class departmentController : BaseController
     {
-        public DepartmentController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public departmentController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 

@@ -1,64 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using ITventory.Infrastructure.EF.Contexts;
 using ITventory.Infrastructure.EF.DTO;
 using ITventory.Infrastructure.EF.DTO.Minimal_DTOs;
 using ITventory.Infrastructure.EF.Models;
-using ITventory.Infrastructure.EF.Queries;
+using ITventory.Infrastructure.EF.Queries.Equipment;
 using ITventory.Shared.Abstractions.Queries;
 using Microsoft.EntityFrameworkCore;
 
-namespace ITventory.Infrastructure.EF.QueryHandlers
+namespace ITventory.Infrastructure.EF.QueryHandlers.Equipment
 {
-    internal sealed class GetEquipmentHandler : IQueryHandler<GetEquipment, ICollection<EquipmentDTO>>
+    internal sealed class GetEquipmentByIdHandler : IQueryHandler<GetEquipmentById, EquipmentDTO>
     {
         private readonly DbSet<EquipmentReadModel> _equipment;
 
-        public GetEquipmentHandler(ReadDbContext readCbContext)
+        public GetEquipmentByIdHandler(ReadDbContext readDbContext)
         {
-            _equipment = readCbContext.Equipment;
+            _equipment = readDbContext.Equipment;
         }
-        public async Task<ICollection<EquipmentDTO>> HandleAsync(GetEquipment query)
+        public async Task<EquipmentDTO> HandleAsync(GetEquipmentById query)
         {
             var dbQuery = _equipment
                 .Include(x => x.Producent)
-                .Include(x => x.Model)
                 .Include(x => x.Room)
+                .Include(x => x.Model)
                 .Include(x => x.Department)
                 .AsNoTracking()
                 .AsQueryable();
-
-            if (query.Id.HasValue && query.Id != Guid.Empty)
-            {
-                dbQuery = dbQuery.Where(x => x.Id == query.Id);
-            }
-
-            if (!String.IsNullOrWhiteSpace(query.Description))
-            {
-                dbQuery = dbQuery.Where (x => x.Description == query.Description);
-            }
-
-            if (!String.IsNullOrWhiteSpace(query.Condition))
-            {
-                dbQuery = dbQuery.Where(x => x.Condition == query.Condition);
-            }
-
-            if(query.MinWorth.HasValue && query.MaxWorht.HasValue)
-            {
-                dbQuery = dbQuery.Where(x => (x.Worth > query.MinWorth.Value && x.Worth < query.MaxWorht));
-            }
-            if(query.ModelId.HasValue && query.ModelId != Guid.Empty)
-            {
-                dbQuery = dbQuery.Where(x => x.ModelId == query.ModelId);
-            }
-            if (!String.IsNullOrWhiteSpace(query.Description))
-            {
-                dbQuery = dbQuery.Where(x => x.Description == query.Description);
-            }
 
             return await dbQuery.Select(x => new EquipmentDTO
             {
@@ -99,7 +70,7 @@ namespace ITventory.Infrastructure.EF.QueryHandlers
                     Name = x.Department.Name
                 }
 
-            }).ToListAsync();
+            }).FirstOrDefaultAsync();
         }
     }
 }

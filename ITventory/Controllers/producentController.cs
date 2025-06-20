@@ -6,11 +6,11 @@ using ITventory.Shared.Abstractions.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
-namespace ITventory.Controllers.Producent
+namespace ITventory.Controllers
 {
-    public class ProducentController : BaseController
+    public class producentController : BaseController
     {
-        public ProducentController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
+        public producentController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(commandDispatcher, queryDispatcher)
         {
         }
 

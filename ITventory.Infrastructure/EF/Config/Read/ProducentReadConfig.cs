@@ -29,6 +29,11 @@ namespace ITventory.Infrastructure.EF.Config.Read
                 .HasMany(x => x.Models)
                 .WithOne(x => x.Producent)
                 .HasForeignKey(x => x.ProducentId);
+
+            builder
+                .HasMany(x => x.Software)
+                .WithOne(x => x.Publisher)
+                .HasForeignKey(x => x.PublisherId);
         }
     }
 }
