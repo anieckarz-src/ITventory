@@ -22,7 +22,10 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Products
         }
         public async Task<ProductDTO> HandleAsync(GetProductById query)
         {
-            var dbQuery = _products.AsNoTracking().AsQueryable();
+            var dbQuery = _products
+                .AsNoTracking()
+                .AsQueryable()
+                .Where(x => x.Id == query.Id);
 
             return await dbQuery
                 .Select(x => new ProductDTO

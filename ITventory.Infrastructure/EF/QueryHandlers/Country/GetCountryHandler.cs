@@ -46,12 +46,17 @@ namespace ITventory.Infrastructure.EF.QueryHandlers.Country
                      Region = c.Region,
                      Regulations = c.Regulations,
                      CountryCode = c.CountryCode,
-                     Locations = c.Locations.Select(l => new MinimalLocationDto
+                     Locations = c.Locations.Select(l => new LocationDTO
                      {
                          Name = l.Name,
                          City = l.City,
                          Latitude = l.Latitude,
-                         Longitude = l.Longitude
+                         Longitude = l.Longitude,
+                         CountryId = l.CountryId,
+                         CountryName = l.Country.Name,
+                         ZipCode = l.ZipCode,
+                         Id = l.Id,
+                         TypeOfPlant = l.TypeOfPlant,
                      }).ToList()
                  }
                  ).ToListAsync();

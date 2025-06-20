@@ -21,7 +21,13 @@ namespace ITventory.Controllers
             return OkOrNotFound(result);
         }
 
-        [HttpGet]
+        [HttpGet("{id:guid}")]
+
+        public async Task<ProductDTO> Get([FromRoute] Guid id)
+        {
+            var query = new GetProductById { Id = id };
+            return await _queryDispatcher.QueryAsync(query);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddProduct command)

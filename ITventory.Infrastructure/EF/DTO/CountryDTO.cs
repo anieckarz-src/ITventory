@@ -14,6 +14,6 @@ namespace ITventory.Infrastructure.EF.DTO
         public string Region { get; set; }
         public string? Regulations { get; set; }
 
-        public IEnumerable<MinimalLocationDto>? Locations { get; set; }
+        public IEnumerable<LocationDTO>? Locations { get; set; }
     }
 }

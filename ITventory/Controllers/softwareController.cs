@@ -31,6 +31,14 @@ namespace ITventory.Controllers
             return await _queryDispatcher.QueryAsync(query);
         }
 
+        [HttpGet("{id:guid}")]
+
+        public async Task<SoftwareDTO> GetById([FromRoute] Guid id)
+        {
+            var query = new GetSoftwareById { Id = id };
+            return await _queryDispatcher.QueryAsync(query);
+        }
+
 
         [HttpPut("version")]
         public async Task<IActionResult> Put([FromBody] AddVersion command)

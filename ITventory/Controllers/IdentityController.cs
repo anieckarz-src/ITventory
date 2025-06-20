@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ITventory.Controllers;
 
-public class IdentityController : BaseController
+public class identityController : BaseController
 {
-    public IdentityController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(
+    public identityController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher) : base(
         commandDispatcher, queryDispatcher)
     {
     }
