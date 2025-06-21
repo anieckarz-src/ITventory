@@ -1,23 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ITventory.Domain\ITventory.Domain.csproj" />
-    <ProjectReference Include="..\ITventory.Shared.Abstractions\ITventory.Shared.Abstractions.csproj" />
-    <ProjectReference Include="..\ITventory.Shared\ITventory.Shared.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ITventory.Domain\ITventory.Domain.csproj"/>
+        <ProjectReference Include="..\ITventory.Shared.Abstractions\ITventory.Shared.Abstractions.csproj"/>
+        <ProjectReference Include="..\ITventory.Shared\ITventory.Shared.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\EmployeeService\Add employee %28moved to infra%29\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Services\EmployeeService\Add employee %28moved to infra%29\"/>
+        <Folder Include="Services\OfficesService\"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5"/>
+    </ItemGroup>
 
 </Project>

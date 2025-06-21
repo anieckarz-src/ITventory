@@ -1,4 +1,5 @@
-﻿using ITventory.Infrastructure.Identity.GetMeService;
+﻿using ITventory.Infrastructure.Identity.BrowseUsersService;
+using ITventory.Infrastructure.Identity.GetMeService;
 using ITventory.Infrastructure.Identity.RegistrationService;
 using ITventory.Shared.Abstractions.Commands;
 using ITventory.Shared.Abstractions.Queries;
@@ -27,6 +28,16 @@ public class identityController : BaseController
     public async Task<IActionResult> GetMe()
     {
         var query = new GetMe();
+        var response = await _queryDispatcher.QueryAsync(query);
+        return Ok(response);
+    }
+
+    [HttpGet("users")]
+    [ProducesResponseType<BrowseUsersResponse>(200)]
+    [Authorize]
+    public async Task<IActionResult> GetUsers()
+    {
+        var query = new BrowseUsers();
         var response = await _queryDispatcher.QueryAsync(query);
         return Ok(response);
     }

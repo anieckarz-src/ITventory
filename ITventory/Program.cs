@@ -1,18 +1,17 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using ITventory.Application;
-using ITventory.Infrastructure.EF.AppInit;
-using ITventory.Infrastructure.Identity.RegistrationService;
-using ITventory.Infrastructure.Identity;
 using ITventory.Infrastructure;
+using ITventory.Infrastructure.EF.AppInit;
+using ITventory.Infrastructure.Identity;
+using ITventory.Infrastructure.Identity.RegistrationService;
 using ITventory.Shared.Abstractions.Commands;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System.Text.Json.Serialization;
-using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
-
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -22,7 +21,6 @@ builder.Services.AddShared();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddTransient<ICommandHandler<RegisterUser>, RegisterUserHandler>();
-
 
 
 builder.Services.AddControllers()
@@ -40,38 +38,40 @@ builder.Services.AddCors(options =>
                 "http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); 
+            .AllowCredentials();
     });
 });
 
 
-builder.Services.AddAuthentication()/*AddCookie(IdentityConstants.ApplicationScheme)*/
+builder.Services.AddAuthentication() /*AddCookie(IdentityConstants.ApplicationScheme)*/
     .AddBearerToken(IdentityConstants.BearerScheme);
 
 
 builder.Services.AddAuthorization();
 
 builder.Services.AddIdentityCore<UserIdentity>(options =>
-{
-    options.Password.RequiredLength = 5;
-    options.Password.RequireDigit = false;
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireUppercase = false;
-    options.Lockout = new LockoutOptions()
     {
-        MaxFailedAccessAttempts = 100
-    };
-})
+        options.Password.RequiredLength = 5;
+        options.Password.RequireDigit = false;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Lockout = new LockoutOptions
+        {
+            MaxFailedAccessAttempts = 100
+        };
+    })
     .AddEntityFrameworkStores<UserManagerDbContext>()
     .AddApiEndpoints();
 
 
-
+builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
+    o.TokenLifespan = TimeSpan.FromHours(24));
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddDbContext<UserManagerDbContext>(options => options.UseNpgsql("Host=localhost;Database=Identity;Username=postgres;Password="));
+builder.Services.AddDbContext<UserManagerDbContext>(options =>
+    options.UseNpgsql("Host=localhost;Database=Identity;Username=postgres;Password="));
 
 builder.Services.AddSwaggerGen(opt =>
 {
@@ -93,17 +93,17 @@ builder.Services.AddSwaggerGen(opt =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
             },
-            new string[]{}
+            new string[] { }
         }
     });
 });
 
 
-WebApplication app = builder.Build();
+var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -117,9 +117,8 @@ app.UseCors("LocalDevelopment");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
-app.MapControllers();//.RequireAuthorization();
+app.MapControllers(); //.RequireAuthorization();
 app.MapIdentityApi<UserIdentity>();
 
 
 app.Run();
-
