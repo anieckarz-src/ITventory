@@ -17,6 +17,9 @@ var configuration = builder.Configuration;
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add health checks for Azure Container Apps
+builder.Services.AddHealthChecks();
+
 builder.Services.AddShared();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(configuration);
@@ -117,7 +120,16 @@ if (app.Environment.IsDevelopment())
 app.UseCors("LocalDevelopment");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseHttpsRedirection();
+
+// Configure for container deployment
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
+// Add health check endpoint
+app.MapHealthChecks("/health");
+
 app.MapControllers(); //.RequireAuthorization();
 app.MapIdentityApi<UserIdentity>();
 
