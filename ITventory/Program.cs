@@ -35,7 +35,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
                 "http://localhost:5173",
-                "http://localhost:3000")
+                "http://localhost:3000",
+                "http://localhost:3001")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
@@ -71,7 +72,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<UserManagerDbContext>(options =>
-    options.UseNpgsql("Host=localhost;Database=Identity;Username=postgres;Password="));
+    options.UseNpgsql(configuration.GetSection("Identity:ConnectionString").Value!));
 
 builder.Services.AddSwaggerGen(opt =>
 {

@@ -1,33 +1,33 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ITventory.Infrastructure\ITventory.Infrastructure.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ITventory.Infrastructure\ITventory.Infrastructure.csproj"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Country\" />
-    <Folder Include="Controllers\Department\" />
-    <Folder Include="Controllers\Employee\" />
-    <Folder Include="Controllers\Equipment\" />
-    <Folder Include="Controllers\Identity\" />
-    <Folder Include="Controllers\Location\" />
-    <Folder Include="Controllers\Producent\" />
-    <Folder Include="Controllers\Room\" />
-  </ItemGroup>
+    <ItemGroup>
+        <Folder Include="Controllers\Country\"/>
+        <Folder Include="Controllers\Department\"/>
+        <Folder Include="Controllers\Employee\"/>
+        <Folder Include="Controllers\Equipment\"/>
+        <Folder Include="Controllers\Identity\"/>
+        <Folder Include="Controllers\Location\"/>
+        <Folder Include="Controllers\Producent\"/>
+        <Folder Include="Controllers\Room\"/>
+    </ItemGroup>
 
 </Project>
