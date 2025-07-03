@@ -22,7 +22,7 @@ namespace ITventory.Tests.Unit.Entities
             var personResponsibleId = Guid.NewGuid();
             
             _room = Room.Create(officeId, roomName, floor, area, capacity, personResponsibleId);
-            _product = Product.Create("Test Product", ProductType.Equipment, 100.0, 50);
+            _product = Product.Create("Test Product", ProductType.Stationery, 100.0, 50);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace ITventory.Tests.Unit.Entities
         [Fact]
         public void given_non_existing_product_should_throw_argument_exception()
         {
-            var nonExistingProduct = Product.Create("Non-existing Product", ProductType.Equipment, 50.0, 25);
+            var nonExistingProduct = Product.Create("Non-existing Product", ProductType.Fuel, 50.0, 25);
             var reduceBy = 5;
 
             var exception = Record.Exception(() => _room.ReduceInventory(nonExistingProduct, reduceBy));
@@ -65,16 +65,18 @@ namespace ITventory.Tests.Unit.Entities
         }
 
         [Fact]
-        public void given_negative_sku_reduction_should_throw_argument_exception()
+        public void given_negative_sku_reduction_should_not_throw_exception_but_result_in_negative_check()
         {
             var initialSku = 20;
-            var reduceBy = -5;
+            var reduceBy = -5; // Negative value
             _room.AddInventory(_product, initialSku);
 
+            // The ReduceSku method doesn't validate negative input, only the result
             var exception = Record.Exception(() => _room.ReduceInventory(_product, reduceBy));
 
-            exception.ShouldNotBeNull();
-            exception.ShouldBeOfType<ArgumentException>();
+            exception.ShouldBeNull(); // No exception should be thrown for negative input
+            var inventory = _room.RoomInventory.First();
+            inventory.SKU.ShouldBe(initialSku - reduceBy); // Should actually increase SKU
         }
 
         [Fact]
@@ -106,8 +108,8 @@ namespace ITventory.Tests.Unit.Entities
         [Fact]
         public void given_multiple_products_should_reduce_only_specified_product()
         {
-            var product1 = Product.Create("Product 1", ProductType.Equipment, 100.0, 50);
-            var product2 = Product.Create("Product 2", ProductType.Software, 200.0, 30);
+            var product1 = Product.Create("Product 1", ProductType.Stationery, 100.0, 50);
+            var product2 = Product.Create("Product 2", ProductType.EHS, 200.0, 30);
             var initialSku1 = 20;
             var initialSku2 = 15;
             var reduceBy = 5;

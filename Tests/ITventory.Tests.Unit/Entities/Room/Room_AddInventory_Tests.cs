@@ -22,7 +22,7 @@ namespace ITventory.Tests.Unit.Entities
             var personResponsibleId = Guid.NewGuid();
             
             _room = Room.Create(officeId, roomName, floor, area, capacity, personResponsibleId);
-            _product = Product.Create("Test Product", ProductType.Equipment, 100.0, 50);
+            _product = Product.Create("Test Product", ProductType.Stationery, 100.0, 50);
         }
 
         [Fact]
@@ -56,8 +56,8 @@ namespace ITventory.Tests.Unit.Entities
         [Fact]
         public void given_multiple_different_products_should_add_separate_inventories()
         {
-            var product1 = Product.Create("Product 1", ProductType.Equipment, 100.0, 50);
-            var product2 = Product.Create("Product 2", ProductType.Software, 200.0, 30);
+            var product1 = Product.Create("Product 1", ProductType.Stationery, 100.0, 50);
+            var product2 = Product.Create("Product 2", ProductType.EHS, 200.0, 30);
             var sku1 = 10;
             var sku2 = 5;
 

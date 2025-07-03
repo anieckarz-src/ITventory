@@ -46,7 +46,7 @@ namespace ITventory.Tests.Unit.Entities
 
             exception.ShouldNotBeNull();
             exception.ShouldBeOfType<ArgumentNullException>();
-            exception.Message.ShouldBe("Invalid employee id");
+            exception.Message.ShouldBe("Value cannot be null. (Parameter 'Invalid employee id')");
         }
 
         [Fact]
