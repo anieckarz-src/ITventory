@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Mail, Lock, UserPlus } from "lucide-react";
+import { Building2, Mail, Lock, UserPlus } from "lucide-react";
 import { FormField } from "@/components/auth/FormField";
 import { PasswordToggle } from "@/components/auth/PasswordToggle";
 import { SubmitButton } from "@/components/auth/SubmitButton";
@@ -13,11 +13,17 @@ interface Props {
 
 export default function SignUpForm({ serverError }: Props) {
   const [email, setEmail] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [errors, setErrors] = useState<{ email?: string; password?: string; confirmPassword?: string }>({});
+  const [errors, setErrors] = useState<{
+    companyName?: string;
+    email?: string;
+    password?: string;
+    confirmPassword?: string;
+  }>({});
 
   function validate() {
     const next: typeof errors = {};
@@ -26,6 +32,10 @@ export default function SignUpForm({ serverError }: Props) {
       next.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       next.email = "Enter a valid email address";
+    }
+
+    if (!companyName.trim()) {
+      next.companyName = "Company name is required";
     }
 
     if (!password) {
@@ -64,6 +74,19 @@ export default function SignUpForm({ serverError }: Props) {
 
   return (
     <form method="POST" action="/api/auth/signup" className="space-y-4" onSubmit={handleSubmit} noValidate>
+      <FormField
+        id="companyName"
+        label="Company name"
+        value={companyName}
+        onChange={(v) => {
+          setCompanyName(v);
+          clearError("companyName");
+        }}
+        placeholder="Acme IT"
+        error={errors.companyName}
+        icon={<Building2 className="size-4" />}
+      />
+
       <FormField
         id="email"
         type="email"
