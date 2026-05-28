@@ -278,16 +278,16 @@ Cloudflare rollback does not roll back Supabase schema/data changes. Production 
 
 #### Automated
 
-- [x] 1.1 Supabase migration file exists under `supabase/migrations/` and defines both company tables
-- [x] 1.2 SQL includes RLS enablement and policies for company/membership reads
-- [x] 1.3 SQL includes a safe creation path for a signed-in user to create a company and receive `admin` membership
-- [x] 1.4 `npm run lint` passes
-- [x] 1.5 `npm run build` passes
+- [x] 1.1 Supabase migration file exists under `supabase/migrations/` and defines both company tables — 45ffdef
+- [x] 1.2 SQL includes RLS enablement and policies for company/membership reads — 45ffdef
+- [x] 1.3 SQL includes a safe creation path for a signed-in user to create a company and receive `admin` membership — 45ffdef
+- [x] 1.4 `npm run lint` passes — 45ffdef
+- [x] 1.5 `npm run build` passes — 45ffdef
 
 #### Manual
 
-- [x] 1.6 Reviewer confirms the schema supports future company-scoped tables through `company_id`
-- [x] 1.7 Reviewer confirms no custom RBAC or invitation workflow slipped into the phase
+- [x] 1.6 Reviewer confirms the schema supports future company-scoped tables through `company_id` — 45ffdef
+- [x] 1.7 Reviewer confirms no custom RBAC or invitation workflow slipped into the phase — 45ffdef
 
 ### Phase 2: Server Context and Signup Integration
 
