@@ -119,6 +119,17 @@ npx supabase db reset
 
 The first domain migration creates company and membership tables used to isolate data per company and assign the initial `admin` role.
 
+After resetting the local database, verify the company boundary with this smoke path:
+
+1. Run the app with `npm run dev`.
+2. Open `/auth/signup`.
+3. Create an account with a company name, email, and password.
+4. Confirm Supabase contains one `companies` row and one `company_memberships` row with role `admin`.
+5. Open `/dashboard` and confirm it shows the company name and role.
+6. Confirm an authenticated user without a membership is redirected away from company-scoped dashboard content.
+
+Preview and production Supabase schema changes are applied separately from Cloudflare deploys. Get human approval before running remote database migrations, because Worker rollback does not roll back Supabase schema or data changes.
+
 ### Using a cloud Supabase project instead
 
 If you prefer to use a hosted Supabase project, add these variables to your `.env` and `.dev.vars` files:
@@ -148,9 +159,10 @@ Users can then sign in immediately after sign-up without clicking a confirmation
 | Route                 | Description                                                             |
 | --------------------- | ----------------------------------------------------------------------- |
 | `/auth/signin`        | Email/password sign-in form                                             |
-| `/auth/signup`        | Email/password sign-up form                                             |
+| `/auth/signup`        | Email/password sign-up form with required company name                  |
 | `/auth/confirm-email` | Post-signup "check your inbox" page                                     |
-| `/dashboard`          | Example protected page (redirects to `/auth/signin` if unauthenticated) |
+| `/auth/company-required` | Signed-in recovery page for accounts without supported company access |
+| `/dashboard`          | Company-protected page requiring authentication and membership           |
 
 Route protection is handled in `src/middleware.ts`. Add paths to the `PROTECTED_ROUTES` array there to require authentication.
 
