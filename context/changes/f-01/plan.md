@@ -293,17 +293,17 @@ Cloudflare rollback does not roll back Supabase schema/data changes. Production 
 
 #### Automated
 
-- [x] 2.1 Signup form type checks with required company name state
-- [x] 2.2 Signup API validates missing/blank company name before calling Supabase
-- [x] 2.3 Middleware populates typed company, membership, and role locals for protected routes
-- [x] 2.4 `npm run lint` passes
-- [x] 2.5 `npm run build` passes
+- [x] 2.1 Signup form type checks with required company name state — 8335624
+- [x] 2.2 Signup API validates missing/blank company name before calling Supabase — 8335624
+- [x] 2.3 Middleware populates typed company, membership, and role locals for protected routes — 8335624
+- [x] 2.4 `npm run lint` passes — 8335624
+- [x] 2.5 `npm run build` passes — 8335624
 
 #### Manual
 
-- [x] 2.6 Signing up with email, password, and company name creates a company and `admin` membership
-- [x] 2.7 Signed-in user with valid membership can load `/dashboard` and see company name plus role
-- [x] 2.8 Signed-in user without membership cannot access company-scoped dashboard content
+- [x] 2.6 Signing up with email, password, and company name creates a company and `admin` membership — 8335624
+- [x] 2.7 Signed-in user with valid membership can load `/dashboard` and see company name plus role — 8335624
+- [x] 2.8 Signed-in user without membership cannot access company-scoped dashboard content — 8335624
 
 ### Phase 3: Verification, Fixtures, and Handoff
 
