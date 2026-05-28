@@ -309,13 +309,13 @@ Cloudflare rollback does not roll back Supabase schema/data changes. Production 
 
 #### Automated
 
-- [x] 3.1 `npm run lint` passes
-- [x] 3.2 `npm run build` passes
-- [x] 3.3 Local Supabase migration/reset command is documented and, when environment is available, applies cleanly
-- [x] 3.4 Access helper behavior is covered by a lightweight automated check if practical within the current toolchain
+- [x] 3.1 `npm run lint` passes — ca18843
+- [x] 3.2 `npm run build` passes — ca18843
+- [x] 3.3 Local Supabase migration/reset command is documented and, when environment is available, applies cleanly — ca18843
+- [x] 3.4 Access helper behavior is covered by a lightweight automated check if practical within the current toolchain — ca18843
 
 #### Manual
 
-- [x] 3.5 Fresh local signup smoke test confirms company and admin membership creation
-- [x] 3.6 Missing-membership recovery path is manually reachable and does not expose dashboard data
-- [x] 3.7 Reviewer confirms S-01 can build on this contract without redefining company or role concepts
+- [x] 3.5 Fresh local signup smoke test confirms company and admin membership creation — ca18843
+- [x] 3.6 Missing-membership recovery path is manually reachable and does not expose dashboard data — ca18843
+- [x] 3.7 Reviewer confirms S-01 can build on this contract without redefining company or role concepts — ca18843
