@@ -271,17 +271,17 @@ Supabase schema deploy na preview/production pozostaje aktywnoscia wymagajaca re
 
 #### Automated
 
-- [x] 1.1 Istnieje migracja z obiema tabelami reminderow i constraints.
-- [x] 1.2 SQL zawiera unique key `(company_id, license_ref, reminder_date, recipient_email)`.
-- [x] 1.3 SQL zawiera status contract (`pending/sent/failed`) i pola attempt diagnostyki.
-- [x] 1.4 SQL wlacza RLS i polityki oparte o membership.
-- [x] 1.5 `npm run lint` passes.
-- [x] 1.6 `npm run build` passes.
+- [x] 1.1 Istnieje migracja z obiema tabelami reminderow i constraints. — 5b61d92
+- [x] 1.2 SQL zawiera unique key `(company_id, license_ref, reminder_date, recipient_email)`. — 5b61d92
+- [x] 1.3 SQL zawiera status contract (`pending/sent/failed`) i pola attempt diagnostyki. — 5b61d92
+- [x] 1.4 SQL wlacza RLS i polityki oparte o membership. — 5b61d92
+- [x] 1.5 `npm run lint` passes. — 5b61d92
+- [x] 1.6 `npm run build` passes. — 5b61d92
 
 #### Manual
 
-- [x] 1.7 Reviewer potwierdza, ze kontrakt blokuje duplikat remindera dla tego samego dnia.
-- [x] 1.8 Reviewer potwierdza, ze recipient jest jawny i wymagany.
+- [x] 1.7 Reviewer potwierdza, ze kontrakt blokuje duplikat remindera dla tego samego dnia. — 5b61d92
+- [x] 1.8 Reviewer potwierdza, ze recipient jest jawny i wymagany. — 5b61d92
 
 ### Phase 2: Server Access Layer for Reminder Lifecycle
 
