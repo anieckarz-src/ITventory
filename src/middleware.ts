@@ -2,8 +2,9 @@ import { defineMiddleware } from "astro:middleware";
 import { createCompanyForCurrentUser, getCurrentAccessContext } from "@/lib/access-context";
 import { createClient } from "@/lib/supabase";
 
-const PROTECTED_ROUTES = ["/dashboard"];
+const PROTECTED_ROUTES = ["/dashboard", "/api/internal/reminders"];
 const COMPANY_REQUIRED_PATH = "/auth/company-required";
+const INTERNAL_REMINDER_PREFIX = "/api/internal/reminders";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const supabase = createClient(context.request.headers, context.cookies);
@@ -21,11 +22,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   if (PROTECTED_ROUTES.some((route) => context.url.pathname.startsWith(route))) {
+    const isInternalReminderRoute = context.url.pathname.startsWith(INTERNAL_REMINDER_PREFIX);
+
     if (!context.locals.user) {
+      if (isInternalReminderRoute) {
+        return new Response(JSON.stringify({ error: "Authentication required" }), { status: 401 });
+      }
       return context.redirect("/auth/signin");
     }
 
     if (!supabase) {
+      if (isInternalReminderRoute) {
+        return new Response(JSON.stringify({ error: "Supabase is not configured" }), { status: 500 });
+      }
       return context.redirect(COMPANY_REQUIRED_PATH);
     }
 
@@ -53,6 +62,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
 
     if (accessContext.status !== "ok") {
+      if (isInternalReminderRoute) {
+        return new Response(JSON.stringify({ error: "Company context is required" }), { status: 403 });
+      }
       return context.redirect(COMPANY_REQUIRED_PATH);
     }
 
