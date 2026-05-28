@@ -287,18 +287,18 @@ Supabase schema deploy na preview/production pozostaje aktywnoscia wymagajaca re
 
 #### Automated
 
-- [x] 2.1 Helpery kontraktowe kompiluja sie i nie lamia lint/build.
-- [x] 2.2 Internal endpoints odrzucaja request bez poprawnego kontekstu firmy.
-- [x] 2.3 Tworzenie remindera zapisuje rekord `pending` z dedup enforcement.
-- [x] 2.4 Aktualizacja na `sent`/`failed` podbija `attempt_count` i zapisuje `last_attempted_at`.
-- [x] 2.5 `npm run lint` passes.
-- [x] 2.6 `npm run build` passes.
+- [x] 2.1 Helpery kontraktowe kompiluja sie i nie lamia lint/build. — 9d4ac2e
+- [x] 2.2 Internal endpoints odrzucaja request bez poprawnego kontekstu firmy. — 9d4ac2e
+- [x] 2.3 Tworzenie remindera zapisuje rekord `pending` z dedup enforcement. — 9d4ac2e
+- [x] 2.4 Aktualizacja na `sent`/`failed` podbija `attempt_count` i zapisuje `last_attempted_at`. — 9d4ac2e
+- [x] 2.5 `npm run lint` passes. — 9d4ac2e
+- [x] 2.6 `npm run build` passes. — 9d4ac2e
 
 #### Manual
 
-- [x] 2.7 Powtorna proba utworzenia remindera z tym samym dedup key nie tworzy duplikatu.
-- [x] 2.8 Rejestracja attemptu dodaje wpis append-only i zostawia spojny stan remindera.
-- [x] 2.9 Uzytkownik spoza firmy nie ma dostepu do rekordow reminderow danej firmy.
+- [x] 2.7 Powtorna proba utworzenia remindera z tym samym dedup key nie tworzy duplikatu. — 9d4ac2e
+- [x] 2.8 Rejestracja attemptu dodaje wpis append-only i zostawia spojny stan remindera. — 9d4ac2e
+- [x] 2.9 Uzytkownik spoza firmy nie ma dostepu do rekordow reminderow danej firmy. — 9d4ac2e
 
 ### Phase 3: Verification and Handoff to S-06
 
