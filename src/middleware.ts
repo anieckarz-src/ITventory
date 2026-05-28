@@ -1,5 +1,5 @@
 import { defineMiddleware } from "astro:middleware";
-import { getCurrentAccessContext } from "@/lib/access-context";
+import { createCompanyForCurrentUser, getCurrentAccessContext } from "@/lib/access-context";
 import { createClient } from "@/lib/supabase";
 
 const PROTECTED_ROUTES = ["/dashboard"];
@@ -29,7 +29,28 @@ export const onRequest = defineMiddleware(async (context, next) => {
       return context.redirect(COMPANY_REQUIRED_PATH);
     }
 
-    const accessContext = await getCurrentAccessContext(supabase, context.locals.user);
+    let accessContext = await getCurrentAccessContext(supabase, context.locals.user);
+
+    if (accessContext.status === "no-membership") {
+      const userMetadata: unknown = context.locals.user.user_metadata;
+      let normalizedCompanyName = "";
+
+      if (userMetadata && typeof userMetadata === "object" && "company_name" in userMetadata) {
+        const companyNameFromMetadata = (userMetadata as { company_name?: unknown }).company_name;
+
+        if (typeof companyNameFromMetadata === "string") {
+          normalizedCompanyName = companyNameFromMetadata.trim();
+        }
+      }
+
+      if (normalizedCompanyName) {
+        const { error: bootstrapError } = await createCompanyForCurrentUser(supabase, normalizedCompanyName);
+
+        if (!bootstrapError) {
+          accessContext = await getCurrentAccessContext(supabase, context.locals.user);
+        }
+      }
+    }
 
     if (accessContext.status !== "ok") {
       return context.redirect(COMPANY_REQUIRED_PATH);

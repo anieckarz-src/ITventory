@@ -119,6 +119,13 @@ npx supabase db reset
 
 The first domain migration creates company and membership tables used to isolate data per company and assign the initial `admin` role.
 
+The reminder guardrail migration adds a safe contract for future renewal alerts:
+
+- reminder identity is deduplicated by `(company_id, license_ref, reminder_date, recipient_email)`
+- reminder lifecycle is tracked with `pending | sent | failed`
+- delivery attempts are tracked in an append-only attempts table
+- this does **not** send emails yet; provider delivery is implemented later
+
 After resetting the local database, verify the company boundary with this smoke path:
 
 1. Run the app with `npm run dev`.
