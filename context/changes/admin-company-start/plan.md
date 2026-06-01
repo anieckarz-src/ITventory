@@ -255,31 +255,31 @@ No database migration is required. Existing F-01 migrations remain the company a
 
 #### Automated
 
-- [x] 1.1 Signup API keeps the no-session `/auth/confirm-email` branch and redirects active-session signup to `/dashboard`.
-- [x] 1.2 Signin API redirects successful login to `/dashboard`.
-- [x] 1.3 `npm run lint` passes.
-- [x] 1.4 `npm run build` passes.
+- [x] 1.1 Signup API keeps the no-session `/auth/confirm-email` branch and redirects active-session signup to `/dashboard`. — 72859ab
+- [x] 1.2 Signin API redirects successful login to `/dashboard`. — 72859ab
+- [x] 1.3 `npm run lint` passes. — 72859ab
+- [x] 1.4 `npm run build` passes. — 72859ab
 
 #### Manual
 
-- [x] 1.5 Creating an account with company name lands on `/dashboard` when local Supabase returns a session.
-- [x] 1.6 If email confirmation prevents an immediate session, signup still lands on `/auth/confirm-email`.
-- [x] 1.7 Signing in with an existing membership lands on `/dashboard`.
+- [x] 1.5 Creating an account with company name lands on `/dashboard` when local Supabase returns a session. — 72859ab
+- [x] 1.6 If email confirmation prevents an immediate session, signup still lands on `/auth/confirm-email`. — 72859ab
+- [x] 1.7 Signing in with an existing membership lands on `/dashboard`. — 72859ab
 
 ### Phase 2: Empty Company Workspace
 
 #### Automated
 
-- [ ] 2.1 Dashboard renders without requiring any inventory, license, hardware, employee, or reminder tables.
-- [ ] 2.2 Dashboard uses `Astro.locals.company`, `Astro.locals.role`, and `Astro.locals.user` without unsafe client-submitted company identifiers.
-- [ ] 2.3 `npm run lint` passes.
-- [ ] 2.4 `npm run build` passes.
+- [x] 2.1 Dashboard renders without requiring any inventory, license, hardware, employee, or reminder tables.
+- [x] 2.2 Dashboard uses `Astro.locals.company`, `Astro.locals.role`, and `Astro.locals.user` without unsafe client-submitted company identifiers.
+- [x] 2.3 `npm run lint` passes.
+- [x] 2.4 `npm run build` passes.
 
 #### Manual
 
-- [ ] 2.5 A newly signed-up admin sees the company name, Administrator role, and email on `/dashboard`.
-- [ ] 2.6 The dashboard clearly shows an empty workspace with employees, hardware, licenses, and renewals sections.
-- [ ] 2.7 Sign out still works from the dashboard.
+- [x] 2.5 A newly signed-up admin sees the company name, Administrator role, and email on `/dashboard`.
+- [x] 2.6 The dashboard clearly shows an empty workspace with employees, hardware, licenses, and renewals sections.
+- [x] 2.7 Sign out still works from the dashboard.
 
 ### Phase 3: Public Rebrand and Handoff
 
