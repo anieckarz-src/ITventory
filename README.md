@@ -126,6 +126,17 @@ The reminder guardrail migration adds a safe contract for future renewal alerts:
 - delivery attempts are tracked in an append-only attempts table
 - this does **not** send emails yet; provider delivery is implemented later
 
+### Reminder contract (F-02)
+
+F-02 introduces the delivery guardrail only. It does not run a scheduler and does not send real emails.
+
+- lifecycle: `pending -> sent` or `pending -> failed`
+- every transition increments `attempt_count` and updates `last_attempted_at`
+- each delivery attempt is written to append-only `license_renewal_reminder_attempts`
+- dedup key is `(company_id, license_ref, reminder_date, recipient_email)`
+
+S-06 is responsible for the actual email delivery pipeline and scheduling. It should use the F-02 internal reminder API instead of bypassing this contract.
+
 After resetting the local database, verify the company boundary with this smoke path:
 
 1. Run the app with `npm run dev`.

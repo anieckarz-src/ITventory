@@ -304,13 +304,13 @@ Supabase schema deploy na preview/production pozostaje aktywnoscia wymagajaca re
 
 #### Automated
 
-- [ ] 3.1 `npm run lint` passes.
-- [ ] 3.2 `npm run build` passes.
-- [ ] 3.3 Istnieje lekka automatyczna walidacja dedup/status (test lub script).
-- [ ] 3.4 Dokumentacja zawiera rozdzial F-02 i granice odpowiedzialnosci wzgledem S-06.
+- [x] 3.1 `npm run lint` passes.
+- [x] 3.2 `npm run build` passes.
+- [x] 3.3 Istnieje lekka automatyczna walidacja dedup/status (test lub script).
+- [x] 3.4 Dokumentacja zawiera rozdzial F-02 i granice odpowiedzialnosci wzgledem S-06.
 
 #### Manual
 
-- [ ] 3.5 Reviewer potwierdza, ze S-06 moze korzystac z kontraktu bez zmian breaking.
-- [ ] 3.6 Reviewer potwierdza, ze kontrakt nie wymaga jeszcze modelu licencji z S-03.
-- [ ] 3.7 Reviewer potwierdza, ze ryzyka duplikatu i blednego odbiorcy sa zaadresowane w warstwie foundation.
+- [x] 3.5 Reviewer potwierdza, ze S-06 moze korzystac z kontraktu bez zmian breaking.
+- [x] 3.6 Reviewer potwierdza, ze kontrakt nie wymaga jeszcze modelu licencji z S-03.
+- [x] 3.7 Reviewer potwierdza, ze ryzyka duplikatu i blednego odbiorcy sa zaadresowane w warstwie foundation.
