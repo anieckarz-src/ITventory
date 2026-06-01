@@ -248,33 +248,33 @@ No database or backend migration is required.
 
 #### Automated
 
-- [x] 1.1 `Welcome.astro` renders a first-viewport ITventory hero with signup and signin links.
-- [x] 1.2 Hero includes a static product/dashboard mock without API calls or auth requirements.
-- [x] 1.3 `npm run lint` passes.
-- [x] 1.4 `npm run build` passes.
+- [x] 1.1 `Welcome.astro` renders a first-viewport ITventory hero with signup and signin links. — 04e2d60
+- [x] 1.2 Hero includes a static product/dashboard mock without API calls or auth requirements. — 04e2d60
+- [x] 1.3 `npm run lint` passes. — 04e2d60
+- [x] 1.4 `npm run build` passes. — 04e2d60
 
 #### Manual
 
-- [x] 1.5 Anonymous `/` immediately communicates ITventory as an IT inventory / renewal-risk product.
-- [x] 1.6 The first viewport shows a credible product surface, not only copy.
-- [x] 1.7 Mobile and desktop layouts do not overlap or clip hero text, CTA labels, or mock content.
+- [x] 1.5 Anonymous `/` immediately communicates ITventory as an IT inventory / renewal-risk product. — 04e2d60
+- [x] 1.6 The first viewport shows a credible product surface, not only copy. — 04e2d60
+- [x] 1.7 Mobile and desktop layouts do not overlap or clip hero text, CTA labels, or mock content. — 04e2d60
 
 ### Phase 2: Value Sections and Topbar Refresh
 
 #### Automated
 
-- [ ] 2.1 `/` includes sections for problem/value, operating model, and MVP workflow/final CTA.
-- [ ] 2.2 Topbar preserves signed-in and signed-out navigation behavior.
-- [ ] 2.3 Planned/not-yet-implemented capabilities are not presented as already live.
-- [ ] 2.4 `npm run lint` passes.
-- [ ] 2.5 `npm run build` passes.
+- [x] 2.1 `/` includes sections for problem/value, operating model, and MVP workflow/final CTA.
+- [x] 2.2 Topbar preserves signed-in and signed-out navigation behavior.
+- [x] 2.3 Planned/not-yet-implemented capabilities are not presented as already live.
+- [x] 2.4 `npm run lint` passes.
+- [x] 2.5 `npm run build` passes.
 
 #### Manual
 
-- [ ] 2.6 Anonymous `/` feels more polished and more specific to ITventory than the current version.
-- [ ] 2.7 Anonymous users can clearly choose signup or signin.
-- [ ] 2.8 Signed-in users still see a dashboard path and sign-out action.
-- [ ] 2.9 The page does not overpromise completed inventory, assignment, renewal dashboard, or email alert functionality.
+- [x] 2.6 Anonymous `/` feels more polished and more specific to ITventory than the current version.
+- [x] 2.7 Anonymous users can clearly choose signup or signin.
+- [x] 2.8 Signed-in users still see a dashboard path and sign-out action.
+- [x] 2.9 The page does not overpromise completed inventory, assignment, renewal dashboard, or email alert functionality.
 
 ### Phase 3: Polish, Responsive QA, and Handoff
 

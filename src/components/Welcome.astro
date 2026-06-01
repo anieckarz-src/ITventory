@@ -12,6 +12,41 @@ const summaryCards = [
   { label: "Tracked hardware", value: "24", detail: "Laptops and phones" },
   { label: "Assigned licenses", value: "68", detail: "People and devices" },
 ];
+
+const valueCards = [
+  {
+    title: "Renewals stop hiding in inboxes",
+    copy: "Keep contract dates, owners, and expected spend visible before the next software invoice arrives.",
+  },
+  {
+    title: "Hardware has an accountable owner",
+    copy: "Track laptops, phones, and other assets with the person or team responsible for them.",
+  },
+  {
+    title: "Licenses and devices share context",
+    copy: "Build one workspace for the records that usually live across spreadsheets, emails, and chat threads.",
+  },
+];
+
+const operatingModel = [
+  { label: "People", detail: "Employees and teams give assignments a clear destination." },
+  { label: "Assets", detail: "Hardware and software records stay in one company-scoped inventory." },
+  { label: "Renewals", detail: "Dates and costs create the review queue the dashboard can surface." },
+];
+
+const workflowSteps = [
+  { step: "1", title: "Create the workspace", copy: "Start with one company account and an administrator." },
+  {
+    step: "2",
+    title: "Enter core records",
+    copy: "Add the software, hardware, owners, and renewal dates you already know.",
+  },
+  {
+    step: "3",
+    title: "Review upcoming risk",
+    copy: "Use the renewal view as the operating rhythm. Email reminders are planned next.",
+  },
+];
 ---
 
 <div class="relative min-h-screen w-full overflow-hidden bg-[#f6f8fb] text-slate-950">
@@ -23,109 +58,218 @@ const summaryCards = [
   <div class="relative z-10 px-4 py-4 sm:px-6 lg:px-8">
     <Topbar />
 
-    <main class="mx-auto grid max-w-7xl gap-10 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-16">
-      <section class="max-w-2xl">
-        <p class="text-sm font-semibold tracking-[0.18em] text-sky-700 uppercase">ITventory workspace</p>
-        <h1 class="mt-5 text-4xl leading-tight font-semibold tracking-[-0.02em] text-slate-950 sm:text-5xl lg:text-6xl">
-          Stop missing software renewals.
-        </h1>
-        <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-          Track hardware, licenses, assignments, and renewal dates in one company workspace before scattered IT records
-          turn into avoidable subscription costs.
-        </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href="/auth/signup"
-            class="inline-flex min-h-12 items-center justify-center rounded-md bg-slate-950 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800"
+    <main>
+      <section class="mx-auto grid max-w-7xl gap-10 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-16">
+        <div class="max-w-2xl">
+          <p class="text-sm font-semibold tracking-[0.18em] text-sky-700 uppercase">ITventory workspace</p>
+          <h1
+            class="mt-5 text-4xl leading-tight font-semibold tracking-[-0.02em] text-slate-950 sm:text-5xl lg:text-6xl"
           >
-            Start company workspace
-          </a>
-          <a
-            href="/auth/signin"
-            class="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-900 transition-colors hover:border-slate-400 hover:bg-slate-50"
-          >
-            Sign in
-          </a>
-        </div>
-        <div class="mt-8 grid max-w-xl grid-cols-1 gap-3 text-sm text-slate-700 sm:grid-cols-3">
-          <div class="rounded-md border border-slate-200 bg-white/80 p-3">
-            <p class="font-semibold text-slate-950">Company scoped</p>
-            <p class="mt-1 text-slate-600">Data stays inside one workspace.</p>
-          </div>
-          <div class="rounded-md border border-slate-200 bg-white/80 p-3">
-            <p class="font-semibold text-slate-950">Manual MVP</p>
-            <p class="mt-1 text-slate-600">No integrations required to start.</p>
-          </div>
-          <div class="rounded-md border border-slate-200 bg-white/80 p-3">
-            <p class="font-semibold text-slate-950">Alerts next</p>
-            <p class="mt-1 text-slate-600">Email reminders build on this.</p>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="rounded-lg border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-200/80 sm:p-5"
-        aria-label="Static ITventory dashboard preview"
-      >
-        <div class="flex flex-col gap-4 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p class="text-sm font-semibold text-slate-950">Acme IT workspace</p>
-            <p class="mt-1 text-xs text-slate-500">Static preview - sample data</p>
-          </div>
-          <span class="w-fit rounded-md bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-            3 renewals need review
-          </span>
-        </div>
-
-        <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {
-            summaryCards.map((card) => (
-              <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
-                <p class="text-xs font-medium text-slate-500">{card.label}</p>
-                <p class="mt-2 text-2xl font-semibold text-slate-950">{card.value}</p>
-                <p class="mt-1 text-xs text-slate-500">{card.detail}</p>
-              </div>
-            ))
-          }
-        </div>
-
-        <div class="mt-4 overflow-x-auto rounded-md border border-slate-200">
-          <div class="min-w-[560px]">
-            <div
-              class="grid grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr] bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-500"
+            Stop missing software renewals.
+          </h1>
+          <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+            Track hardware, licenses, assignments, and renewal dates in one company workspace before scattered IT
+            records turn into avoidable subscription costs.
+          </p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="/auth/signup"
+              class="inline-flex min-h-12 items-center justify-center rounded-md bg-slate-950 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800"
             >
-              <span>License</span>
-              <span>Owner</span>
-              <span>Renews in</span>
-              <span class="text-right">Cost</span>
+              Start company workspace
+            </a>
+            <a
+              href="/auth/signin"
+              class="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-900 transition-colors hover:border-slate-400 hover:bg-slate-50"
+            >
+              Sign in
+            </a>
+          </div>
+          <div class="mt-8 grid max-w-xl grid-cols-1 gap-3 text-sm text-slate-700 sm:grid-cols-3">
+            <div class="rounded-md border border-slate-200 bg-white/80 p-3">
+              <p class="font-semibold text-slate-950">Company scoped</p>
+              <p class="mt-1 text-slate-600">Data stays inside one workspace.</p>
             </div>
+            <div class="rounded-md border border-slate-200 bg-white/80 p-3">
+              <p class="font-semibold text-slate-950">Manual MVP</p>
+              <p class="mt-1 text-slate-600">No integrations required to start.</p>
+            </div>
+            <div class="rounded-md border border-slate-200 bg-white/80 p-3">
+              <p class="font-semibold text-slate-950">Alerts next</p>
+              <p class="mt-1 text-slate-600">Email reminders build on this.</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="rounded-lg border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-200/80 sm:p-5"
+          aria-label="Static ITventory dashboard preview"
+        >
+          <div
+            class="flex flex-col gap-4 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div>
+              <p class="text-sm font-semibold text-slate-950">Acme IT workspace</p>
+              <p class="mt-1 text-xs text-slate-500">Static preview - sample data</p>
+            </div>
+            <span class="w-fit rounded-md bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+              3 renewals need review
+            </span>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {
-              renewalRows.map((row) => (
-                <div class="grid grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr] items-center border-t border-slate-200 px-3 py-3 text-sm">
-                  <div>
-                    <p class="font-medium text-slate-950">{row.name}</p>
-                    <p class="mt-1 text-xs text-slate-500">{row.status}</p>
-                  </div>
-                  <span class="text-slate-600">{row.owner}</span>
-                  <span class="font-medium text-slate-950">{row.date}</span>
-                  <span class="text-right text-slate-600">{row.cost}</span>
+              summaryCards.map((card) => (
+                <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
+                  <p class="text-xs font-medium text-slate-500">{card.label}</p>
+                  <p class="mt-2 text-2xl font-semibold text-slate-950">{card.value}</p>
+                  <p class="mt-1 text-xs text-slate-500">{card.detail}</p>
                 </div>
               ))
             }
           </div>
-        </div>
 
-        <div class="mt-4 grid gap-3 sm:grid-cols-2">
-          <div class="rounded-md border border-slate-200 p-3">
-            <p class="text-xs font-semibold text-slate-500">Assignment sample</p>
-            <p class="mt-2 text-sm font-medium text-slate-950">MacBook Pro 14 assigned to Marta Nowak</p>
-            <p class="mt-1 text-xs text-slate-500">Hardware ownership planned for inventory records.</p>
+          <div class="mt-4 overflow-x-auto rounded-md border border-slate-200">
+            <div class="min-w-[560px]">
+              <div
+                class="grid grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr] bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-500"
+              >
+                <span>License</span>
+                <span>Owner</span>
+                <span>Renews in</span>
+                <span class="text-right">Cost</span>
+              </div>
+              {
+                renewalRows.map((row) => (
+                  <div class="grid grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr] items-center border-t border-slate-200 px-3 py-3 text-sm">
+                    <div>
+                      <p class="font-medium text-slate-950">{row.name}</p>
+                      <p class="mt-1 text-xs text-slate-500">{row.status}</p>
+                    </div>
+                    <span class="text-slate-600">{row.owner}</span>
+                    <span class="font-medium text-slate-950">{row.date}</span>
+                    <span class="text-right text-slate-600">{row.cost}</span>
+                  </div>
+                ))
+              }
+            </div>
           </div>
-          <div class="rounded-md border border-slate-200 p-3">
-            <p class="text-xs font-semibold text-slate-500">Reminder status</p>
-            <p class="mt-2 text-sm font-medium text-slate-950">Email guardrail ready</p>
-            <p class="mt-1 text-xs text-slate-500">Delivery pipeline coming next.</p>
+
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-md border border-slate-200 p-3">
+              <p class="text-xs font-semibold text-slate-500">Assignment sample</p>
+              <p class="mt-2 text-sm font-medium text-slate-950">MacBook Pro 14 assigned to Marta Nowak</p>
+              <p class="mt-1 text-xs text-slate-500">Hardware ownership planned for inventory records.</p>
+            </div>
+            <div class="rounded-md border border-slate-200 p-3">
+              <p class="text-xs font-semibold text-slate-500">Reminder status</p>
+              <p class="mt-2 text-sm font-medium text-slate-950">Email guardrail ready</p>
+              <p class="mt-1 text-xs text-slate-500">Delivery pipeline coming next.</p>
+            </div>
           </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl py-12 sm:py-16" aria-labelledby="value-heading">
+        <div class="max-w-3xl">
+          <p class="text-sm font-semibold text-sky-700 uppercase">Problem and value</p>
+          <h2 id="value-heading" class="mt-3 text-3xl font-semibold tracking-[-0.01em] text-slate-950 sm:text-4xl">
+            Replace renewal surprises with one practical IT record.
+          </h2>
+          <p class="mt-4 text-base leading-7 text-slate-600">
+            ITventory is for small teams that need a calm place to see software spend, hardware ownership, and the dates
+            that should not depend on memory.
+          </p>
+        </div>
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+          {
+            valueCards.map((card) => (
+              <article class="rounded-md border border-slate-200 bg-white p-5 shadow-sm">
+                <h3 class="text-base font-semibold text-slate-950">{card.title}</h3>
+                <p class="mt-3 text-sm leading-6 text-slate-600">{card.copy}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="border-y border-slate-200 bg-white/70">
+        <div class="mx-auto grid max-w-7xl gap-8 py-12 sm:py-16 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div>
+            <p class="text-sm font-semibold text-sky-700 uppercase">Operating model</p>
+            <h2 class="mt-3 text-3xl font-semibold tracking-[-0.01em] text-slate-950 sm:text-4xl">
+              A workspace built around the records IT already manages.
+            </h2>
+            <p class="mt-4 text-base leading-7 text-slate-600">
+              The public page stays illustrative. The protected workspace is where real company data belongs after
+              sign-up.
+            </p>
+          </div>
+          <div class="grid gap-3">
+            {
+              operatingModel.map((item) => (
+                <div class="grid gap-3 rounded-md border border-slate-200 bg-white p-4 sm:grid-cols-[160px_1fr]">
+                  <p class="font-semibold text-slate-950">{item.label}</p>
+                  <p class="text-sm leading-6 text-slate-600">{item.detail}</p>
+                </div>
+              ))
+            }
+            <div class="rounded-md border border-dashed border-sky-300 bg-sky-50 p-4">
+              <p class="text-sm font-semibold text-sky-900">Coming next</p>
+              <p class="mt-2 text-sm leading-6 text-sky-800">
+                Email reminders will build on renewal dates once the inventory foundation is in place.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-7xl py-12 sm:py-16" aria-labelledby="workflow-heading">
+        <div class="grid gap-8 lg:grid-cols-[1fr_380px] lg:items-start">
+          <div>
+            <p class="text-sm font-semibold text-sky-700 uppercase">MVP workflow</p>
+            <h2 id="workflow-heading" class="mt-3 text-3xl font-semibold tracking-[-0.01em] text-slate-950 sm:text-4xl">
+              Start with the records, then turn renewals into a review habit.
+            </h2>
+            <div class="mt-8 grid gap-4">
+              {
+                workflowSteps.map((item) => (
+                  <div class="flex gap-4 rounded-md border border-slate-200 bg-white p-5 shadow-sm">
+                    <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-slate-950 text-sm font-semibold text-white">
+                      {item.step}
+                    </span>
+                    <div>
+                      <h3 class="font-semibold text-slate-950">{item.title}</h3>
+                      <p class="mt-2 text-sm leading-6 text-slate-600">{item.copy}</p>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+          <aside class="rounded-lg border border-slate-200 bg-slate-950 p-6 text-white">
+            <p class="text-sm font-semibold text-sky-200">Ready to organize the first workspace?</p>
+            <p class="mt-4 text-2xl leading-snug font-semibold">
+              Create the company account and start with manual records.
+            </p>
+            <p class="mt-3 text-sm leading-6 text-slate-300">
+              Integrations and reminder delivery can follow after the core inventory model is useful.
+            </p>
+            <div class="mt-6 flex flex-col gap-3">
+              <a
+                href="/auth/signup"
+                class="inline-flex min-h-11 items-center justify-center rounded-md bg-white px-4 text-sm font-semibold text-slate-950 transition-colors hover:bg-slate-100"
+              >
+                Start company workspace
+              </a>
+              <a
+                href="/auth/signin"
+                class="inline-flex min-h-11 items-center justify-center rounded-md border border-white/20 px-4 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                Sign in
+              </a>
+            </div>
+          </aside>
         </div>
       </section>
     </main>
