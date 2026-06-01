@@ -40,5 +40,5 @@ export const POST: APIRoute = async (context) => {
     return context.redirect(`/auth/signup?error=${encodeURIComponent(companyError.message)}`);
   }
 
-  return context.redirect("/auth/confirm-email");
+  return context.redirect("/dashboard");
 };
