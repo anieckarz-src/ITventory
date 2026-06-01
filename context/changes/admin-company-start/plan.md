@@ -285,14 +285,14 @@ No database migration is required. Existing F-01 migrations remain the company a
 
 #### Automated
 
-- [x] 3.1 No user-facing page copy still presents the app as `10x Astro Starter`.
-- [x] 3.2 README documents the S-01 start path.
-- [x] 3.3 `npm run lint` passes.
-- [x] 3.4 `npm run build` passes.
+- [x] 3.1 No user-facing page copy still presents the app as `10x Astro Starter`. — 4c79e2f
+- [x] 3.2 README documents the S-01 start path. — 4c79e2f
+- [x] 3.3 `npm run lint` passes. — 4c79e2f
+- [x] 3.4 `npm run build` passes. — 4c79e2f
 
 #### Manual
 
-- [x] 3.5 Anonymous `/` clearly presents ITventory, not the starter.
-- [x] 3.6 Anonymous `/` offers sign-up and sign-in entry points.
-- [x] 3.7 Signed-in users can still navigate to `/dashboard` from the public entry/topbar.
-- [x] 3.8 Reviewer confirms S-02 and S-03 can build on this start path without redefining company context.
+- [x] 3.5 Anonymous `/` clearly presents ITventory, not the starter. — 4c79e2f
+- [x] 3.6 Anonymous `/` offers sign-up and sign-in entry points. — 4c79e2f
+- [x] 3.7 Signed-in users can still navigate to `/dashboard` from the public entry/topbar. — 4c79e2f
+- [x] 3.8 Reviewer confirms S-02 and S-03 can build on this start path without redefining company context. — 4c79e2f
