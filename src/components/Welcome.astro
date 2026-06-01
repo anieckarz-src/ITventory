@@ -1,124 +1,133 @@
 ---
 import Topbar from "@/components/Topbar.astro";
+
+const renewalRows = [
+  { name: "Figma Business", owner: "Design", date: "12 days", cost: "$540/yr", status: "Review" },
+  { name: "Microsoft 365", owner: "Operations", date: "28 days", cost: "$1,260/mo", status: "Planned" },
+  { name: "GitHub Team", owner: "Engineering", date: "41 days", cost: "$420/yr", status: "Coming next" },
+];
+
+const summaryCards = [
+  { label: "Upcoming renewals", value: "3", detail: "Next 45 days" },
+  { label: "Tracked hardware", value: "24", detail: "Laptops and phones" },
+  { label: "Assigned licenses", value: "68", detail: "People and devices" },
+];
 ---
 
-<div class="bg-cosmic relative min-h-screen w-full overflow-hidden">
+<div class="relative min-h-screen w-full overflow-hidden bg-[#f6f8fb] text-slate-950">
   <div
-    class="pointer-events-none absolute top-1/4 -left-24 h-[350px] w-[350px] rounded-full bg-purple-500/20 blur-[120px]"
-  >
-  </div>
-  <div
-    class="pointer-events-none absolute top-2/3 -right-16 h-[250px] w-[250px] rounded-full bg-blue-500/15 blur-[100px]"
-  >
-  </div>
-  <div
-    class="pointer-events-none absolute top-0 left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-indigo-400/10 blur-[140px]"
+    class="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(14,165,233,0.08),rgba(246,248,251,0)_42%),linear-gradient(90deg,rgba(15,23,42,0.05)_1px,transparent_1px),linear-gradient(180deg,rgba(15,23,42,0.05)_1px,transparent_1px)] bg-[size:auto,48px_48px,48px_48px]"
   >
   </div>
 
-  <!-- Star field -->
-  <div
-    class="pointer-events-none absolute inset-0"
-    style="background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px), radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); background-size: 200px 200px, 150px 150px, 100px 100px; background-position: 0 0, 40px 60px, 80px 30px;"
-  >
-  </div>
-
-  <div class="relative z-10 p-4 sm:p-8">
+  <div class="relative z-10 px-4 py-4 sm:px-6 lg:px-8">
     <Topbar />
 
-    <div class="mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-24 text-center sm:py-32 lg:py-40">
-      <h1
-        class="mb-6 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-5xl leading-tight font-bold text-transparent sm:text-6xl lg:text-7xl"
+    <main class="mx-auto grid max-w-7xl gap-10 py-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-16">
+      <section class="max-w-2xl">
+        <p class="text-sm font-semibold tracking-[0.18em] text-sky-700 uppercase">ITventory workspace</p>
+        <h1 class="mt-5 text-4xl leading-tight font-semibold tracking-[-0.02em] text-slate-950 sm:text-5xl lg:text-6xl">
+          Stop missing software renewals.
+        </h1>
+        <p class="mt-6 max-w-xl text-lg leading-8 text-slate-600">
+          Track hardware, licenses, assignments, and renewal dates in one company workspace before scattered IT records
+          turn into avoidable subscription costs.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+          <a
+            href="/auth/signup"
+            class="inline-flex min-h-12 items-center justify-center rounded-md bg-slate-950 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800"
+          >
+            Start company workspace
+          </a>
+          <a
+            href="/auth/signin"
+            class="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-900 transition-colors hover:border-slate-400 hover:bg-slate-50"
+          >
+            Sign in
+          </a>
+        </div>
+        <div class="mt-8 grid max-w-xl grid-cols-1 gap-3 text-sm text-slate-700 sm:grid-cols-3">
+          <div class="rounded-md border border-slate-200 bg-white/80 p-3">
+            <p class="font-semibold text-slate-950">Company scoped</p>
+            <p class="mt-1 text-slate-600">Data stays inside one workspace.</p>
+          </div>
+          <div class="rounded-md border border-slate-200 bg-white/80 p-3">
+            <p class="font-semibold text-slate-950">Manual MVP</p>
+            <p class="mt-1 text-slate-600">No integrations required to start.</p>
+          </div>
+          <div class="rounded-md border border-slate-200 bg-white/80 p-3">
+            <p class="font-semibold text-slate-950">Alerts next</p>
+            <p class="mt-1 text-slate-600">Email reminders build on this.</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="rounded-lg border border-slate-200 bg-white p-4 shadow-2xl shadow-slate-200/80 sm:p-5"
+        aria-label="Static ITventory dashboard preview"
       >
-        ITventory
-      </h1>
-      <p class="mb-10 max-w-2xl text-lg text-blue-100/70 sm:text-xl">
-        One company workspace for tracking IT hardware, software licenses, assignments, and upcoming renewals before
-        they become operational surprises.
-      </p>
-      <div class="flex flex-col gap-4 sm:flex-row">
-        <a
-          href="/auth/signup"
-          class="inline-flex items-center justify-center rounded-lg bg-purple-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-purple-500"
-        >
-          Start company workspace
-        </a>
-        <a
-          href="/auth/signin"
-          class="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-white/10"
-        >
-          Sign in
-        </a>
-      </div>
-    </div>
+        <div class="flex flex-col gap-4 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm font-semibold text-slate-950">Acme IT workspace</p>
+            <p class="mt-1 text-xs text-slate-500">Static preview - sample data</p>
+          </div>
+          <span class="w-fit rounded-md bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+            3 renewals need review
+          </span>
+        </div>
 
-    <div class="mx-auto grid max-w-4xl grid-cols-1 gap-6 px-4 pb-24 sm:grid-cols-3">
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="mb-4 text-purple-300"
-        >
-          <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-        <h3 class="mb-2 text-lg font-semibold text-white">Company workspace</h3>
-        <p class="text-sm leading-relaxed text-blue-100/60">
-          Keep each company's inventory isolated with a clear Administrator role from the first sign-up.
-        </p>
-      </div>
+        <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {
+            summaryCards.map((card) => (
+              <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
+                <p class="text-xs font-medium text-slate-500">{card.label}</p>
+                <p class="mt-2 text-2xl font-semibold text-slate-950">{card.value}</p>
+                <p class="mt-1 text-xs text-slate-500">{card.detail}</p>
+              </div>
+            ))
+          }
+        </div>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="mb-4 text-purple-300"
-        >
-          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-          <polyline points="2 17 12 22 22 17"></polyline>
-          <polyline points="2 12 12 17 22 12"></polyline>
-        </svg>
-        <h3 class="mb-2 text-lg font-semibold text-white">Inventory foundation</h3>
-        <p class="text-sm leading-relaxed text-blue-100/60">
-          Prepare the ground for employees, hardware, software licenses, assignments, and renewal tracking.
-        </p>
-      </div>
+        <div class="mt-4 overflow-x-auto rounded-md border border-slate-200">
+          <div class="min-w-[560px]">
+            <div
+              class="grid grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr] bg-slate-50 px-3 py-2 text-xs font-semibold text-slate-500"
+            >
+              <span>License</span>
+              <span>Owner</span>
+              <span>Renews in</span>
+              <span class="text-right">Cost</span>
+            </div>
+            {
+              renewalRows.map((row) => (
+                <div class="grid grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr] items-center border-t border-slate-200 px-3 py-3 text-sm">
+                  <div>
+                    <p class="font-medium text-slate-950">{row.name}</p>
+                    <p class="mt-1 text-xs text-slate-500">{row.status}</p>
+                  </div>
+                  <span class="text-slate-600">{row.owner}</span>
+                  <span class="font-medium text-slate-950">{row.date}</span>
+                  <span class="text-right text-slate-600">{row.cost}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
 
-      <div class="rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="mb-4 text-purple-300"
-        >
-          <polyline points="16 18 22 12 16 6"></polyline>
-          <polyline points="8 6 2 12 8 18"></polyline>
-        </svg>
-        <h3 class="mb-2 text-lg font-semibold text-white">Renewal awareness</h3>
-        <p class="text-sm leading-relaxed text-blue-100/60">
-          Surface subscription dates and costs so upcoming renewals are visible before they create waste.
-        </p>
-      </div>
-    </div>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <div class="rounded-md border border-slate-200 p-3">
+            <p class="text-xs font-semibold text-slate-500">Assignment sample</p>
+            <p class="mt-2 text-sm font-medium text-slate-950">MacBook Pro 14 assigned to Marta Nowak</p>
+            <p class="mt-1 text-xs text-slate-500">Hardware ownership planned for inventory records.</p>
+          </div>
+          <div class="rounded-md border border-slate-200 p-3">
+            <p class="text-xs font-semibold text-slate-500">Reminder status</p>
+            <p class="mt-2 text-sm font-medium text-slate-950">Email guardrail ready</p>
+            <p class="mt-1 text-xs text-slate-500">Delivery pipeline coming next.</p>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 </div>
