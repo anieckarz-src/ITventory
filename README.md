@@ -1,8 +1,8 @@
-# 10x Astro Starter
+# ITventory
 
 ![](./public/template.png)
 
-A modern, opinionated starter template for building fast, accessible web applications.
+ITventory is a small-company IT inventory workspace for tracking hardware, software licenses, assignments, and renewal risk from one company-scoped dashboard.
 
 ## Tech Stack
 
@@ -23,8 +23,8 @@ A modern, opinionated starter template for building fast, accessible web applica
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/przeprogramowani/10x-astro-starter.git
-cd 10x-astro-starter
+git clone <repository-url>
+cd ITventory
 ```
 
 2. Install dependencies:
@@ -179,11 +179,12 @@ Users can then sign in immediately after sign-up without clicking a confirmation
 
 | Route                 | Description                                                             |
 | --------------------- | ----------------------------------------------------------------------- |
+| `/`                   | ITventory public entry with sign-up and sign-in calls to action         |
 | `/auth/signin`        | Email/password sign-in form                                             |
 | `/auth/signup`        | Email/password sign-up form with required company name                  |
 | `/auth/confirm-email` | Post-signup "check your inbox" page                                     |
 | `/auth/company-required` | Signed-in recovery page for accounts without supported company access |
-| `/dashboard`          | Company-protected workspace requiring authentication and membership      |
+| `/dashboard`          | Empty company workspace requiring authentication and membership          |
 
 Route protection is handled in `src/middleware.ts`. Add paths to the `PROTECTED_ROUTES` array there to require authentication.
 

@@ -270,29 +270,29 @@ No database migration is required. Existing F-01 migrations remain the company a
 
 #### Automated
 
-- [x] 2.1 Dashboard renders without requiring any inventory, license, hardware, employee, or reminder tables.
-- [x] 2.2 Dashboard uses `Astro.locals.company`, `Astro.locals.role`, and `Astro.locals.user` without unsafe client-submitted company identifiers.
-- [x] 2.3 `npm run lint` passes.
-- [x] 2.4 `npm run build` passes.
+- [x] 2.1 Dashboard renders without requiring any inventory, license, hardware, employee, or reminder tables. — d29d14d
+- [x] 2.2 Dashboard uses `Astro.locals.company`, `Astro.locals.role`, and `Astro.locals.user` without unsafe client-submitted company identifiers. — d29d14d
+- [x] 2.3 `npm run lint` passes. — d29d14d
+- [x] 2.4 `npm run build` passes. — d29d14d
 
 #### Manual
 
-- [x] 2.5 A newly signed-up admin sees the company name, Administrator role, and email on `/dashboard`.
-- [x] 2.6 The dashboard clearly shows an empty workspace with employees, hardware, licenses, and renewals sections.
-- [x] 2.7 Sign out still works from the dashboard.
+- [x] 2.5 A newly signed-up admin sees the company name, Administrator role, and email on `/dashboard`. — d29d14d
+- [x] 2.6 The dashboard clearly shows an empty workspace with employees, hardware, licenses, and renewals sections. — d29d14d
+- [x] 2.7 Sign out still works from the dashboard. — d29d14d
 
 ### Phase 3: Public Rebrand and Handoff
 
 #### Automated
 
-- [ ] 3.1 No user-facing page copy still presents the app as `10x Astro Starter`.
-- [ ] 3.2 README documents the S-01 start path.
-- [ ] 3.3 `npm run lint` passes.
-- [ ] 3.4 `npm run build` passes.
+- [x] 3.1 No user-facing page copy still presents the app as `10x Astro Starter`.
+- [x] 3.2 README documents the S-01 start path.
+- [x] 3.3 `npm run lint` passes.
+- [x] 3.4 `npm run build` passes.
 
 #### Manual
 
-- [ ] 3.5 Anonymous `/` clearly presents ITventory, not the starter.
-- [ ] 3.6 Anonymous `/` offers sign-up and sign-in entry points.
-- [ ] 3.7 Signed-in users can still navigate to `/dashboard` from the public entry/topbar.
-- [ ] 3.8 Reviewer confirms S-02 and S-03 can build on this start path without redefining company context.
+- [x] 3.5 Anonymous `/` clearly presents ITventory, not the starter.
+- [x] 3.6 Anonymous `/` offers sign-up and sign-in entry points.
+- [x] 3.7 Signed-in users can still navigate to `/dashboard` from the public entry/topbar.
+- [x] 3.8 Reviewer confirms S-02 and S-03 can build on this start path without redefining company context.
