@@ -3,6 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Topbar from "@/components/Topbar.astro";
 import {
   getInventoryRecords,
+  type AssignmentRecord,
   type HardwareRecord,
   type InventoryRecords,
   type LicenseRecord,
@@ -13,9 +14,11 @@ const { company, role, user } = Astro.locals;
 const roleLabel = role === "owner" ? "Owner" : "No role";
 const supabase = createClient(Astro.request.headers, Astro.cookies);
 const inventoryStatus = Astro.url.searchParams.get("inventory");
+const assignmentStatus = Astro.url.searchParams.get("assignment");
 const inventoryMessage = Astro.url.searchParams.get("message");
+const assignmentMessage = Astro.url.searchParams.get("message");
 
-let inventory: InventoryRecords = { employees: [], hardware: [], licenses: [] };
+let inventory: InventoryRecords = { employees: [], hardware: [], licenses: [], assignments: [] };
 let inventoryError: string | null = null;
 
 if (company && supabase) {
@@ -35,6 +38,9 @@ const upcomingRenewals = inventory.licenses.filter((license) => {
   return renewal >= today && renewal <= in45Days;
 });
 
+const canCreateAssignments =
+  inventory.employees.length > 0 && inventory.hardware.length > 0 && inventory.licenses.length > 0;
+
 const workspaceSections = [
   {
     title: "Employees",
@@ -53,6 +59,12 @@ const workspaceSections = [
     count: `${inventory.licenses.length} records`,
     description: "Software subscriptions and renewal dates now feed the product workspace.",
     status: "Live in inventory records",
+  },
+  {
+    title: "Assignments",
+    count: `${inventory.assignments.length} current`,
+    description: "Connect hardware and software records to employees or devices.",
+    status: "Live in asset assignments",
   },
   {
     title: "Renewals",
@@ -81,6 +93,34 @@ function hardwareStatusLabel(status: HardwareRecord["status"]) {
   if (status === "in_use") return "In use";
   if (status === "retired") return "Retired";
   return "Available";
+}
+
+function hardwareLabel(asset: Pick<HardwareRecord, "asset_type" | "model" | "serial_number"> | null) {
+  if (!asset) return "Unknown hardware";
+  return [asset.asset_type, asset.model, asset.serial_number].filter(Boolean).join(" - ");
+}
+
+function licenseLabel(license: Pick<LicenseRecord, "name" | "vendor"> | null) {
+  if (!license) return "Unknown license";
+  return license.vendor ? `${license.name} by ${license.vendor}` : license.name;
+}
+
+function assignmentSummary(assignment: AssignmentRecord) {
+  if (assignment.assignment_type === "hardware_employee") {
+    return `${hardwareLabel(assignment.hardware)} assigned to ${assignment.employee?.full_name ?? "Unknown employee"}`;
+  }
+
+  if (assignment.assignment_type === "license_employee") {
+    return `${licenseLabel(assignment.license)} assigned to ${assignment.employee?.full_name ?? "Unknown employee"}`;
+  }
+
+  return `${licenseLabel(assignment.license)} assigned to ${hardwareLabel(assignment.hardware)}`;
+}
+
+function assignmentTypeLabel(assignment: AssignmentRecord) {
+  if (assignment.assignment_type === "hardware_employee") return "Hardware to employee";
+  if (assignment.assignment_type === "license_employee") return "License to employee";
+  return "License to hardware";
 }
 ---
 
@@ -135,6 +175,26 @@ function hardwareStatusLabel(status: HardwareRecord["status"]) {
         }
 
         {
+          assignmentStatus && (
+            <div
+              class:list={[
+                "rounded-md border px-4 py-3 text-sm",
+                assignmentStatus === "error"
+                  ? "border-red-200 bg-red-50 text-red-700"
+                  : "border-sky-200 bg-sky-50 text-sky-800",
+              ]}
+              role={assignmentStatus === "error" ? "alert" : "status"}
+            >
+              {assignmentStatus === "error"
+                ? (assignmentMessage ?? "Assignment update failed.")
+                : assignmentStatus === "deleted"
+                  ? "Assignment removed."
+                  : "Assignment saved."}
+            </div>
+          )
+        }
+
+        {
           inventoryError && (
             <div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
               {inventoryError}
@@ -142,7 +202,7 @@ function hardwareStatusLabel(status: HardwareRecord["status"]) {
           )
         }
 
-        <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
           {
             workspaceSections.map((section) => (
               <article class="flex min-h-48 flex-col justify-between rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
@@ -157,6 +217,159 @@ function hardwareStatusLabel(status: HardwareRecord["status"]) {
               </article>
             ))
           }
+        </section>
+
+        <section class="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="grid gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
+              <div>
+                <p class="text-sm font-semibold text-sky-700 uppercase">Assignments</p>
+                <h2 class="mt-2 text-2xl font-semibold text-slate-950">Connect people, hardware, and licenses</h2>
+                <p class="mt-3 text-sm leading-6 text-slate-600">
+                  Create current-state relationships only. Remove an assignment when a person or device no longer owns
+                  that asset.
+                </p>
+              </div>
+              <span class="rounded-md bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700">
+                {inventory.assignments.length} current
+              </span>
+            </div>
+
+            {
+              canCreateAssignments ? (
+                <div class="mt-6 grid gap-4 lg:grid-cols-3">
+                  <form
+                    method="POST"
+                    action="/api/assignments"
+                    class="grid gap-3 rounded-md border border-slate-200 p-4"
+                  >
+                    <input type="hidden" name="action" value="create" />
+                    <input type="hidden" name="assignment_type" value="hardware_employee" />
+                    <p class="text-sm font-semibold text-slate-950">Hardware to employee</p>
+                    <label class:list={labelClass}>
+                      Hardware
+                      <select class:list={inputClass} name="hardware_asset_id" required>
+                        {inventory.hardware.map((asset) => (
+                          <option value={asset.id}>{hardwareLabel(asset)}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label class:list={labelClass}>
+                      Employee
+                      <select class:list={inputClass} name="employee_id" required>
+                        {inventory.employees.map((employee) => (
+                          <option value={employee.id}>{employee.full_name}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label class:list={labelClass}>
+                      Notes
+                      <textarea class:list={textareaClass} name="notes" placeholder="Optional assignment context" />
+                    </label>
+                    <button class:list={buttonClass} type="submit">
+                      Assign hardware
+                    </button>
+                  </form>
+
+                  <form
+                    method="POST"
+                    action="/api/assignments"
+                    class="grid gap-3 rounded-md border border-slate-200 p-4"
+                  >
+                    <input type="hidden" name="action" value="create" />
+                    <input type="hidden" name="assignment_type" value="license_employee" />
+                    <p class="text-sm font-semibold text-slate-950">License to employee</p>
+                    <label class:list={labelClass}>
+                      License
+                      <select class:list={inputClass} name="software_license_id" required>
+                        {inventory.licenses.map((license) => (
+                          <option value={license.id}>{licenseLabel(license)}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label class:list={labelClass}>
+                      Employee
+                      <select class:list={inputClass} name="employee_id" required>
+                        {inventory.employees.map((employee) => (
+                          <option value={employee.id}>{employee.full_name}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label class:list={labelClass}>
+                      Notes
+                      <textarea class:list={textareaClass} name="notes" placeholder="Seat, account, or plan context" />
+                    </label>
+                    <button class:list={buttonClass} type="submit">
+                      Assign license
+                    </button>
+                  </form>
+
+                  <form
+                    method="POST"
+                    action="/api/assignments"
+                    class="grid gap-3 rounded-md border border-slate-200 p-4"
+                  >
+                    <input type="hidden" name="action" value="create" />
+                    <input type="hidden" name="assignment_type" value="license_hardware" />
+                    <p class="text-sm font-semibold text-slate-950">License to hardware</p>
+                    <label class:list={labelClass}>
+                      License
+                      <select class:list={inputClass} name="software_license_id" required>
+                        {inventory.licenses.map((license) => (
+                          <option value={license.id}>{licenseLabel(license)}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label class:list={labelClass}>
+                      Hardware
+                      <select class:list={inputClass} name="hardware_asset_id" required>
+                        {inventory.hardware.map((asset) => (
+                          <option value={asset.id}>{hardwareLabel(asset)}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label class:list={labelClass}>
+                      Notes
+                      <textarea class:list={textareaClass} name="notes" placeholder="Device-specific license context" />
+                    </label>
+                    <button class:list={buttonClass} type="submit">
+                      Assign to device
+                    </button>
+                  </form>
+                </div>
+              ) : (
+                <p class="mt-6 rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 text-sm leading-6 text-slate-600">
+                  Add at least one employee, one hardware record, and one license to unlock all assignment forms.
+                </p>
+              )
+            }
+          </article>
+
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 class="text-xl font-semibold text-slate-950">Current assignments</h2>
+            <div class="mt-4 grid gap-3">
+              {
+                inventory.assignments.length === 0 ? (
+                  <p class="rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+                    No assignments yet. Connect records to see who has what.
+                  </p>
+                ) : (
+                  inventory.assignments.map((assignment) => (
+                    <form method="POST" action="/api/assignments" class="rounded-md border border-slate-200 p-4">
+                      <input type="hidden" name="action" value="delete" />
+                      <input type="hidden" name="id" value={assignment.id} />
+                      <p class="text-xs font-semibold text-sky-700 uppercase">{assignmentTypeLabel(assignment)}</p>
+                      <p class="mt-2 text-sm leading-6 font-semibold text-slate-950">{assignmentSummary(assignment)}</p>
+                      {assignment.notes && <p class="mt-2 text-sm leading-6 text-slate-600">{assignment.notes}</p>}
+                      <button class="mt-3 text-sm font-semibold text-slate-500" type="submit">
+                        Remove assignment
+                      </button>
+                    </form>
+                  ))
+                )
+              }
+            </div>
+          </article>
         </section>
 
         <section class="grid gap-6 xl:grid-cols-3">
@@ -491,8 +704,8 @@ function hardwareStatusLabel(status: HardwareRecord["status"]) {
         <section class="rounded-lg border border-dashed border-sky-300 bg-sky-50 p-6">
           <p class="text-sm font-semibold text-sky-900">Next slices</p>
           <p class="mt-3 text-sm leading-6 text-sky-800">
-            These records are intentionally unassigned for now. S-03 will connect people, hardware, and licenses. S-04
-            will turn license cost and renewal dates into the renewal dashboard.
+            Assignments are now live. S-04 will turn license cost and renewal dates into the renewal dashboard, and S-05
+            will use renewal dates for email alerts.
           </p>
         </section>
       </main>

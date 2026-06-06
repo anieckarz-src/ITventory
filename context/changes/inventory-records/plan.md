@@ -135,7 +135,7 @@ This is a local schema migration only. Do not run remote database migrations wit
 
 #### Manual
 
-- [ ] 2.5 Owner can add and edit an employee.
-- [ ] 2.6 Owner can add, edit, and delete hardware.
-- [ ] 2.7 Owner can add and edit a software license with renewal date and cost.
-- [ ] 2.8 Dashboard remains readable on desktop and mobile.
+- [x] 2.5 Owner can add and edit an employee.
+- [x] 2.6 Owner can add, edit, and delete hardware.
+- [x] 2.7 Owner can add and edit a software license with renewal date and cost.
+- [x] 2.8 Dashboard remains readable on desktop and mobile.

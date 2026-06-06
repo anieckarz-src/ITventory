@@ -37,10 +37,28 @@ export interface LicenseRecord {
   updated_at: string;
 }
 
+export type AssignmentType = "hardware_employee" | "license_employee" | "license_hardware";
+
+export interface AssignmentRecord {
+  id: string;
+  company_id: string;
+  assignment_type: AssignmentType;
+  employee_id: string | null;
+  hardware_asset_id: string | null;
+  software_license_id: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+  employee: Pick<EmployeeRecord, "id" | "full_name" | "email"> | null;
+  hardware: Pick<HardwareRecord, "id" | "asset_type" | "model" | "serial_number"> | null;
+  license: Pick<LicenseRecord, "id" | "name" | "vendor"> | null;
+}
+
 export interface InventoryRecords {
   employees: EmployeeRecord[];
   hardware: HardwareRecord[];
   licenses: LicenseRecord[];
+  assignments: AssignmentRecord[];
 }
 
 export function cleanText(value: FormDataEntryValue | null) {
@@ -85,8 +103,43 @@ export function cleanDate(value: FormDataEntryValue | null) {
   return text;
 }
 
+function requireAssignmentType(value: FormDataEntryValue | null): AssignmentType {
+  const assignmentType = cleanText(value);
+  if (
+    assignmentType !== "hardware_employee" &&
+    assignmentType !== "license_employee" &&
+    assignmentType !== "license_hardware"
+  ) {
+    throw new Error("Assignment type is invalid");
+  }
+  return assignmentType;
+}
+
+async function assertRecordBelongsToCompany(
+  supabase: SupabaseClient,
+  table: "employees" | "hardware_assets" | "software_licenses",
+  id: string,
+  companyId: string,
+  label: string,
+) {
+  const { data, error } = await supabase
+    .from(table)
+    .select("id")
+    .eq("id", id)
+    .eq("company_id", companyId)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data) {
+    throw new Error(`${label} does not belong to this company`);
+  }
+}
+
 export async function getInventoryRecords(supabase: SupabaseClient, companyId: string): Promise<InventoryRecords> {
-  const [employees, hardware, licenses] = await Promise.all([
+  const [employees, hardware, licenses, assignments] = await Promise.all([
     supabase.from("employees").select("*").eq("company_id", companyId).order("created_at", { ascending: false }),
     supabase.from("hardware_assets").select("*").eq("company_id", companyId).order("created_at", { ascending: false }),
     supabase
@@ -94,9 +147,16 @@ export async function getInventoryRecords(supabase: SupabaseClient, companyId: s
       .select("*")
       .eq("company_id", companyId)
       .order("renewal_date", { ascending: true, nullsFirst: false }),
+    supabase
+      .from("asset_assignments")
+      .select(
+        "*, employee:employees(id, full_name, email), hardware:hardware_assets(id, asset_type, model, serial_number), license:software_licenses(id, name, vendor)",
+      )
+      .eq("company_id", companyId)
+      .order("created_at", { ascending: false }),
   ]);
 
-  const error = employees.error ?? hardware.error ?? licenses.error;
+  const error = employees.error ?? hardware.error ?? licenses.error ?? assignments.error;
   if (error) {
     throw new Error(error.message);
   }
@@ -105,6 +165,7 @@ export async function getInventoryRecords(supabase: SupabaseClient, companyId: s
     employees: (employees.data ?? []) as EmployeeRecord[],
     hardware: (hardware.data ?? []) as HardwareRecord[],
     licenses: (licenses.data ?? []) as LicenseRecord[],
+    assignments: (assignments.data ?? []) as AssignmentRecord[],
   };
 }
 
@@ -170,4 +231,69 @@ export async function upsertLicense(supabase: SupabaseClient, companyId: string,
   return id
     ? supabase.from("software_licenses").update(payload).eq("id", id).eq("company_id", companyId)
     : supabase.from("software_licenses").insert(payload);
+}
+
+export async function createAssignment(supabase: SupabaseClient, companyId: string, form: FormData) {
+  const assignmentType = requireAssignmentType(form.get("assignment_type"));
+  const notes = cleanText(form.get("notes"));
+
+  if (assignmentType === "hardware_employee") {
+    const employeeId = requireText(form.get("employee_id"), "Employee");
+    const hardwareAssetId = requireText(form.get("hardware_asset_id"), "Hardware");
+
+    await Promise.all([
+      assertRecordBelongsToCompany(supabase, "employees", employeeId, companyId, "Employee"),
+      assertRecordBelongsToCompany(supabase, "hardware_assets", hardwareAssetId, companyId, "Hardware"),
+    ]);
+
+    return supabase.from("asset_assignments").insert({
+      company_id: companyId,
+      assignment_type: assignmentType,
+      employee_id: employeeId,
+      hardware_asset_id: hardwareAssetId,
+      software_license_id: null,
+      notes,
+    });
+  }
+
+  if (assignmentType === "license_employee") {
+    const employeeId = requireText(form.get("employee_id"), "Employee");
+    const softwareLicenseId = requireText(form.get("software_license_id"), "License");
+
+    await Promise.all([
+      assertRecordBelongsToCompany(supabase, "employees", employeeId, companyId, "Employee"),
+      assertRecordBelongsToCompany(supabase, "software_licenses", softwareLicenseId, companyId, "License"),
+    ]);
+
+    return supabase.from("asset_assignments").insert({
+      company_id: companyId,
+      assignment_type: assignmentType,
+      employee_id: employeeId,
+      hardware_asset_id: null,
+      software_license_id: softwareLicenseId,
+      notes,
+    });
+  }
+
+  const hardwareAssetId = requireText(form.get("hardware_asset_id"), "Hardware");
+  const softwareLicenseId = requireText(form.get("software_license_id"), "License");
+
+  await Promise.all([
+    assertRecordBelongsToCompany(supabase, "hardware_assets", hardwareAssetId, companyId, "Hardware"),
+    assertRecordBelongsToCompany(supabase, "software_licenses", softwareLicenseId, companyId, "License"),
+  ]);
+
+  return supabase.from("asset_assignments").insert({
+    company_id: companyId,
+    assignment_type: assignmentType,
+    employee_id: null,
+    hardware_asset_id: hardwareAssetId,
+    software_license_id: softwareLicenseId,
+    notes,
+  });
+}
+
+export async function deleteAssignment(supabase: SupabaseClient, companyId: string, form: FormData) {
+  const id = requireText(form.get("id"), "Assignment id");
+  return supabase.from("asset_assignments").delete().eq("id", id).eq("company_id", companyId);
 }

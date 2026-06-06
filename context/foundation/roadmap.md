@@ -28,7 +28,7 @@ North star - najmniejszy przeplyw end-to-end, ktory pokazuje glowna wartosc prod
 | F-01 | foundation | Minimalny kontrakt firmy i pojedynczej roli owner pozwala planowac kazdy przeplyw jako odseparowany per firma. | owner-company-boundary      | none             | FR-001, FR-003, FR-004, US-01                       | implemented |
 | F-02 | foundation | Minimalny kontrakt bezpiecznego wysylania przypomnien ogranicza ryzyko duplikatow i blednych odbiorcow.        | reminder-delivery-guardrail | none             | FR-011, US-07                                       | implemented |
 | S-01 | slice      | Wlasciciel zaklada firme, loguje sie i trafia do pustej przestrzeni danych swojej firmy.                       | owner-company-start         | F-01             | FR-001, FR-002, FR-004, US-01                       | implemented |
-| S-02 | slice      | Wlasciciel tworzy podstawowa kartoteke pracownikow, sprzetu i licencji z datami odnowien.                      | inventory-records           | S-01             | FR-005, FR-006, FR-007, FR-010, US-02, US-03, US-04 | proposed    |
+| S-02 | slice      | Wlasciciel tworzy podstawowa kartoteke pracownikow, sprzetu i licencji z datami odnowien.                      | inventory-records           | S-01             | FR-005, FR-006, FR-007, FR-010, US-02, US-03, US-04 | implemented |
 | S-03 | slice      | Wlasciciel przypisuje sprzet i licencje do pracownikow lub urzadzen i widzi aktualne powiazania.               | asset-assignments           | S-02             | FR-008, FR-009, US-05                               | proposed    |
 | S-04 | slice      | Wlasciciel widzi dashboard kosztow subskrypcji, podstawowego stanu sprzetu i zblizajacych sie odnowien.        | renewal-dashboard           | S-02             | FR-010, FR-012, FR-013, US-06                       | proposed    |
 | S-05 | slice      | System wysyla mailowe przypomnienie do wlasciciela firmy o konkretnej licencji przed data odnowienia.          | renewal-email-alert         | F-01, F-02, S-02 | FR-010, FR-011, US-07                               | proposed    |
@@ -104,7 +104,7 @@ North star - najmniejszy przeplyw end-to-end, ktory pokazuje glowna wartosc prod
 - Blockers: none
 - Unknowns: none
 - Risk: Jesli kartoteka bedzie zbyt szeroka, zje zakres MVP; jesli bedzie zbyt uboga, dashboard i alerty nie beda mialy uzytecznych danych.
-- Status: proposed
+- Status: implemented
 
 ### S-03: Wlasciciel widzi aktualne przypisania
 
@@ -158,7 +158,6 @@ North star - najmniejszy przeplyw end-to-end, ktory pokazuje glowna wartosc prod
 
 | Roadmap ID | Change ID           | Outcome                                                                                                 | PRD refs                                            | Status   |
 | ---------- | ------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | -------- |
-| S-02       | inventory-records   | Wlasciciel tworzy podstawowa kartoteke pracownikow, sprzetu i licencji z datami odnowien.               | FR-005, FR-006, FR-007, FR-010, US-02, US-03, US-04 | proposed |
 | S-03       | asset-assignments   | Wlasciciel przypisuje sprzet i licencje do pracownikow lub urzadzen i widzi aktualne powiazania.        | FR-008, FR-009, US-05                               | proposed |
 | S-04       | renewal-dashboard   | Wlasciciel widzi dashboard kosztow subskrypcji, podstawowego stanu sprzetu i zblizajacych sie odnowien. | FR-010, FR-012, FR-013, US-06                       | proposed |
 | S-05       | renewal-email-alert | System wysyla mailowe przypomnienie do wlasciciela firmy o konkretnej licencji przed data odnowienia.   | FR-010, FR-011, US-07                               | proposed |
@@ -182,3 +181,4 @@ No open questions.
 - F-01: Company boundary migrated to one flat `owner` role.
 - F-02: Reminder delivery guardrail implemented.
 - S-01: Owner can create a company and start in an empty workspace.
+- S-02: Owner can create and maintain employees, hardware, and software licenses with renewal dates.

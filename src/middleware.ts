@@ -2,7 +2,7 @@ import { defineMiddleware } from "astro:middleware";
 import { createCompanyForCurrentUser, getCurrentAccessContext } from "@/lib/access-context";
 import { createClient } from "@/lib/supabase";
 
-const PROTECTED_ROUTES = ["/dashboard", "/api/internal/reminders", "/api/inventory"];
+const PROTECTED_ROUTES = ["/dashboard", "/api/internal/reminders", "/api/inventory", "/api/assignments"];
 const COMPANY_REQUIRED_PATH = "/auth/company-required";
 const INTERNAL_REMINDER_PREFIX = "/api/internal/reminders";
 
