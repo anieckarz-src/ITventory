@@ -114,24 +114,24 @@ This is a local schema migration only. Do not run remote database migrations wit
 
 #### Automated
 
-- [x] 1.1 Migration defines all three inventory tables with `company_id`.
-- [x] 1.2 Inventory API routes are protected by middleware.
-- [x] 1.3 `npm run lint` passes.
-- [x] 1.4 `npm run build` passes.
+- [x] 1.1 Migration defines all three inventory tables with `company_id`. — 53ade8c
+- [x] 1.2 Inventory API routes are protected by middleware. — 53ade8c
+- [x] 1.3 `npm run lint` passes. — 53ade8c
+- [x] 1.4 `npm run build` passes. — 53ade8c
 
 #### Manual
 
-- [x] 1.5 Unauthenticated inventory API requests do not mutate data.
-- [x] 1.6 Owner company context is required for all inventory mutations.
+- [x] 1.5 Unauthenticated inventory API requests do not mutate data. — 53ade8c
+- [x] 1.6 Owner company context is required for all inventory mutations. — 53ade8c
 
 ### Phase 2: Dashboard Inventory UI
 
 #### Automated
 
-- [x] 2.1 Dashboard queries employees, hardware, and licenses through typed helpers.
-- [x] 2.2 Dashboard contains forms posting to `/api/inventory/employees`, `/api/inventory/hardware`, and `/api/inventory/licenses`.
-- [x] 2.3 `npm run lint` passes.
-- [x] 2.4 `npm run build` passes.
+- [x] 2.1 Dashboard queries employees, hardware, and licenses through typed helpers. — 53ade8c
+- [x] 2.2 Dashboard contains forms posting to `/api/inventory/employees`, `/api/inventory/hardware`, and `/api/inventory/licenses`. — 53ade8c
+- [x] 2.3 `npm run lint` passes. — 53ade8c
+- [x] 2.4 `npm run build` passes. — 53ade8c
 
 #### Manual
 
