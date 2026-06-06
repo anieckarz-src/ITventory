@@ -263,30 +263,30 @@ No database or backend migration is required.
 
 #### Automated
 
-- [x] 2.1 `/` includes sections for problem/value, operating model, and MVP workflow/final CTA.
-- [x] 2.2 Topbar preserves signed-in and signed-out navigation behavior.
-- [x] 2.3 Planned/not-yet-implemented capabilities are not presented as already live.
-- [x] 2.4 `npm run lint` passes.
-- [x] 2.5 `npm run build` passes.
+- [x] 2.1 `/` includes sections for problem/value, operating model, and MVP workflow/final CTA. — 8840cf7
+- [x] 2.2 Topbar preserves signed-in and signed-out navigation behavior. — 8840cf7
+- [x] 2.3 Planned/not-yet-implemented capabilities are not presented as already live. — 8840cf7
+- [x] 2.4 `npm run lint` passes. — 8840cf7
+- [x] 2.5 `npm run build` passes. — 8840cf7
 
 #### Manual
 
-- [x] 2.6 Anonymous `/` feels more polished and more specific to ITventory than the current version.
-- [x] 2.7 Anonymous users can clearly choose signup or signin.
-- [x] 2.8 Signed-in users still see a dashboard path and sign-out action.
-- [x] 2.9 The page does not overpromise completed inventory, assignment, renewal dashboard, or email alert functionality.
+- [x] 2.6 Anonymous `/` feels more polished and more specific to ITventory than the current version. — 8840cf7
+- [x] 2.7 Anonymous users can clearly choose signup or signin. — 8840cf7
+- [x] 2.8 Signed-in users still see a dashboard path and sign-out action. — 8840cf7
+- [x] 2.9 The page does not overpromise completed inventory, assignment, renewal dashboard, or email alert functionality. — 8840cf7
 
 ### Phase 3: Polish, Responsive QA, and Handoff
 
 #### Automated
 
-- [ ] 3.1 Text search confirms no starter/template copy was reintroduced.
-- [ ] 3.2 `npm run lint` passes.
-- [ ] 3.3 `npm run build` passes.
+- [x] 3.1 Text search confirms no starter/template copy was reintroduced.
+- [x] 3.2 `npm run lint` passes.
+- [x] 3.3 `npm run build` passes.
 
 #### Manual
 
-- [ ] 3.4 Desktop landing page is visually coherent and clearly product-specific.
-- [ ] 3.5 Mobile landing page is readable, with no overlap/clipping.
-- [ ] 3.6 CTAs work: signup goes to `/auth/signup`, signin goes to `/auth/signin`, signed-in dashboard path goes to `/dashboard`.
-- [ ] 3.7 Reviewer confirms the landing page is materially improved enough to proceed with the next product slice.
+- [x] 3.4 Desktop landing page is visually coherent and clearly product-specific.
+- [x] 3.5 Mobile landing page is readable, with no overlap/clipping.
+- [x] 3.6 CTAs work: signup goes to `/auth/signup`, signin goes to `/auth/signin`, signed-in dashboard path goes to `/dashboard`.
+- [x] 3.7 Reviewer confirms the landing page is materially improved enough to proceed with the next product slice.
