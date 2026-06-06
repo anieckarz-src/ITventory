@@ -124,13 +124,13 @@ This is acceptable for MVP because manager is no longer a supported concept. Do 
 
 #### Automated
 
-- [x] 1.1 Search confirms active product docs and UI no longer describe Administrator/Menedzer as the MVP role model.
-- [x] 1.2 Search confirms signup code and the latest role migration produce `owner` as the final role.
-- [x] 1.3 `npm run lint` passes.
-- [x] 1.4 `npm run build` passes.
+- [x] 1.1 Search confirms active product docs and UI no longer describe Administrator/Menedzer as the MVP role model. — b0da251
+- [x] 1.2 Search confirms signup code and the latest role migration produce `owner` as the final role. — b0da251
+- [x] 1.3 `npm run lint` passes. — b0da251
+- [x] 1.4 `npm run build` passes. — b0da251
 
 #### Manual
 
-- [x] 1.5 Product assumption is clear: one company owner, no manager, no invitations.
-- [x] 1.6 Dashboard shows `Owner` for the current role.
-- [x] 1.7 Roadmap next product slice is inventory records, not manager invitations.
+- [x] 1.5 Product assumption is clear: one company owner, no manager, no invitations. — b0da251
+- [x] 1.6 Dashboard shows `Owner` for the current role. — b0da251
+- [x] 1.7 Roadmap next product slice is inventory records, not manager invitations. — b0da251

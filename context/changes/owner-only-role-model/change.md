@@ -1,7 +1,7 @@
 ---
 change_id: owner-only-role-model
 title: Replace admin-manager roles with a single owner role
-status: implementing
+status: implemented
 created: 2026-06-06
 updated: 2026-06-06
 archived_at: null
