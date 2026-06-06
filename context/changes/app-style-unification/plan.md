@@ -179,30 +179,30 @@ No data or schema migration is required.
 
 #### Automated
 
-- [x] 1.1 Auth pages no longer use `bg-cosmic`, purple gradient headings, or dark glass card classes.
-- [x] 1.2 Shared auth controls use light inputs, slate text, sky focus states, and readable error styling.
-- [x] 1.3 `npm run lint` passes.
-- [x] 1.4 `npm run build` passes.
+- [x] 1.1 Auth pages no longer use `bg-cosmic`, purple gradient headings, or dark glass card classes. — 1ae1a6e
+- [x] 1.2 Shared auth controls use light inputs, slate text, sky focus states, and readable error styling. — 1ae1a6e
+- [x] 1.3 `npm run lint` passes. — 1ae1a6e
+- [x] 1.4 `npm run build` passes. — 1ae1a6e
 
 #### Manual
 
-- [x] 1.5 Signup page visually matches the landing page style and still submits to `/api/auth/signup`.
-- [x] 1.6 Signin page visually matches the landing page style and still submits to `/api/auth/signin`.
-- [x] 1.7 Confirm-email and company-required pages feel like the same product, not the old starter.
-- [x] 1.8 Mobile auth layouts remain readable with no clipped button or input text.
+- [x] 1.5 Signup page visually matches the landing page style and still submits to `/api/auth/signup`. — 1ae1a6e
+- [x] 1.6 Signin page visually matches the landing page style and still submits to `/api/auth/signin`. — 1ae1a6e
+- [x] 1.7 Confirm-email and company-required pages feel like the same product, not the old starter. — 1ae1a6e
+- [x] 1.8 Mobile auth layouts remain readable with no clipped button or input text. — 1ae1a6e
 
 ### Phase 2: Dashboard and App Shell Unification
 
 #### Automated
 
-- [x] 2.1 Product screens under `src/pages` no longer use `bg-cosmic`.
-- [x] 2.2 Search confirms no old purple-gradient starter styling remains on auth/dashboard surfaces.
-- [x] 2.3 `npm run lint` passes.
-- [x] 2.4 `npm run build` passes.
+- [x] 2.1 Product screens under `src/pages` no longer use `bg-cosmic`. — 1ae1a6e
+- [x] 2.2 Search confirms no old purple-gradient starter styling remains on auth/dashboard surfaces. — 1ae1a6e
+- [x] 2.3 `npm run lint` passes. — 1ae1a6e
+- [x] 2.4 `npm run build` passes. — 1ae1a6e
 
 #### Manual
 
-- [x] 2.5 Anonymous `/`, `/auth/signup`, and `/auth/signin` feel like one cohesive product.
-- [x] 2.6 Authenticated `/dashboard` uses the same visual vocabulary as the landing page.
-- [x] 2.7 Dashboard still communicates an empty company workspace and does not imply S-03/S-05/S-06 are already built.
-- [x] 2.8 Desktop and mobile layouts have no overlapping text, clipped CTAs, or unreadable form controls.
+- [x] 2.5 Anonymous `/`, `/auth/signup`, and `/auth/signin` feel like one cohesive product. — 1ae1a6e
+- [x] 2.6 Authenticated `/dashboard` uses the same visual vocabulary as the landing page. — 1ae1a6e
+- [x] 2.7 Dashboard still communicates an empty company workspace and does not imply S-03/S-05/S-06 are already built. — 1ae1a6e
+- [x] 2.8 Desktop and mobile layouts have no overlapping text, clipped CTAs, or unreadable form controls. — 1ae1a6e
