@@ -1,36 +1,87 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Topbar from "@/components/Topbar.astro";
+import {
+  getInventoryRecords,
+  type HardwareRecord,
+  type InventoryRecords,
+  type LicenseRecord,
+} from "@/lib/inventory-records";
+import { createClient } from "@/lib/supabase";
 
 const { company, role, user } = Astro.locals;
 const roleLabel = role === "owner" ? "Owner" : "No role";
+const supabase = createClient(Astro.request.headers, Astro.cookies);
+const inventoryStatus = Astro.url.searchParams.get("inventory");
+const inventoryMessage = Astro.url.searchParams.get("message");
+
+let inventory: InventoryRecords = { employees: [], hardware: [], licenses: [] };
+let inventoryError: string | null = null;
+
+if (company && supabase) {
+  try {
+    inventory = await getInventoryRecords(supabase, company.id);
+  } catch (error) {
+    inventoryError = error instanceof Error ? error.message : "Inventory records could not be loaded.";
+  }
+}
+
+const upcomingRenewals = inventory.licenses.filter((license) => {
+  if (!license.renewal_date) return false;
+  const renewal = new Date(`${license.renewal_date}T00:00:00`);
+  const today = new Date();
+  const in45Days = new Date();
+  in45Days.setDate(today.getDate() + 45);
+  return renewal >= today && renewal <= in45Days;
+});
 
 const workspaceSections = [
   {
     title: "Employees",
-    count: "0 records",
-    description: "People records will become assignable owners for hardware and licenses.",
-    status: "Planned in inventory records",
+    count: `${inventory.employees.length} records`,
+    description: "People records can become owners for hardware and license assignments in the next slice.",
+    status: "Live in inventory records",
   },
   {
     title: "Hardware",
-    count: "0 records",
-    description: "Track laptops, phones, serial numbers, and current ownership here.",
-    status: "Planned in inventory records",
+    count: `${inventory.hardware.length} records`,
+    description: "Track laptops, phones, serial numbers, and current status.",
+    status: "Live in inventory records",
   },
   {
     title: "Licenses",
-    count: "0 records",
-    description: "Software subscriptions and renewal dates will feed dashboard and alerts.",
-    status: "Planned in inventory records",
+    count: `${inventory.licenses.length} records`,
+    description: "Software subscriptions and renewal dates now feed the product workspace.",
+    status: "Live in inventory records",
   },
   {
     title: "Renewals",
-    count: "No data yet",
-    description: "Upcoming renewals will appear once licenses have subscription end dates.",
+    count: `${upcomingRenewals.length} upcoming`,
+    description: "Upcoming renewal dates are captured; dashboard analytics arrive in S-04.",
     status: "Planned in renewal dashboard",
   },
 ];
+
+const inputClass =
+  "min-h-10 rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-950 placeholder-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-100";
+const textareaClass =
+  "min-h-20 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-950 placeholder-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-100";
+const labelClass = "grid gap-1 text-sm font-medium text-slate-700";
+const buttonClass =
+  "inline-flex min-h-10 items-center justify-center rounded-md bg-slate-950 px-4 text-sm font-semibold text-white transition-colors hover:bg-slate-800";
+const secondaryButtonClass =
+  "inline-flex min-h-10 items-center justify-center rounded-md border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50";
+
+function formatCost(license: LicenseRecord) {
+  if (license.cost_amount === null) return "No cost";
+  return `$${license.cost_amount.toFixed(2)} / ${license.cost_period}`;
+}
+
+function hardwareStatusLabel(status: HardwareRecord["status"]) {
+  if (status === "in_use") return "In use";
+  if (status === "retired") return "Retired";
+  return "Available";
+}
 ---
 
 <Layout title="ITventory dashboard">
@@ -49,24 +100,52 @@ const workspaceSections = [
             <p class="text-sm font-semibold tracking-[0.18em] text-sky-700 uppercase">Company workspace</p>
             <h1 class="mt-3 text-4xl leading-tight font-semibold text-slate-950 sm:text-5xl">{company?.name}</h1>
             <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-600">
-              Signed in as <span class="font-semibold text-slate-950">{user?.email}</span>. This workspace is ready for
-              the inventory records that will power renewal reviews.
+              Signed in as <span class="font-semibold text-slate-950">{user?.email}</span>. Add the records that will
+              power assignments, renewal reviews, and reminders.
             </p>
           </div>
           <div class="flex flex-wrap gap-3 lg:justify-end">
             <span class="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 shadow-sm">
               Role: <span class="font-semibold text-slate-950">{roleLabel}</span>
             </span>
-            <span class="rounded-md bg-amber-100 px-3 py-2 text-sm font-semibold text-amber-800">
-              Inventory data planned
+            <span class="rounded-md bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-800">
+              Inventory records live
             </span>
           </div>
         </header>
 
+        {
+          inventoryStatus && (
+            <div
+              class:list={[
+                "rounded-md border px-4 py-3 text-sm",
+                inventoryStatus === "error"
+                  ? "border-red-200 bg-red-50 text-red-700"
+                  : "border-sky-200 bg-sky-50 text-sky-800",
+              ]}
+              role={inventoryStatus === "error" ? "alert" : "status"}
+            >
+              {inventoryStatus === "error"
+                ? (inventoryMessage ?? "Inventory update failed.")
+                : inventoryStatus === "deleted"
+                  ? "Inventory record deleted."
+                  : "Inventory record saved."}
+            </div>
+          )
+        }
+
+        {
+          inventoryError && (
+            <div class="rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+              {inventoryError}
+            </div>
+          )
+        }
+
         <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {
             workspaceSections.map((section) => (
-              <article class="flex min-h-56 flex-col justify-between rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+              <article class="flex min-h-48 flex-col justify-between rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
                 <div>
                   <p class="text-sm font-semibold text-slate-500">{section.title}</p>
                   <p class="mt-3 text-2xl font-semibold text-slate-950">{section.count}</p>
@@ -80,22 +159,341 @@ const workspaceSections = [
           }
         </section>
 
-        <section class="grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-          <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-            <p class="text-sm font-semibold text-sky-700 uppercase">Workspace is ready</p>
-            <h2 class="mt-3 text-2xl font-semibold text-slate-950">Start with manual records, then review renewals.</h2>
-            <p class="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
-              This company workspace is isolated from other companies and ready for the next inventory slice. Employees,
-              hardware, licenses, assignments, and renewal views will build on this company context.
-            </p>
-          </div>
-          <div class="rounded-lg border border-dashed border-sky-300 bg-sky-50 p-6">
-            <p class="text-sm font-semibold text-sky-900">Coming next</p>
-            <p class="mt-3 text-sm leading-6 text-sky-800">
-              Inventory records will turn this empty workspace into the source for assignment tracking and renewal-risk
-              review. Email delivery remains planned for a later slice.
-            </p>
-          </div>
+        <section class="grid gap-6 xl:grid-cols-3">
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-semibold text-sky-700 uppercase">Employees</p>
+            <h2 class="mt-2 text-2xl font-semibold text-slate-950">People records</h2>
+            <form method="POST" action="/api/inventory/employees" class="mt-5 grid gap-3">
+              <label class:list={labelClass}>
+                Full name
+                <input class:list={inputClass} name="full_name" placeholder="Marta Nowak" required />
+              </label>
+              <label class:list={labelClass}>
+                Email
+                <input class:list={inputClass} type="email" name="email" placeholder="marta@example.com" />
+              </label>
+              <label class:list={labelClass}>
+                Title
+                <input class:list={inputClass} name="title" placeholder="Operations Lead" />
+              </label>
+              <label class:list={labelClass}>
+                Notes
+                <textarea class:list={textareaClass} name="notes" placeholder="Useful context for future assignments"
+                ></textarea>
+              </label>
+              <button class:list={buttonClass} type="submit">Add employee</button>
+            </form>
+          </article>
+
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-semibold text-sky-700 uppercase">Hardware</p>
+            <h2 class="mt-2 text-2xl font-semibold text-slate-950">Asset records</h2>
+            <form method="POST" action="/api/inventory/hardware" class="mt-5 grid gap-3">
+              <label class:list={labelClass}>
+                Type
+                <input class:list={inputClass} name="asset_type" placeholder="Laptop" required />
+              </label>
+              <label class:list={labelClass}>
+                Model
+                <input class:list={inputClass} name="model" placeholder="MacBook Pro 14" required />
+              </label>
+              <label class:list={labelClass}>
+                Serial number
+                <input class:list={inputClass} name="serial_number" placeholder="C02..." />
+              </label>
+              <label class:list={labelClass}>
+                Status
+                <select class:list={inputClass} name="status">
+                  <option value="available">Available</option>
+                  <option value="in_use">In use</option>
+                  <option value="retired">Retired</option>
+                </select>
+              </label>
+              <label class:list={labelClass}>
+                Notes
+                <textarea class:list={textareaClass} name="notes" placeholder="Condition, location, warranty context"
+                ></textarea>
+              </label>
+              <button class:list={buttonClass} type="submit">Add hardware</button>
+            </form>
+          </article>
+
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <p class="text-sm font-semibold text-sky-700 uppercase">Licenses</p>
+            <h2 class="mt-2 text-2xl font-semibold text-slate-950">Software records</h2>
+            <form method="POST" action="/api/inventory/licenses" class="mt-5 grid gap-3">
+              <label class:list={labelClass}>
+                License name
+                <input class:list={inputClass} name="name" placeholder="Microsoft 365" required />
+              </label>
+              <label class:list={labelClass}>
+                Vendor
+                <input class:list={inputClass} name="vendor" placeholder="Microsoft" />
+              </label>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <label class:list={labelClass}>
+                  Seats
+                  <input class:list={inputClass} type="number" min="1" name="seats" placeholder="10" />
+                </label>
+                <label class:list={labelClass}>
+                  Renewal date
+                  <input class:list={inputClass} type="date" name="renewal_date" />
+                </label>
+              </div>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <label class:list={labelClass}>
+                  Cost
+                  <input
+                    class:list={inputClass}
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    name="cost_amount"
+                    placeholder="99.00"
+                  />
+                </label>
+                <label class:list={labelClass}>
+                  Period
+                  <select class:list={inputClass} name="cost_period">
+                    <option value="monthly">Monthly</option>
+                    <option value="annual">Annual</option>
+                  </select>
+                </label>
+              </div>
+              <label class:list={labelClass}>
+                Notes
+                <textarea class:list={textareaClass} name="notes" placeholder="Plan, contract owner, renewal context"
+                ></textarea>
+              </label>
+              <button class:list={buttonClass} type="submit">Add license</button>
+            </form>
+          </article>
+        </section>
+
+        <section class="grid gap-6 xl:grid-cols-3">
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between gap-3">
+              <h2 class="text-xl font-semibold text-slate-950">Employees</h2>
+              <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
+                {inventory.employees.length}
+              </span>
+            </div>
+            <div class="mt-4 grid gap-3">
+              {
+                inventory.employees.length === 0 ? (
+                  <p class="rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+                    Add the first employee to prepare future hardware and license assignments.
+                  </p>
+                ) : (
+                  inventory.employees.map((employee) => (
+                    <form
+                      method="POST"
+                      action="/api/inventory/employees"
+                      class="grid gap-3 rounded-md border border-slate-200 p-4"
+                    >
+                      <input type="hidden" name="id" value={employee.id} />
+                      <label class:list={labelClass}>
+                        Full name
+                        <input class:list={inputClass} name="full_name" value={employee.full_name} required />
+                      </label>
+                      <label class:list={labelClass}>
+                        Email
+                        <input class:list={inputClass} type="email" name="email" value={employee.email ?? ""} />
+                      </label>
+                      <label class:list={labelClass}>
+                        Title
+                        <input class:list={inputClass} name="title" value={employee.title ?? ""} />
+                      </label>
+                      <label class:list={labelClass}>
+                        Notes
+                        <textarea class:list={textareaClass} name="notes">
+                          {employee.notes ?? ""}
+                        </textarea>
+                      </label>
+                      <button class:list={secondaryButtonClass} type="submit">
+                        Save employee
+                      </button>
+                    </form>
+                  ))
+                )
+              }
+            </div>
+          </article>
+
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between gap-3">
+              <h2 class="text-xl font-semibold text-slate-950">Hardware</h2>
+              <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
+                {inventory.hardware.length}
+              </span>
+            </div>
+            <div class="mt-4 grid gap-3">
+              {
+                inventory.hardware.length === 0 ? (
+                  <p class="rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+                    Add a laptop, phone, or other device to start the hardware register.
+                  </p>
+                ) : (
+                  inventory.hardware.map((asset) => (
+                    <div class="rounded-md border border-slate-200 p-4">
+                      <form method="POST" action="/api/inventory/hardware" class="grid gap-3">
+                        <input type="hidden" name="id" value={asset.id} />
+                        <div class="grid gap-3 sm:grid-cols-2">
+                          <label class:list={labelClass}>
+                            Type
+                            <input class:list={inputClass} name="asset_type" value={asset.asset_type} required />
+                          </label>
+                          <label class:list={labelClass}>
+                            Model
+                            <input class:list={inputClass} name="model" value={asset.model} required />
+                          </label>
+                        </div>
+                        <label class:list={labelClass}>
+                          Serial number
+                          <input class:list={inputClass} name="serial_number" value={asset.serial_number ?? ""} />
+                        </label>
+                        <label class:list={labelClass}>
+                          Status
+                          <select class:list={inputClass} name="status">
+                            <option value="available" selected={asset.status === "available"}>
+                              Available
+                            </option>
+                            <option value="in_use" selected={asset.status === "in_use"}>
+                              In use
+                            </option>
+                            <option value="retired" selected={asset.status === "retired"}>
+                              Retired
+                            </option>
+                          </select>
+                        </label>
+                        <label class:list={labelClass}>
+                          Notes
+                          <textarea class:list={textareaClass} name="notes">
+                            {asset.notes ?? ""}
+                          </textarea>
+                        </label>
+                        <div class="flex flex-wrap gap-2">
+                          <button class:list={secondaryButtonClass} type="submit">
+                            Save hardware
+                          </button>
+                          <button
+                            class="text-sm font-semibold text-slate-500"
+                            type="submit"
+                            name="action"
+                            value="delete"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </form>
+                      <p class="mt-3 text-xs text-slate-500">Current status: {hardwareStatusLabel(asset.status)}</p>
+                    </div>
+                  ))
+                )
+              }
+            </div>
+          </article>
+
+          <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between gap-3">
+              <h2 class="text-xl font-semibold text-slate-950">Licenses</h2>
+              <span class="rounded-md bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">
+                {inventory.licenses.length}
+              </span>
+            </div>
+            <div class="mt-4 grid gap-3">
+              {
+                inventory.licenses.length === 0 ? (
+                  <p class="rounded-md border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+                    Add a software license with renewal date to prepare the renewal dashboard.
+                  </p>
+                ) : (
+                  inventory.licenses.map((license) => (
+                    <form
+                      method="POST"
+                      action="/api/inventory/licenses"
+                      class="grid gap-3 rounded-md border border-slate-200 p-4"
+                    >
+                      <input type="hidden" name="id" value={license.id} />
+                      <label class:list={labelClass}>
+                        License name
+                        <input class:list={inputClass} name="name" value={license.name} required />
+                      </label>
+                      <label class:list={labelClass}>
+                        Vendor
+                        <input class:list={inputClass} name="vendor" value={license.vendor ?? ""} />
+                      </label>
+                      <div class="grid gap-3 sm:grid-cols-2">
+                        <label class:list={labelClass}>
+                          Seats
+                          <input
+                            class:list={inputClass}
+                            type="number"
+                            min="1"
+                            name="seats"
+                            value={license.seats ?? ""}
+                          />
+                        </label>
+                        <label class:list={labelClass}>
+                          Renewal date
+                          <input
+                            class:list={inputClass}
+                            type="date"
+                            name="renewal_date"
+                            value={license.renewal_date ?? ""}
+                          />
+                        </label>
+                      </div>
+                      <div class="grid gap-3 sm:grid-cols-2">
+                        <label class:list={labelClass}>
+                          Cost
+                          <input
+                            class:list={inputClass}
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            name="cost_amount"
+                            value={license.cost_amount ?? ""}
+                          />
+                        </label>
+                        <label class:list={labelClass}>
+                          Period
+                          <select class:list={inputClass} name="cost_period">
+                            <option value="monthly" selected={license.cost_period === "monthly"}>
+                              Monthly
+                            </option>
+                            <option value="annual" selected={license.cost_period === "annual"}>
+                              Annual
+                            </option>
+                          </select>
+                        </label>
+                      </div>
+                      <label class:list={labelClass}>
+                        Notes
+                        <textarea class:list={textareaClass} name="notes">
+                          {license.notes ?? ""}
+                        </textarea>
+                      </label>
+                      <div class="flex flex-wrap items-center justify-between gap-2">
+                        <button class:list={secondaryButtonClass} type="submit">
+                          Save license
+                        </button>
+                        <span class="text-xs font-medium text-slate-500">{formatCost(license)}</span>
+                      </div>
+                    </form>
+                  ))
+                )
+              }
+            </div>
+          </article>
+        </section>
+
+        <section class="rounded-lg border border-dashed border-sky-300 bg-sky-50 p-6">
+          <p class="text-sm font-semibold text-sky-900">Next slices</p>
+          <p class="mt-3 text-sm leading-6 text-sky-800">
+            These records are intentionally unassigned for now. S-03 will connect people, hardware, and licenses. S-04
+            will turn license cost and renewal dates into the renewal dashboard.
+          </p>
         </section>
       </main>
     </div>
