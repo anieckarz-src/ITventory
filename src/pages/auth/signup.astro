@@ -1,22 +1,33 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import AuthShell from "@/components/auth/AuthShell.astro";
 import SignUpForm from "@/components/auth/SignUpForm";
 
 const error = Astro.url.searchParams.get("error");
 ---
 
 <Layout title="Sign up">
-  <div class="bg-cosmic flex min-h-screen items-center justify-center p-4">
-    <div class="w-full max-w-sm rounded-2xl border border-white/10 bg-white/10 p-8 text-white backdrop-blur-xl">
-      <h1
-        class="mb-6 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-center text-2xl font-bold text-transparent"
-      >
-        Sign up
-      </h1>
+  <AuthShell
+    eyebrow="Create workspace"
+    heading="Start the company IT record."
+    description="Create one company-scoped workspace before hardware, licenses, assignments, and renewal dates spread across spreadsheets."
+    supportTitle="What this account unlocks"
+    supportItems={[
+      "A protected company workspace for your IT records.",
+      "Administrator access tied to the company you create.",
+      "A foundation for inventory records and renewal-risk views.",
+    ]}
+  >
+    <div class="rounded-lg border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/80 sm:p-8">
+      <h1 class="text-2xl font-semibold text-slate-950">Create account</h1>
+      <p class="mt-2 mb-6 text-sm leading-6 text-slate-600">
+        Use a work email and company name to create the first workspace.
+      </p>
       <SignUpForm serverError={error} client:load />
-      <p class="mt-4 text-center text-sm text-blue-100/60">
-        Already have an account? <a href="/auth/signin" class="text-purple-300 hover:underline">Sign in</a>
+      <p class="mt-5 text-center text-sm text-slate-600">
+        Already have an account? <a href="/auth/signin" class="font-semibold text-sky-700 hover:text-sky-800">Sign in</a
+        >
       </p>
     </div>
-  </div>
+  </AuthShell>
 </Layout>
