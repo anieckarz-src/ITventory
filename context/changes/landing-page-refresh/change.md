@@ -1,9 +1,9 @@
 ---
 change_id: landing-page-refresh
 title: Improve landing page
-status: implementing
+status: implemented
 created: 2026-06-01
-updated: 2026-06-01
+updated: 2026-06-06
 archived_at: null
 ---
 

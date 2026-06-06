@@ -280,13 +280,13 @@ No database or backend migration is required.
 
 #### Automated
 
-- [x] 3.1 Text search confirms no starter/template copy was reintroduced.
-- [x] 3.2 `npm run lint` passes.
-- [x] 3.3 `npm run build` passes.
+- [x] 3.1 Text search confirms no starter/template copy was reintroduced. — 52e6845
+- [x] 3.2 `npm run lint` passes. — 52e6845
+- [x] 3.3 `npm run build` passes. — 52e6845
 
 #### Manual
 
-- [x] 3.4 Desktop landing page is visually coherent and clearly product-specific.
-- [x] 3.5 Mobile landing page is readable, with no overlap/clipping.
-- [x] 3.6 CTAs work: signup goes to `/auth/signup`, signin goes to `/auth/signin`, signed-in dashboard path goes to `/dashboard`.
-- [x] 3.7 Reviewer confirms the landing page is materially improved enough to proceed with the next product slice.
+- [x] 3.4 Desktop landing page is visually coherent and clearly product-specific. — 52e6845
+- [x] 3.5 Mobile landing page is readable, with no overlap/clipping. — 52e6845
+- [x] 3.6 CTAs work: signup goes to `/auth/signup`, signin goes to `/auth/signin`, signed-in dashboard path goes to `/dashboard`. — 52e6845
+- [x] 3.7 Reviewer confirms the landing page is materially improved enough to proceed with the next product slice. — 52e6845
