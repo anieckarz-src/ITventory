@@ -3,7 +3,7 @@ import Layout from "@/layouts/Layout.astro";
 import Topbar from "@/components/Topbar.astro";
 
 const { company, role, user } = Astro.locals;
-const roleLabel = role === "admin" ? "Administrator" : role === "manager" ? "Manager" : "No role";
+const roleLabel = role === "owner" ? "Owner" : "No role";
 
 const workspaceSections = [
   {

@@ -117,7 +117,7 @@ This project uses Supabase Auth plus application tables managed through migratio
 npx supabase db reset
 ```
 
-The first domain migration creates company and membership tables used to isolate data per company and assign the initial `admin` role.
+The company boundary migrations create company and membership tables used to isolate data per company and assign the single flat `owner` role.
 
 The reminder guardrail migration adds a safe contract for future renewal alerts:
 
@@ -135,16 +135,16 @@ F-02 introduces the delivery guardrail only. It does not run a scheduler and doe
 - each delivery attempt is written to append-only `license_renewal_reminder_attempts`
 - dedup key is `(company_id, license_ref, reminder_date, recipient_email)`
 
-S-06 is responsible for the actual email delivery pipeline and scheduling. It should use the F-02 internal reminder API instead of bypassing this contract.
+The renewal email alert slice is responsible for the actual email delivery pipeline and scheduling. It should use the F-02 internal reminder API instead of bypassing this contract.
 
-After resetting the local database, verify the company boundary and admin start path with this smoke path:
+After resetting the local database, verify the company boundary and owner start path with this smoke path:
 
 1. Run the app with `npm run dev`.
 2. Open `/auth/signup`.
 3. Create an account with a company name, email, and password.
 4. If Supabase returns an active session, confirm the app redirects to `/dashboard`.
 5. If email confirmation prevents an immediate session, confirm the app redirects to `/auth/confirm-email`.
-6. Confirm Supabase contains one `companies` row and one `company_memberships` row with role `admin`.
+6. Confirm Supabase contains one `companies` row and one `company_memberships` row with role `owner`.
 7. Sign in with the created account and confirm the app redirects to `/dashboard`.
 8. Confirm `/dashboard` shows the company name and role.
 9. Confirm an authenticated user without a membership is redirected away from company-scoped dashboard content.
@@ -177,14 +177,14 @@ Users can then sign in immediately after sign-up without clicking a confirmation
 
 ### Auth routes
 
-| Route                 | Description                                                             |
-| --------------------- | ----------------------------------------------------------------------- |
-| `/`                   | ITventory public entry with sign-up and sign-in calls to action         |
-| `/auth/signin`        | Email/password sign-in form                                             |
-| `/auth/signup`        | Email/password sign-up form with required company name                  |
-| `/auth/confirm-email` | Post-signup "check your inbox" page                                     |
+| Route                    | Description                                                           |
+| ------------------------ | --------------------------------------------------------------------- |
+| `/`                      | ITventory public entry with sign-up and sign-in calls to action       |
+| `/auth/signin`           | Email/password sign-in form                                           |
+| `/auth/signup`           | Email/password sign-up form with required company name                |
+| `/auth/confirm-email`    | Post-signup "check your inbox" page                                   |
 | `/auth/company-required` | Signed-in recovery page for accounts without supported company access |
-| `/dashboard`          | Empty company workspace requiring authentication and membership          |
+| `/dashboard`             | Empty company workspace requiring authentication and membership       |
 
 Route protection is handled in `src/middleware.ts`. Add paths to the `PROTECTED_ROUTES` array there to require authentication.
 

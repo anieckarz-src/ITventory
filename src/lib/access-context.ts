@@ -1,6 +1,6 @@
 import type { SupabaseClient, User } from "@supabase/supabase-js";
 
-export type CompanyRole = "admin" | "manager";
+export type CompanyRole = "owner";
 
 export interface Company {
   id: string;
