@@ -137,6 +137,35 @@ F-02 introduces the delivery guardrail only. It does not run a scheduler and doe
 
 The renewal email alert slice is responsible for the actual email delivery pipeline and scheduling. It should use the F-02 internal reminder API instead of bypassing this contract.
 
+### Renewal email alerts (S-05)
+
+S-05 adds the actual email delivery path for upcoming license renewals. The pipeline is triggered through:
+
+```http
+POST /api/cron/renewal-reminders
+Authorization: Bearer <REMINDER_INTERNAL_SECRET>
+```
+
+It scans software licenses with renewal dates in the next 14 days, resolves the company owner's Supabase Auth email, sends through Resend, and records the outcome in the F-02 reminder tables. Re-running the endpoint on the same date skips reminders already marked `sent`.
+
+Required secrets for real delivery:
+
+| Variable                    | Description                                         |
+| --------------------------- | --------------------------------------------------- |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key for scheduled server work |
+| `REMINDER_INTERNAL_SECRET`  | Shared secret required by the cron endpoint         |
+| `RESEND_API_KEY`            | Resend API key used to send renewal emails          |
+| `REMINDER_FROM_EMAIL`       | Verified sender, for example `ITventory <x@y.com>`  |
+
+Local smoke test:
+
+```bash
+curl -X POST http://localhost:4321/api/cron/renewal-reminders \
+  -H "Authorization: Bearer $REMINDER_INTERNAL_SECRET"
+```
+
+If email provider config is missing or invalid, due reminders are marked `failed` with a diagnostic error instead of being silently ignored.
+
 After resetting the local database, verify the company boundary and owner start path with this smoke path:
 
 1. Run the app with `npm run dev`.
