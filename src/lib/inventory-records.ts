@@ -61,6 +61,31 @@ export interface InventoryRecords {
   assignments: AssignmentRecord[];
 }
 
+export interface UpcomingRenewalSummary {
+  license: LicenseRecord;
+  days_until_renewal: number;
+}
+
+export interface DashboardSummary {
+  software_costs: {
+    monthly: number;
+    annual: number;
+    priced_licenses: number;
+    missing_costs: number;
+  };
+  hardware_status: {
+    total: number;
+    available: number;
+    in_use: number;
+    retired: number;
+  };
+  renewals: {
+    window_days: number;
+    upcoming: UpcomingRenewalSummary[];
+    missing_dates: number;
+  };
+}
+
 export function cleanText(value: FormDataEntryValue | null) {
   const text = typeof value === "string" ? value.trim() : "";
   return text.length > 0 ? text : null;
@@ -101,6 +126,71 @@ export function cleanDate(value: FormDataEntryValue | null) {
     throw new Error("Renewal date must use YYYY-MM-DD format");
   }
   return text;
+}
+
+function dateOnly(value: Date) {
+  return new Date(value.getFullYear(), value.getMonth(), value.getDate());
+}
+
+function parseDateOnly(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+export function buildDashboardSummary(
+  records: InventoryRecords,
+  currentDate: Date = new Date(),
+  renewalWindowDays = 45,
+): DashboardSummary {
+  const today = dateOnly(currentDate);
+  const dayInMs = 24 * 60 * 60 * 1000;
+  const upcoming = records.licenses
+    .flatMap((license) => {
+      if (!license.renewal_date) return [];
+      const renewalDate = parseDateOnly(license.renewal_date);
+      const daysUntilRenewal = Math.ceil((renewalDate.getTime() - today.getTime()) / dayInMs);
+      if (daysUntilRenewal < 0 || daysUntilRenewal > renewalWindowDays) return [];
+      return [{ license, days_until_renewal: daysUntilRenewal }];
+    })
+    .sort((a, b) => {
+      if (a.days_until_renewal !== b.days_until_renewal) {
+        return a.days_until_renewal - b.days_until_renewal;
+      }
+      return a.license.name.localeCompare(b.license.name);
+    });
+
+  return {
+    software_costs: records.licenses.reduce(
+      (costs, license) => {
+        if (license.cost_amount === null) {
+          costs.missing_costs += 1;
+          return costs;
+        }
+
+        costs.priced_licenses += 1;
+        if (license.cost_period === "annual") {
+          costs.annual += license.cost_amount;
+        } else {
+          costs.monthly += license.cost_amount;
+        }
+        return costs;
+      },
+      { monthly: 0, annual: 0, priced_licenses: 0, missing_costs: 0 },
+    ),
+    hardware_status: records.hardware.reduce(
+      (summary, asset) => {
+        summary.total += 1;
+        summary[asset.status] += 1;
+        return summary;
+      },
+      { total: 0, available: 0, in_use: 0, retired: 0 },
+    ),
+    renewals: {
+      window_days: renewalWindowDays,
+      upcoming,
+      missing_dates: records.licenses.filter((license) => !license.renewal_date).length,
+    },
+  };
 }
 
 function requireAssignmentType(value: FormDataEntryValue | null): AssignmentType {
