@@ -125,30 +125,30 @@ This is a local schema migration only. Do not run remote database migrations wit
 
 #### Automated
 
-- [x] 1.1 Migration defines `asset_assignments` with `company_id` and shape constraints.
-- [x] 1.2 Assignment reads join employee, hardware, and license display fields.
-- [x] 1.3 Assignment mutations reject records that do not belong to the current company.
-- [x] 1.4 `npm run lint` passes.
-- [x] 1.5 `npm run build` passes.
+- [x] 1.1 Migration defines `asset_assignments` with `company_id` and shape constraints. — 4ccd8ef
+- [x] 1.2 Assignment reads join employee, hardware, and license display fields. — 4ccd8ef
+- [x] 1.3 Assignment mutations reject records that do not belong to the current company. — 4ccd8ef
+- [x] 1.4 `npm run lint` passes. — 4ccd8ef
+- [x] 1.5 `npm run build` passes. — 4ccd8ef
 
 #### Manual
 
-- [x] 1.6 Unauthenticated assignment API requests do not mutate data.
-- [ ] 1.7 Owner company context is required for all assignment mutations.
+- [x] 1.6 Unauthenticated assignment API requests do not mutate data. — 4ccd8ef
+- [x] 1.7 Owner company context is required for all assignment mutations. — 4ccd8ef
 
 ### Phase 2: Dashboard Assignment UI
 
 #### Automated
 
-- [x] 2.1 Dashboard contains forms posting to `/api/assignments`.
-- [x] 2.2 Dashboard renders current hardware and license assignments from typed helpers.
-- [x] 2.3 `npm run lint` passes.
-- [x] 2.4 `npm run build` passes.
+- [x] 2.1 Dashboard contains forms posting to `/api/assignments`. — 4ccd8ef
+- [x] 2.2 Dashboard renders current hardware and license assignments from typed helpers. — 4ccd8ef
+- [x] 2.3 `npm run lint` passes. — 4ccd8ef
+- [x] 2.4 `npm run build` passes. — 4ccd8ef
 
 #### Manual
 
-- [ ] 2.5 Owner can assign hardware to an employee.
-- [ ] 2.6 Owner can assign a license to an employee.
-- [ ] 2.7 Owner can assign a license to a hardware device.
-- [ ] 2.8 Owner can remove each assignment type.
-- [ ] 2.9 Dashboard remains readable on desktop and mobile.
+- [x] 2.5 Owner can assign hardware to an employee. — 4ccd8ef
+- [x] 2.6 Owner can assign a license to an employee. — 4ccd8ef
+- [x] 2.7 Owner can assign a license to a hardware device. — 4ccd8ef
+- [x] 2.8 Owner can remove each assignment type. — 4ccd8ef
+- [x] 2.9 Dashboard remains readable on desktop and mobile. — 4ccd8ef
