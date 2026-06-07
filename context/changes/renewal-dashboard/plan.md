@@ -90,12 +90,12 @@ No database migration is needed. S-04 reads fields already created by `202606061
 
 #### Automated
 
-- [x] 1.1 Dashboard metrics are derived from typed inventory records, not duplicated ad hoc in the page.
-- [x] 1.2 Dashboard shows monthly and annual software subscription totals.
-- [x] 1.3 Dashboard shows a basic hardware status summary.
-- [x] 1.4 Dashboard shows upcoming renewals from the next 45 days.
-- [x] 1.5 `npm run lint` passes.
-- [x] 1.6 `npm run build` passes.
+- [x] 1.1 Dashboard metrics are derived from typed inventory records, not duplicated ad hoc in the page. — 774acbc
+- [x] 1.2 Dashboard shows monthly and annual software subscription totals. — 774acbc
+- [x] 1.3 Dashboard shows a basic hardware status summary. — 774acbc
+- [x] 1.4 Dashboard shows upcoming renewals from the next 45 days. — 774acbc
+- [x] 1.5 `npm run lint` passes. — 774acbc
+- [x] 1.6 `npm run build` passes. — 774acbc
 
 #### Manual
 
