@@ -3,7 +3,7 @@ project: "ITventory"
 version: 2
 status: proposed
 created: 2026-05-28
-updated: 2026-06-06
+updated: 2026-06-07
 prd_version: 2
 main_goal: market-feedback
 top_blocker: time
@@ -29,9 +29,9 @@ North star - najmniejszy przeplyw end-to-end, ktory pokazuje glowna wartosc prod
 | F-02 | foundation | Minimalny kontrakt bezpiecznego wysylania przypomnien ogranicza ryzyko duplikatow i blednych odbiorcow.        | reminder-delivery-guardrail | none             | FR-011, US-07                                       | implemented |
 | S-01 | slice      | Wlasciciel zaklada firme, loguje sie i trafia do pustej przestrzeni danych swojej firmy.                       | owner-company-start         | F-01             | FR-001, FR-002, FR-004, US-01                       | implemented |
 | S-02 | slice      | Wlasciciel tworzy podstawowa kartoteke pracownikow, sprzetu i licencji z datami odnowien.                      | inventory-records           | S-01             | FR-005, FR-006, FR-007, FR-010, US-02, US-03, US-04 | implemented |
-| S-03 | slice      | Wlasciciel przypisuje sprzet i licencje do pracownikow lub urzadzen i widzi aktualne powiazania.               | asset-assignments           | S-02             | FR-008, FR-009, US-05                               | implemented |
-| S-04 | slice      | Wlasciciel widzi dashboard kosztow subskrypcji, podstawowego stanu sprzetu i zblizajacych sie odnowien.        | renewal-dashboard           | S-02             | FR-010, FR-012, FR-013, US-06                       | implemented |
-| S-05 | slice      | System wysyla mailowe przypomnienie do wlasciciela firmy o konkretnej licencji przed data odnowienia.          | renewal-email-alert         | F-01, F-02, S-02 | FR-010, FR-011, US-07                               | implemented |
+| S-03 | slice      | Wlasciciel przypisuje sprzet i licencje do pracownikow lub urzadzen i widzi aktualne powiazania.               | asset-assignments           | S-02             | FR-008, FR-009, US-05                               | done        |
+| S-04 | slice      | Wlasciciel widzi dashboard kosztow subskrypcji, podstawowego stanu sprzetu i zblizajacych sie odnowien.        | renewal-dashboard           | S-02             | FR-010, FR-012, FR-013, US-06                       | done        |
+| S-05 | slice      | System wysyla mailowe przypomnienie do wlasciciela firmy o konkretnej licencji przed data odnowienia.          | renewal-email-alert         | F-01, F-02, S-02 | FR-010, FR-011, US-07                               | done        |
 | S-06 | slice      | Wlasciciel tworzy prosty szablon onboardingowy i stosuje go do nowego pracownika.                              | onboarding-template         | S-02, S-03       | FR-014, FR-015, FR-016, US-08                       | proposed    |
 
 ## Streams
@@ -116,7 +116,7 @@ North star - najmniejszy przeplyw end-to-end, ktory pokazuje glowna wartosc prod
 - Blockers: none
 - Unknowns: none
 - Risk: Przypisania sa praktycznym dowodem "kto ma co", wiec ich brak zostawia produkt jako zwykla liste zasobow.
-- Status: implemented
+- Status: done
 
 ### S-04: Wlasciciel widzi dashboard kosztow i odnowien
 
@@ -128,7 +128,7 @@ North star - najmniejszy przeplyw end-to-end, ktory pokazuje glowna wartosc prod
 - Blockers: none
 - Unknowns: none
 - Risk: Dashboard musi pokazac priorytety uwagi, nie tylko liczby, bo inaczej nie potwierdzi glownej obietnicy produktu.
-- Status: implemented
+- Status: done
 
 ### S-05: System wysyla przypomnienie mailowe
 
@@ -140,7 +140,7 @@ North star - najmniejszy przeplyw end-to-end, ktory pokazuje glowna wartosc prod
 - Blockers: none
 - Unknowns: none
 - Risk: To glowny sygnal wartosci, ale duplikat maila moze wygladac gorzej niz brak automatyzacji.
-- Status: implemented
+- Status: done
 
 ### S-06: Wlasciciel uzywa prostego szablonu onboardingowego
 
@@ -182,3 +182,6 @@ No open questions.
 - S-03: Owner can assign hardware and software licenses to employees or devices and see current relationships.
 - S-04: Owner can review software costs, hardware status, and upcoming renewals from the dashboard.
 - S-05: System can send an email reminder to the company owner for an upcoming license renewal.
+- **S-03: Wlasciciel przypisuje sprzet i licencje do pracownikow lub urzadzen i widzi aktualne powiazania.** — Archived 2026-06-07 → `context/archive/2026-06-06-asset-assignments/`. Lesson: —.
+- **S-04: Wlasciciel widzi dashboard kosztow subskrypcji, podstawowego stanu sprzetu i zblizajacych sie odnowien.** — Archived 2026-06-07 → `context/archive/2026-06-07-renewal-dashboard/`. Lesson: —.
+- **S-05: System wysyla mailowe przypomnienie do wlasciciela firmy o konkretnej licencji przed data odnowienia.** — Archived 2026-06-07 → `context/archive/2026-06-07-renewal-email-alert/`. Lesson: —.

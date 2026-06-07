@@ -1,10 +1,10 @@
 ---
 change_id: renewal-dashboard
 title: Owner renewal dashboard
-status: implemented
+status: archived
 created: 2026-06-07
 updated: 2026-06-07
-archived_at: null
+archived_at: 2026-06-07T20:04:37Z
 ---
 
 ## Notes

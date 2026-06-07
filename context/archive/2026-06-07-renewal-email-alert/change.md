@@ -1,10 +1,10 @@
 ---
 change_id: renewal-email-alert
 title: Owner renewal email alert
-status: implemented
+status: archived
 created: 2026-06-07
 updated: 2026-06-07
-archived_at: null
+archived_at: 2026-06-07T20:04:37Z
 ---
 
 ## Notes
