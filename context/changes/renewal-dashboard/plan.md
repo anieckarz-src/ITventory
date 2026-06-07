@@ -99,7 +99,7 @@ No database migration is needed. S-04 reads fields already created by `202606061
 
 #### Manual
 
-- [ ] 1.7 Owner can see monthly and annual software cost totals after adding licenses with costs.
-- [ ] 1.8 Owner can see hardware counts split by available, in use, and retired.
-- [ ] 1.9 Owner can see upcoming license renewals ordered by urgency.
-- [ ] 1.10 Dashboard remains readable on desktop and mobile.
+- [x] 1.7 Owner can see monthly and annual software cost totals after adding licenses with costs. — 774acbc
+- [x] 1.8 Owner can see hardware counts split by available, in use, and retired. — 774acbc
+- [x] 1.9 Owner can see upcoming license renewals ordered by urgency. — 774acbc
+- [x] 1.10 Dashboard remains readable on desktop and mobile. — 774acbc
