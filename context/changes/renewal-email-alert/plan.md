@@ -108,13 +108,13 @@ No database migration is required. S-05 uses the existing F-02 reminder tables a
 
 #### Automated
 
-- [x] 1.1 Cron endpoint rejects requests without the reminder secret.
-- [x] 1.2 Renewal pipeline scans licenses with renewal dates in the 14-day window.
-- [x] 1.3 Renewal pipeline resolves the company owner email as recipient.
-- [x] 1.4 Email delivery uses Resend HTTP API and records provider message id on success.
-- [x] 1.5 Failed delivery records a failed reminder attempt.
-- [x] 1.6 `npm run lint` passes.
-- [x] 1.7 `npm run build` passes.
+- [x] 1.1 Cron endpoint rejects requests without the reminder secret. — eb7d408
+- [x] 1.2 Renewal pipeline scans licenses with renewal dates in the 14-day window. — eb7d408
+- [x] 1.3 Renewal pipeline resolves the company owner email as recipient. — eb7d408
+- [x] 1.4 Email delivery uses Resend HTTP API and records provider message id on success. — eb7d408
+- [x] 1.5 Failed delivery records a failed reminder attempt. — eb7d408
+- [x] 1.6 `npm run lint` passes. — eb7d408
+- [x] 1.7 `npm run build` passes. — eb7d408
 
 #### Manual
 
