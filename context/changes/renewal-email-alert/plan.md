@@ -118,6 +118,6 @@ No database migration is required. S-05 uses the existing F-02 reminder tables a
 
 #### Manual
 
-- [ ] 1.8 With secrets configured, triggering the endpoint sends a reminder email for a due license.
-- [ ] 1.9 Re-triggering the endpoint on the same day does not send a duplicate for an already sent reminder.
-- [ ] 1.10 If provider config is missing or invalid, the reminder is marked failed with a useful error.
+- [x] 1.8 With secrets configured, triggering the endpoint sends a reminder email for a due license. — eb7d408
+- [x] 1.9 Re-triggering the endpoint on the same day does not send a duplicate for an already sent reminder. — eb7d408
+- [x] 1.10 If provider config is missing or invalid, the reminder is marked failed with a useful error. — eb7d408
