@@ -313,18 +313,18 @@ This change adds new Supabase tables. Do not run remote database migrations with
 
 #### Automated
 
-- [x] 1.1 Migration defines `onboarding_templates` and `onboarding_template_items` with `company_id`, item shape checks, indexes, and updated-at triggers.
-- [x] 1.2 Migration enforces same-company template item and software license references.
-- [x] 1.3 RLS policies restrict template and item access to authenticated owners in the same company.
-- [x] 1.4 Typed inventory reads include onboarding templates and their items.
-- [x] 1.5 Template and item mutations reject records that do not belong to the current company.
-- [x] 1.6 `npm run lint` passes.
-- [x] 1.7 `npm run build` passes.
+- [x] 1.1 Migration defines `onboarding_templates` and `onboarding_template_items` with `company_id`, item shape checks, indexes, and updated-at triggers. — 015550f
+- [x] 1.2 Migration enforces same-company template item and software license references. — 015550f
+- [x] 1.3 RLS policies restrict template and item access to authenticated owners in the same company. — 015550f
+- [x] 1.4 Typed inventory reads include onboarding templates and their items. — 015550f
+- [x] 1.5 Template and item mutations reject records that do not belong to the current company. — 015550f
+- [x] 1.6 `npm run lint` passes. — 015550f
+- [x] 1.7 `npm run build` passes. — 015550f
 
 #### Manual
 
-- [x] 1.8 Reviewer confirms the data contract stays manual and internal, with no external provisioning implied.
-- [x] 1.9 Reviewer confirms archived changes were not edited while creating the S-06 plan or implementation.
+- [x] 1.8 Reviewer confirms the data contract stays manual and internal, with no external provisioning implied. — 015550f
+- [x] 1.9 Reviewer confirms archived changes were not edited while creating the S-06 plan or implementation. — 015550f
 
 ### Phase 2: Template Management UI and API
 
