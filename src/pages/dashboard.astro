@@ -19,7 +19,13 @@ const assignmentStatus = Astro.url.searchParams.get("assignment");
 const inventoryMessage = Astro.url.searchParams.get("message");
 const assignmentMessage = Astro.url.searchParams.get("message");
 
-let inventory: InventoryRecords = { employees: [], hardware: [], licenses: [], assignments: [] };
+let inventory: InventoryRecords = {
+  employees: [],
+  hardware: [],
+  licenses: [],
+  assignments: [],
+  onboardingTemplates: [],
+};
 let inventoryError: string | null = null;
 
 if (company && supabase) {

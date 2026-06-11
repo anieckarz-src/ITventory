@@ -54,11 +54,38 @@ export interface AssignmentRecord {
   license: Pick<LicenseRecord, "id" | "name" | "vendor"> | null;
 }
 
+export type OnboardingTemplateItemType = "hardware_requirement" | "software_license";
+
+export interface OnboardingTemplateItemRecord {
+  id: string;
+  company_id: string;
+  template_id: string;
+  item_type: OnboardingTemplateItemType;
+  hardware_label: string | null;
+  software_license_id: string | null;
+  notes: string | null;
+  position: number;
+  created_at: string;
+  updated_at: string;
+  license: Pick<LicenseRecord, "id" | "name" | "vendor"> | null;
+}
+
+export interface OnboardingTemplateRecord {
+  id: string;
+  company_id: string;
+  name: string;
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+  items: OnboardingTemplateItemRecord[];
+}
+
 export interface InventoryRecords {
   employees: EmployeeRecord[];
   hardware: HardwareRecord[];
   licenses: LicenseRecord[];
   assignments: AssignmentRecord[];
+  onboardingTemplates: OnboardingTemplateRecord[];
 }
 
 export interface UpcomingRenewalSummary {
@@ -128,6 +155,16 @@ export function cleanDate(value: FormDataEntryValue | null) {
   return text;
 }
 
+export function cleanPosition(value: FormDataEntryValue | null) {
+  const text = cleanText(value);
+  if (!text) return 0;
+  const parsed = Number.parseInt(text, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new Error("Position must be zero or greater");
+  }
+  return parsed;
+}
+
 function dateOnly(value: Date) {
   return new Date(value.getFullYear(), value.getMonth(), value.getDate());
 }
@@ -193,6 +230,14 @@ export function buildDashboardSummary(
   };
 }
 
+function requireOnboardingTemplateItemType(value: FormDataEntryValue | null): OnboardingTemplateItemType {
+  const itemType = cleanText(value);
+  if (itemType !== "hardware_requirement" && itemType !== "software_license") {
+    throw new Error("Template item type is invalid");
+  }
+  return itemType;
+}
+
 function requireAssignmentType(value: FormDataEntryValue | null): AssignmentType {
   const assignmentType = cleanText(value);
   if (
@@ -207,7 +252,7 @@ function requireAssignmentType(value: FormDataEntryValue | null): AssignmentType
 
 async function assertRecordBelongsToCompany(
   supabase: SupabaseClient,
-  table: "employees" | "hardware_assets" | "software_licenses",
+  table: "employees" | "hardware_assets" | "software_licenses" | "onboarding_templates" | "onboarding_template_items",
   id: string,
   companyId: string,
   label: string,
@@ -229,7 +274,7 @@ async function assertRecordBelongsToCompany(
 }
 
 export async function getInventoryRecords(supabase: SupabaseClient, companyId: string): Promise<InventoryRecords> {
-  const [employees, hardware, licenses, assignments] = await Promise.all([
+  const [employees, hardware, licenses, assignments, onboardingTemplates, onboardingTemplateItems] = await Promise.all([
     supabase.from("employees").select("*").eq("company_id", companyId).order("created_at", { ascending: false }),
     supabase.from("hardware_assets").select("*").eq("company_id", companyId).order("created_at", { ascending: false }),
     supabase
@@ -244,19 +289,104 @@ export async function getInventoryRecords(supabase: SupabaseClient, companyId: s
       )
       .eq("company_id", companyId)
       .order("created_at", { ascending: false }),
+    supabase
+      .from("onboarding_templates")
+      .select("*")
+      .eq("company_id", companyId)
+      .order("created_at", { ascending: false }),
+    supabase
+      .from("onboarding_template_items")
+      .select("*, license:software_licenses(id, name, vendor)")
+      .eq("company_id", companyId)
+      .order("position", { ascending: true })
+      .order("created_at", { ascending: true }),
   ]);
 
-  const error = employees.error ?? hardware.error ?? licenses.error ?? assignments.error;
+  const error =
+    employees.error ??
+    hardware.error ??
+    licenses.error ??
+    assignments.error ??
+    onboardingTemplates.error ??
+    onboardingTemplateItems.error;
   if (error) {
     throw new Error(error.message);
   }
+
+  const templateItems = (onboardingTemplateItems.data ?? []) as OnboardingTemplateItemRecord[];
 
   return {
     employees: (employees.data ?? []) as EmployeeRecord[],
     hardware: (hardware.data ?? []) as HardwareRecord[],
     licenses: (licenses.data ?? []) as LicenseRecord[],
     assignments: (assignments.data ?? []) as AssignmentRecord[],
+    onboardingTemplates: ((onboardingTemplates.data ?? []) as Omit<OnboardingTemplateRecord, "items">[]).map(
+      (template) => ({
+        ...template,
+        items: templateItems.filter((item) => item.template_id === template.id),
+      }),
+    ),
   };
+}
+
+export async function upsertOnboardingTemplate(supabase: SupabaseClient, companyId: string, form: FormData) {
+  const id = cleanText(form.get("id"));
+  const payload = {
+    company_id: companyId,
+    name: requireText(form.get("name"), "Template name"),
+    description: cleanText(form.get("description")),
+  };
+
+  if (id) {
+    await assertRecordBelongsToCompany(supabase, "onboarding_templates", id, companyId, "Onboarding template");
+    return supabase.from("onboarding_templates").update(payload).eq("id", id).eq("company_id", companyId);
+  }
+
+  return supabase.from("onboarding_templates").insert(payload);
+}
+
+export async function deleteOnboardingTemplate(supabase: SupabaseClient, companyId: string, form: FormData) {
+  const id = requireText(form.get("id"), "Template id");
+  await assertRecordBelongsToCompany(supabase, "onboarding_templates", id, companyId, "Onboarding template");
+  return supabase.from("onboarding_templates").delete().eq("id", id).eq("company_id", companyId);
+}
+
+export async function createOnboardingTemplateItem(supabase: SupabaseClient, companyId: string, form: FormData) {
+  const templateId = requireText(form.get("template_id"), "Template id");
+  const itemType = requireOnboardingTemplateItemType(form.get("item_type"));
+
+  await assertRecordBelongsToCompany(supabase, "onboarding_templates", templateId, companyId, "Onboarding template");
+
+  if (itemType === "hardware_requirement") {
+    return supabase.from("onboarding_template_items").insert({
+      company_id: companyId,
+      template_id: templateId,
+      item_type: itemType,
+      hardware_label: requireText(form.get("hardware_label"), "Hardware requirement"),
+      software_license_id: null,
+      notes: cleanText(form.get("notes")),
+      position: cleanPosition(form.get("position")),
+    });
+  }
+
+  const softwareLicenseId = requireText(form.get("software_license_id"), "License");
+  await assertRecordBelongsToCompany(supabase, "software_licenses", softwareLicenseId, companyId, "License");
+
+  return supabase.from("onboarding_template_items").insert({
+    company_id: companyId,
+    template_id: templateId,
+    item_type: itemType,
+    hardware_label: null,
+    software_license_id: softwareLicenseId,
+    notes: cleanText(form.get("notes")),
+    position: cleanPosition(form.get("position")),
+  });
+}
+
+export async function deleteOnboardingTemplateItem(supabase: SupabaseClient, companyId: string, form: FormData) {
+  const id = requireText(form.get("id"), "Template item id");
+  await assertRecordBelongsToCompany(supabase, "onboarding_template_items", id, companyId, "Onboarding template item");
+  return supabase.from("onboarding_template_items").delete().eq("id", id).eq("company_id", companyId);
 }
 
 export async function upsertEmployee(supabase: SupabaseClient, companyId: string, form: FormData) {
